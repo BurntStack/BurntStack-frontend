@@ -28,21 +28,21 @@ export default function Logo({ className, showText = true, tagline = false, tone
   return (
     <Link
       to="/"
-      className={cn('group inline-flex items-center gap-2.5', className)}
+      className={cn('group inline-flex items-center gap-3', className)}
       aria-label="BurntStack home"
     >
       {isDark ? (
-        <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-white/95 p-1">
+        <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-white/95 p-1.5">
           <LogoMark className="h-full w-full" />
         </span>
       ) : (
-        <LogoMark className="h-8 w-8 shrink-0" />
+        <LogoMark className="h-12 w-12 shrink-0" />
       )}
       {showText && (
         <span className="flex flex-col leading-none">
           <span
             className={cn(
-              'font-display text-[1.2rem] font-bold tracking-[-0.03em]',
+              'font-display text-[1.5rem] font-bold tracking-[-0.03em]',
               isDark ? 'text-white' : 'text-ink',
             )}
           >
@@ -51,13 +51,13 @@ export default function Logo({ className, showText = true, tagline = false, tone
           {tagline && (
             <span
               className={cn(
-                'mt-1.5 flex items-center gap-2 text-[0.6rem] font-semibold uppercase tracking-[0.22em]',
+                'mt-2 flex items-center gap-2 text-[0.68rem] font-semibold uppercase tracking-[0.22em]',
                 isDark ? 'text-white/40' : 'text-mute',
               )}
             >
-              <span className={cn('h-px w-3', isDark ? 'bg-white/20' : 'bg-line-strong')} />
+              <span className={cn('h-px w-4', isDark ? 'bg-white/20' : 'bg-line-strong')} />
               Technologies Pvt. Ltd.
-              <span className={cn('h-px w-3', isDark ? 'bg-white/20' : 'bg-line-strong')} />
+              <span className={cn('h-px w-4', isDark ? 'bg-white/20' : 'bg-line-strong')} />
             </span>
           )}
         </span>
