@@ -1,4 +1,3 @@
-import { motion } from 'framer-motion'
 import { FiTarget, FiEye, FiHeart } from 'react-icons/fi'
 import Seo from '@/components/seo/Seo.jsx'
 import PageHero from '@/components/ui/PageHero.jsx'
@@ -6,10 +5,10 @@ import Section from '@/components/ui/Section.jsx'
 import Container from '@/components/ui/Container.jsx'
 import SectionHeading from '@/components/ui/SectionHeading.jsx'
 import AnimatedCounter from '@/components/ui/AnimatedCounter.jsx'
+import { BentoGrid, BentoCard, BentoIcon } from '@/components/ui/Bento.jsx'
 import WhyChoose from '@/sections/home/WhyChoose.jsx'
 import CtaBanner from '@/sections/home/CtaBanner.jsx'
 import { STATS } from '@/data/misc.js'
-import { fadeInUp, staggerContainer, viewportOnce } from '@/lib/motion.js'
 
 const PILLARS = [
   { icon: FiTarget, title: 'Our Mission', text: 'To help businesses grow faster by building software that is fast, reliable and a joy to use.' },
@@ -31,80 +30,55 @@ export default function About() {
         description="We’re a product studio on a mission to turn ambitious ideas into software that scales."
       />
 
-      {/* Story */}
+      {/* Story + stats */}
       <Section className="pt-0">
         <Container>
-          <div className="grid items-center gap-12 lg:grid-cols-2">
-            <motion.div
-              variants={staggerContainer(0.12)}
-              initial="hidden"
-              whileInView="show"
-              viewport={viewportOnce}
-              className="flex flex-col gap-5"
-            >
-              <motion.h2 variants={fadeInUp} className="font-display text-3xl font-bold text-foreground sm:text-4xl">
-                Building since day one for <span className="text-gradient">scale and trust</span>
-              </motion.h2>
-              <motion.p variants={fadeInUp} className="text-muted">
+          <BentoGrid cols="grid-cols-2 lg:grid-cols-6">
+            <BentoCard span="col-span-2 lg:col-span-4" tone="ivory" hover={false} className="justify-center gap-5">
+              <h2 className="font-display text-3xl font-bold text-ink sm:text-4xl">
+                Building since day one for <span className="text-orange-600">scale and trust</span>
+              </h2>
+              <p className="text-slate">
                 BurntStack Technologies Private Limited was founded on a simple belief: great software
                 is a competitive advantage. Over the years we’ve partnered with startups and enterprises
                 alike to design, build and scale products that people rely on every day.
-              </motion.p>
-              <motion.p variants={fadeInUp} className="text-muted">
+              </p>
+              <p className="text-slate">
                 Our team brings senior engineering, thoughtful design and deep industry context to every
                 engagement — and we stay long after launch to help you grow.
-              </motion.p>
-            </motion.div>
+              </p>
+            </BentoCard>
 
-            <motion.div
-              variants={staggerContainer(0.1)}
-              initial="hidden"
-              whileInView="show"
-              viewport={viewportOnce}
-              className="grid grid-cols-2 gap-4"
-            >
-              {STATS.map((s) => (
-                <motion.div
-                  key={s.label}
-                  variants={fadeInUp}
-                  className="rounded-3xl border border-border-base bg-surface p-6 text-center"
-                >
-                  <div className="font-display text-3xl font-extrabold text-gradient sm:text-4xl">
-                    <AnimatedCounter value={s.value} suffix={s.suffix} />
-                  </div>
-                  <div className="mt-1 text-sm text-muted">{s.label}</div>
-                </motion.div>
-              ))}
-            </motion.div>
-          </div>
+            {STATS.map((s, i) => (
+              <BentoCard
+                key={s.label}
+                span={i === 0 ? 'col-span-2 lg:col-span-2' : 'col-span-2 sm:col-span-1 lg:col-span-2'}
+                tone={i === 0 ? 'ink' : 'surface'}
+                className="items-center justify-center text-center"
+              >
+                <div className={`font-display text-3xl font-extrabold sm:text-4xl ${i === 0 ? 'text-white' : 'text-orange-600'}`}>
+                  <AnimatedCounter value={s.value} suffix={s.suffix} />
+                </div>
+                <div className={`mt-1 text-sm ${i === 0 ? 'text-white/70' : 'text-slate'}`}>{s.label}</div>
+              </BentoCard>
+            ))}
+          </BentoGrid>
         </Container>
       </Section>
 
       {/* Pillars */}
-      <Section className="bg-background-secondary">
+      <Section className="bg-ivory">
         <Container>
           <SectionHeading eyebrow="What Drives Us" title="Mission, vision & values" />
-          <motion.div
-            variants={staggerContainer(0.1)}
-            initial="hidden"
-            whileInView="show"
-            viewport={viewportOnce}
-            className="mt-14 grid gap-6 md:grid-cols-3"
-          >
+          <BentoGrid className="mt-14" cols="grid-cols-1 sm:grid-cols-3">
             {PILLARS.map(({ icon: Icon, title, text }) => (
-              <motion.div
-                key={title}
-                variants={fadeInUp}
-                className="rounded-3xl border border-border-base bg-surface p-8 text-center"
-              >
-                <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-ember-500/10 text-2xl text-ember-500">
-                  <Icon />
-                </span>
-                <h3 className="mt-5 font-display text-xl font-bold text-foreground">{title}</h3>
-                <p className="mt-2 text-sm text-muted">{text}</p>
-              </motion.div>
+              <BentoCard key={title} span="col-span-1" tone="surface" className="items-center gap-3 text-center">
+                <BentoIcon icon={Icon} />
+                <h3 className="mt-2 font-display text-xl font-bold text-ink">{title}</h3>
+                <p className="text-sm text-slate">{text}</p>
+              </BentoCard>
             ))}
-          </motion.div>
+          </BentoGrid>
         </Container>
       </Section>
 

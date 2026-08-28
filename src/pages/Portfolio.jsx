@@ -1,12 +1,14 @@
-import { motion } from 'framer-motion'
 import Seo from '@/components/seo/Seo.jsx'
 import PageHero from '@/components/ui/PageHero.jsx'
 import Section from '@/components/ui/Section.jsx'
 import Container from '@/components/ui/Container.jsx'
 import ProjectCard from '@/components/cards/ProjectCard.jsx'
+import { BentoGrid } from '@/components/ui/Bento.jsx'
 import CtaBanner from '@/sections/home/CtaBanner.jsx'
 import { PROJECTS } from '@/data/projects.js'
-import { staggerContainer, viewportOnce } from '@/lib/motion.js'
+
+const SPANS = ['col-span-2 lg:col-span-4', 'col-span-2 lg:col-span-2', 'col-span-2 lg:col-span-3', 'col-span-2 lg:col-span-3']
+const COVERS = ['h-56', 'h-56', 'h-44', 'h-44']
 
 export default function Portfolio() {
   return (
@@ -23,17 +25,11 @@ export default function Portfolio() {
       />
       <Section className="pt-0">
         <Container>
-          <motion.div
-            variants={staggerContainer(0.1)}
-            initial="hidden"
-            whileInView="show"
-            viewport={viewportOnce}
-            className="grid gap-6 md:grid-cols-2"
-          >
-            {PROJECTS.map((project) => (
-              <ProjectCard key={project.slug} project={project} />
+          <BentoGrid cols="grid-cols-2 lg:grid-cols-6">
+            {PROJECTS.map((project, i) => (
+              <ProjectCard key={project.slug} project={project} span={SPANS[i % SPANS.length]} coverHeight={COVERS[i % COVERS.length]} />
             ))}
-          </motion.div>
+          </BentoGrid>
         </Container>
       </Section>
       <CtaBanner />

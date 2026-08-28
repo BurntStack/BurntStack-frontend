@@ -5,8 +5,14 @@ import Container from '@/components/ui/Container.jsx'
 import Badge from '@/components/ui/Badge.jsx'
 import Button from '@/components/ui/Button.jsx'
 import ServiceCard from '@/components/cards/ServiceCard.jsx'
+import { BentoGrid } from '@/components/ui/Bento.jsx'
 import { SERVICES } from '@/data/services.js'
 import { fadeInUp, staggerContainer, viewportOnce } from '@/lib/motion.js'
+
+// Every 6th service runs wide — hierarchy from size, not extra chrome.
+function spanFor(i) {
+  return i % 6 === 0 ? 'col-span-2 lg:col-span-4' : 'col-span-2 sm:col-span-2 lg:col-span-2'
+}
 
 export default function ServicesSection() {
   return (
@@ -34,17 +40,11 @@ export default function ServicesSection() {
           </motion.p>
         </motion.div>
 
-        <motion.div
-          variants={staggerContainer(0.05)}
-          initial="hidden"
-          whileInView="show"
-          viewport={viewportOnce}
-          className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3"
-        >
+        <BentoGrid className="mt-10" cols="grid-cols-2 lg:grid-cols-6">
           {SERVICES.map((service, i) => (
-            <ServiceCard key={service.title} index={i + 1} {...service} />
+            <ServiceCard key={service.title} index={i + 1} span={spanFor(i)} featured={i % 6 === 0} {...service} />
           ))}
-        </motion.div>
+        </BentoGrid>
 
         <div className="mt-12 flex justify-center">
           <Button to="/services" variant="secondary" size="lg">

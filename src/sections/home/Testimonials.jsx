@@ -1,12 +1,11 @@
-import { Swiper, SwiperSlide } from 'swiper/react'
-import { Autoplay, Pagination } from 'swiper/modules'
 import { FaStar, FaQuoteLeft } from 'react-icons/fa6'
-import 'swiper/css'
-import 'swiper/css/pagination'
 import Section from '@/components/ui/Section.jsx'
 import Container from '@/components/ui/Container.jsx'
 import SectionHeading from '@/components/ui/SectionHeading.jsx'
+import { BentoGrid, BentoCard } from '@/components/ui/Bento.jsx'
 import { TESTIMONIALS } from '@/data/misc.js'
+
+const SPANS = ['col-span-2 lg:col-span-4', 'col-span-2 lg:col-span-2', 'col-span-2 lg:col-span-3', 'col-span-2 lg:col-span-3']
 
 export default function Testimonials() {
   return (
@@ -17,55 +16,32 @@ export default function Testimonials() {
           title="Loved by the teams we build with"
           description="Don’t just take our word for it — here’s what our clients say about working with BurntStack."
         />
-      </Container>
 
-      <div className="mt-14">
-        <Swiper
-          modules={[Autoplay, Pagination]}
-          spaceBetween={24}
-          slidesPerView={1.1}
-          centeredSlides
-          loop
-          autoplay={{ delay: 4500, disableOnInteraction: false }}
-          pagination={{ clickable: true }}
-          breakpoints={{
-            640: { slidesPerView: 1.6, centeredSlides: false },
-            1024: { slidesPerView: 2.4, centeredSlides: false },
-          }}
-          className="!px-5 !pb-14 sm:!px-8"
-        >
-          {TESTIMONIALS.map((t) => (
-            <SwiperSlide key={t.name} className="h-auto">
-              <figure className="flex h-full flex-col gap-5 rounded-3xl border border-border-base bg-surface p-8">
-                <FaQuoteLeft className="h-7 w-7 text-ember-500/40" />
-                <blockquote className="flex-1 text-base leading-relaxed text-foreground/90">
-                  “{t.review}”
-                </blockquote>
-                <div className="flex items-center gap-1 text-ember-500">
-                  {Array.from({ length: t.rating }).map((_, i) => (
-                    <FaStar key={i} className="h-4 w-4" />
-                  ))}
+        <BentoGrid className="mt-14" cols="grid-cols-2 lg:grid-cols-6">
+          {TESTIMONIALS.map((t, i) => (
+            <BentoCard key={t.name} span={SPANS[i]} tone={i === 0 ? 'ink' : 'surface'} className="justify-between gap-5">
+              <FaQuoteLeft className={i === 0 ? 'h-7 w-7 text-orange-400' : 'h-6 w-6 text-orange-500/40'} />
+              <blockquote className={i === 0 ? 'flex-1 font-display text-xl leading-snug text-white' : 'flex-1 text-[0.95rem] leading-relaxed text-ink/90'}>
+                “{t.review}”
+              </blockquote>
+              <div className="flex items-center gap-1 text-amber-400">
+                {Array.from({ length: t.rating }).map((_, s) => (
+                  <FaStar key={s} className="h-3.5 w-3.5" />
+                ))}
+              </div>
+              <div className={`flex items-center gap-3 border-t pt-5 ${i === 0 ? 'border-white/15' : 'border-line'}`}>
+                <span className="flex h-11 w-11 items-center justify-center rounded-full bg-gradient-to-br from-orange-500 to-amber-500 text-sm font-bold text-white">
+                  {t.initials}
+                </span>
+                <div>
+                  <div className={i === 0 ? 'font-semibold text-white' : 'font-semibold text-ink'}>{t.name}</div>
+                  <div className={i === 0 ? 'text-sm text-white/60' : 'text-sm text-slate'}>{t.company}</div>
                 </div>
-                <figcaption className="flex items-center gap-3 border-t border-border-base pt-5">
-                  <span className="flex h-11 w-11 items-center justify-center rounded-full bg-gradient-to-br from-ember-500 to-amber-glow text-sm font-bold text-white">
-                    {t.initials}
-                  </span>
-                  <div>
-                    <div className="font-semibold text-foreground">{t.name}</div>
-                    <div className="text-sm text-muted">{t.company}</div>
-                  </div>
-                </figcaption>
-              </figure>
-            </SwiperSlide>
+              </div>
+            </BentoCard>
           ))}
-        </Swiper>
-      </div>
-
-      {/* Ember-tinted swiper pagination bullets */}
-      <style>{`
-        .swiper-pagination-bullet { background: var(--muted); opacity: 0.4; }
-        .swiper-pagination-bullet-active { background: var(--color-ember-500); opacity: 1; width: 22px; border-radius: 999px; }
-      `}</style>
+        </BentoGrid>
+      </Container>
     </Section>
   )
 }

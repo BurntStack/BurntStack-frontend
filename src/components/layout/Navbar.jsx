@@ -69,10 +69,12 @@ export default function Navbar() {
           </nav>
 
           <div className="flex items-center gap-3">
-            <Button to="/contact" size="sm" variant="primary" className="hidden sm:inline-flex">
-              Free Consultation
-              <FiArrowUpRight className="h-4 w-4" />
-            </Button>
+            <div className="hidden sm:block">
+              <Button to="/contact" size="sm" variant="primary">
+                Free Consultation
+                <FiArrowUpRight className="h-4 w-4" />
+              </Button>
+            </div>
             <button
               type="button"
               onClick={() => setOpen((v) => !v)}

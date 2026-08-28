@@ -1,14 +1,13 @@
 import { useState } from 'react'
-import { motion } from 'framer-motion'
 import { FiMail, FiPhone, FiMapPin, FiCheck, FiSend } from 'react-icons/fi'
 import Seo from '@/components/seo/Seo.jsx'
 import PageHero from '@/components/ui/PageHero.jsx'
 import Section from '@/components/ui/Section.jsx'
 import Container from '@/components/ui/Container.jsx'
 import Button from '@/components/ui/Button.jsx'
+import { BentoGrid, BentoCard } from '@/components/ui/Bento.jsx'
 import { COMPANY, SOCIALS } from '@/data/site.js'
 import api from '@/lib/axios.js'
-import { fadeInUp, staggerContainer, viewportOnce } from '@/lib/motion.js'
 
 const initialForm = { name: '', email: '', phone: '', subject: '', message: '' }
 
@@ -58,37 +57,30 @@ export default function Contact() {
 
       <Section className="pt-0">
         <Container>
-          <div className="grid gap-8 lg:grid-cols-[1fr_1.3fr]">
+          <BentoGrid cols="grid-cols-2 lg:grid-cols-6">
             {/* Info + map */}
-            <motion.div
-              variants={staggerContainer(0.1)}
-              initial="hidden"
-              whileInView="show"
-              viewport={viewportOnce}
-              className="flex flex-col gap-4"
-            >
+            <BentoCard span="col-span-2 lg:col-span-2" tone="ivory" hover={false} className="gap-4">
               {[
                 { icon: FiMail, label: 'Email', value: COMPANY.email, href: `mailto:${COMPANY.email}` },
                 { icon: FiPhone, label: 'Phone', value: COMPANY.phone, href: `tel:${COMPANY.phone}` },
                 { icon: FiMapPin, label: 'Office', value: COMPANY.address },
               ].map(({ icon: Icon, label, value, href }) => (
-                <motion.a
+                <a
                   key={label}
                   href={href}
-                  variants={fadeInUp}
-                  className="flex items-start gap-4 rounded-2xl border border-border-base bg-surface p-5 transition-colors hover:border-ember-400/40"
+                  className="flex items-start gap-4 rounded-bento-sm border border-line bg-white p-5 transition-colors hover:border-orange-300/70"
                 >
-                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-ember-500/10 text-xl text-ember-500">
+                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-orange-500/10 text-xl text-orange-600">
                     <Icon />
                   </span>
                   <div>
-                    <div className="text-sm font-semibold text-foreground">{label}</div>
-                    <div className="text-sm text-muted">{value}</div>
+                    <div className="text-sm font-semibold text-ink">{label}</div>
+                    <div className="text-sm text-slate">{value}</div>
                   </div>
-                </motion.a>
+                </a>
               ))}
 
-              <motion.div variants={fadeInUp} className="flex gap-3 px-1">
+              <div className="flex gap-3 px-1">
                 {SOCIALS.map(({ label, href, icon: Icon }) => (
                   <a
                     key={label}
@@ -96,14 +88,14 @@ export default function Contact() {
                     target="_blank"
                     rel="noreferrer"
                     aria-label={label}
-                    className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border-strong bg-surface text-muted transition-all hover:-translate-y-0.5 hover:border-ember-400/60 hover:text-ember-500"
+                    className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-line-strong bg-white text-slate transition-all hover:-translate-y-0.5 hover:border-orange-400/60 hover:text-orange-600"
                   >
                     <Icon className="h-4 w-4" />
                   </a>
                 ))}
-              </motion.div>
+              </div>
 
-              <motion.div variants={fadeInUp} className="overflow-hidden rounded-2xl border border-border-base">
+              <div className="overflow-hidden rounded-bento-sm border border-line">
                 <iframe
                   title="BurntStack office location"
                   src={`https://maps.google.com/maps?q=${encodeURIComponent(COMPANY.mapQuery)}&t=&z=13&ie=UTF8&iwloc=&output=embed`}
@@ -111,18 +103,18 @@ export default function Contact() {
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
                 />
-              </motion.div>
-            </motion.div>
+              </div>
+            </BentoCard>
 
             {/* Form */}
-            <motion.div variants={fadeInUp} initial="hidden" whileInView="show" viewport={viewportOnce}>
+            <BentoCard span="col-span-2 lg:col-span-4" tone="surface" hover={false} size="none" className="p-6 sm:p-8">
               {status === 'done' ? (
-                <div className="flex h-full flex-col items-center justify-center rounded-3xl border border-ember-500/30 bg-surface p-10 text-center">
-                  <span className="flex h-14 w-14 items-center justify-center rounded-full bg-ember-500/10 text-2xl text-ember-500">
+                <div className="flex h-full flex-col items-center justify-center text-center">
+                  <span className="flex h-14 w-14 items-center justify-center rounded-full bg-orange-500/10 text-2xl text-orange-600">
                     <FiCheck />
                   </span>
-                  <h3 className="mt-4 font-display text-2xl font-bold text-foreground">Message sent!</h3>
-                  <p className="mt-2 max-w-sm text-muted">
+                  <h3 className="mt-4 font-display text-2xl font-bold text-ink">Message sent!</h3>
+                  <p className="mt-2 max-w-sm text-slate">
                     Thanks for reaching out. We’ll be in touch within one business day.
                   </p>
                   <Button onClick={() => setStatus('idle')} variant="secondary" className="mt-6">
@@ -130,18 +122,18 @@ export default function Contact() {
                   </Button>
                 </div>
               ) : (
-                <form onSubmit={onSubmit} noValidate className="grid gap-5 rounded-3xl border border-border-base bg-surface p-6 sm:p-8">
-                  <div className="grid gap-5 sm:grid-cols-2">
+                <form onSubmit={onSubmit} noValidate className="grid grid-cols-1 gap-5">
+                  <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
                     <FormField label="Full name" name="name" value={form.name} onChange={update} error={errors.name} required />
                     <FormField label="Email" name="email" type="email" value={form.email} onChange={update} error={errors.email} required />
                   </div>
-                  <div className="grid gap-5 sm:grid-cols-2">
+                  <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
                     <FormField label="Phone" name="phone" type="tel" value={form.phone} onChange={update} />
                     <FormField label="Subject" name="subject" value={form.subject} onChange={update} />
                   </div>
                   <div className="flex flex-col gap-2">
-                    <label htmlFor="message" className="text-sm font-medium text-foreground">
-                      Message <span className="text-ember-500">*</span>
+                    <label htmlFor="message" className="text-sm font-medium text-ink">
+                      Message <span className="text-orange-600">*</span>
                     </label>
                     <textarea
                       id="message"
@@ -150,20 +142,20 @@ export default function Contact() {
                       value={form.message}
                       onChange={update}
                       aria-invalid={Boolean(errors.message)}
-                      className="rounded-2xl border border-border-strong bg-background px-4 py-3 text-sm text-foreground outline-none transition-colors focus:border-ember-400"
+                      className="rounded-xl border border-line-strong bg-canvas px-4 py-3 text-sm text-ink outline-none transition-colors focus:border-orange-400"
                     />
-                    {errors.message && <span className="text-xs text-red-400">{errors.message}</span>}
+                    {errors.message && <span className="text-xs text-red-500">{errors.message}</span>}
                   </div>
                   <Button type="submit" size="lg" className="w-full" disabled={status === 'sending'}>
                     {status === 'sending' ? 'Sending…' : (<>Send Message <FiSend className="h-4 w-4" /></>)}
                   </Button>
                   {status === 'error' && (
-                    <p className="text-center text-sm text-red-400">Something went wrong. Please try again.</p>
+                    <p className="text-center text-sm text-red-500">Something went wrong. Please try again.</p>
                   )}
                 </form>
               )}
-            </motion.div>
-          </div>
+            </BentoCard>
+          </BentoGrid>
         </Container>
       </Section>
     </>
@@ -173,8 +165,8 @@ export default function Contact() {
 function FormField({ label, name, type = 'text', value, onChange, error, required }) {
   return (
     <div className="flex flex-col gap-2">
-      <label htmlFor={name} className="text-sm font-medium text-foreground">
-        {label} {required && <span className="text-ember-500">*</span>}
+      <label htmlFor={name} className="text-sm font-medium text-ink">
+        {label} {required && <span className="text-orange-600">*</span>}
       </label>
       <input
         id={name}
@@ -183,9 +175,9 @@ function FormField({ label, name, type = 'text', value, onChange, error, require
         value={value}
         onChange={onChange}
         aria-invalid={Boolean(error)}
-        className="rounded-2xl border border-border-strong bg-background px-4 py-3 text-sm text-foreground outline-none transition-colors focus:border-ember-400"
+        className="rounded-xl border border-line-strong bg-canvas px-4 py-3 text-sm text-ink outline-none transition-colors focus:border-orange-400"
       />
-      {error && <span className="text-xs text-red-400">{error}</span>}
+      {error && <span className="text-xs text-red-500">{error}</span>}
     </div>
   )
 }

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { FiMail, FiPhone, FiMapPin, FiArrowRight } from 'react-icons/fi'
 import { COMPANY, FOOTER_LINKS, SOCIALS } from '@/data/site.js'
 import Container from '@/components/ui/Container.jsx'
-import { LogoMark } from '@/components/ui/Logo.jsx'
+import Logo from '@/components/ui/Logo.jsx'
 
 export default function Footer() {
   const [email, setEmail] = useState('')
@@ -23,12 +23,7 @@ export default function Footer() {
         <div className="grid gap-12 lg:grid-cols-[1.3fr_2fr]">
           {/* Brand + newsletter */}
           <div className="flex flex-col gap-6">
-            <Link to="/" className="flex items-center gap-2.5" aria-label="BurntStack home">
-              <LogoMark className="h-8 w-8" />
-              <span className="font-display text-[1.2rem] font-bold tracking-[-0.03em] text-white">
-                Burnt<span className="text-orange-400">Stack</span>
-              </span>
-            </Link>
+            <Logo tone="onDark" tagline />
             <p className="max-w-sm text-sm leading-relaxed text-white/55">
               {COMPANY.legalName}. We design and build software that powers ambitious businesses —
               from websites and mobile apps to AI and enterprise platforms.

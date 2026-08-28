@@ -68,11 +68,16 @@
   --radius-2xl: 0.75rem;  /* 12px */
   --radius-3xl: 0.75rem;  /* 12px — capped */
 
+  /* Bento tiles read as bigger, softer blocks than the capped card radius above */
+  --radius-bento: 1.25rem;    /* 20px */
+  --radius-bento-sm: 1rem;    /* 16px — small/nested bento tiles */
+
   /* Subtle, layered shadows — never heavy */
   --shadow-xs: 0 1px 2px rgba(27, 23, 18, 0.04);
   --shadow-sm: 0 1px 3px rgba(27, 23, 18, 0.06), 0 1px 2px rgba(27, 23, 18, 0.04);
   --shadow-md: 0 4px 16px -4px rgba(27, 23, 18, 0.10);
   --shadow-lg: 0 18px 40px -18px rgba(27, 23, 18, 0.18);
+  --shadow-glow: 0 20px 48px -20px rgba(224, 102, 26, 0.35);
 
   --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
 }

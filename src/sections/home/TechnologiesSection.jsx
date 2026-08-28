@@ -1,11 +1,11 @@
 import { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { AnimatePresence } from 'framer-motion'
 import Section from '@/components/ui/Section.jsx'
 import Container from '@/components/ui/Container.jsx'
 import SectionHeading from '@/components/ui/SectionHeading.jsx'
+import { BentoGrid, BentoCard } from '@/components/ui/Bento.jsx'
 import { TECH_CATEGORIES } from '@/data/technologies.js'
 import { cn } from '@/utils/cn.js'
-import { fadeInUp, staggerContainer } from '@/lib/motion.js'
 
 export default function TechnologiesSection() {
   const [active, setActive] = useState(TECH_CATEGORIES[0].category)
@@ -29,8 +29,8 @@ export default function TechnologiesSection() {
               className={cn(
                 'rounded-full px-5 py-2 text-sm font-semibold transition-all',
                 active === cat.category
-                  ? 'bg-ember-500 text-white shadow-[0_8px_24px_-8px_rgba(255,90,31,0.6)]'
-                  : 'border border-border-strong bg-surface text-muted hover:text-foreground',
+                  ? 'bg-orange-500 text-white shadow-sm'
+                  : 'border border-line-strong bg-white text-slate hover:text-ink',
               )}
             >
               {cat.category}
@@ -38,33 +38,24 @@ export default function TechnologiesSection() {
           ))}
         </div>
 
-        {/* Tech cards */}
         <AnimatePresence mode="wait">
-          <motion.div
+          <BentoGrid
             key={active}
-            variants={staggerContainer(0.05)}
-            initial="hidden"
-            animate="show"
-            exit={{ opacity: 0, y: 10 }}
-            className="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5"
+            className="mt-10"
+            cols="grid-cols-2 sm:grid-cols-4 lg:grid-cols-6"
           >
             {current.items.map(({ name, icon: Icon, color }) => (
-              <motion.div
-                key={name}
-                variants={fadeInUp}
-                whileHover={{ y: -6 }}
-                className="group flex flex-col items-center gap-3 rounded-2xl border border-border-base bg-surface p-6 transition-colors hover:border-ember-400/40"
-              >
+              <BentoCard key={name} span="col-span-1" size="sm" tone="surface" hover className="items-center gap-3 text-center">
                 <span
                   className="text-4xl transition-transform duration-300 group-hover:scale-110"
                   style={{ color }}
                 >
                   <Icon />
                 </span>
-                <span className="text-sm font-medium text-foreground">{name}</span>
-              </motion.div>
+                <span className="text-sm font-medium text-ink">{name}</span>
+              </BentoCard>
             ))}
-          </motion.div>
+          </BentoGrid>
         </AnimatePresence>
       </Container>
     </Section>

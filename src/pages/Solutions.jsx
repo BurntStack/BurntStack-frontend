@@ -1,12 +1,11 @@
-import { motion } from 'framer-motion'
 import { FiArrowUpRight } from 'react-icons/fi'
 import { FaLayerGroup, FaRobot, FaCartShopping, FaChartLine, FaMobileScreen, FaCloud } from 'react-icons/fa6'
 import Seo from '@/components/seo/Seo.jsx'
 import PageHero from '@/components/ui/PageHero.jsx'
 import Section from '@/components/ui/Section.jsx'
 import Container from '@/components/ui/Container.jsx'
+import { BentoGrid, BentoCard, BentoIcon } from '@/components/ui/Bento.jsx'
 import CtaBanner from '@/sections/home/CtaBanner.jsx'
-import { fadeInUp, staggerContainer, viewportOnce } from '@/lib/motion.js'
 
 const SOLUTIONS = [
   { icon: FaLayerGroup, title: 'SaaS Platforms', text: 'Multi-tenant products with billing, auth, analytics and everything you need to launch and scale.' },
@@ -15,6 +14,15 @@ const SOLUTIONS = [
   { icon: FaChartLine, title: 'Data & Analytics', text: 'Pipelines, warehouses and dashboards that turn raw data into decisions.' },
   { icon: FaMobileScreen, title: 'Mobile Products', text: 'Cross-platform apps with native performance and delightful UX.' },
   { icon: FaCloud, title: 'Cloud Modernisation', text: 'Migrate, containerise and scale legacy systems on AWS and Azure.' },
+]
+
+const SPANS = [
+  'col-span-2 lg:col-span-4',
+  'col-span-2 lg:col-span-2',
+  'col-span-2 lg:col-span-2',
+  'col-span-2 lg:col-span-2',
+  'col-span-2 lg:col-span-2',
+  'col-span-2 lg:col-span-6',
 ]
 
 export default function Solutions() {
@@ -32,28 +40,18 @@ export default function Solutions() {
       />
       <Section className="pt-0">
         <Container>
-          <motion.div
-            variants={staggerContainer(0.08)}
-            initial="hidden"
-            whileInView="show"
-            viewport={viewportOnce}
-            className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
-          >
-            {SOLUTIONS.map(({ icon: Icon, title, text }) => (
-              <motion.div
-                key={title}
-                variants={fadeInUp}
-                className="group relative flex flex-col gap-4 overflow-hidden rounded-3xl border border-border-base bg-surface p-8 transition-all duration-300 hover:-translate-y-1 hover:border-ember-400/40"
-              >
-                <span className="flex h-13 w-13 items-center justify-center rounded-2xl bg-ember-500/10 text-2xl text-ember-500 transition-colors group-hover:bg-ember-500 group-hover:text-white">
-                  <Icon />
-                </span>
-                <h3 className="font-display text-xl font-bold text-foreground">{title}</h3>
-                <p className="text-sm text-muted">{text}</p>
-                <FiArrowUpRight className="absolute right-6 top-6 h-5 w-5 text-muted opacity-0 transition-all group-hover:opacity-100 group-hover:text-ember-500" />
-              </motion.div>
+          <BentoGrid cols="grid-cols-2 lg:grid-cols-6">
+            {SOLUTIONS.map(({ icon: Icon, title, text }, i) => (
+              <BentoCard key={title} span={SPANS[i]} tone={i === 5 ? 'ink' : 'surface'} direction={i === 5 ? 'row' : 'col'} className={i === 5 ? 'items-center gap-6' : 'gap-4'}>
+                <BentoIcon icon={Icon} tone={i === 5 ? 'onDark' : 'default'} />
+                <div>
+                  <h3 className={`font-display text-xl font-bold ${i === 5 ? 'text-white' : 'text-ink'}`}>{title}</h3>
+                  <p className={`mt-2 text-sm ${i === 5 ? 'text-white/70' : 'text-slate'}`}>{text}</p>
+                </div>
+                <FiArrowUpRight className={`absolute right-6 top-6 h-5 w-5 opacity-0 transition-all group-hover:opacity-100 ${i === 5 ? 'text-white' : 'text-orange-600'}`} />
+              </BentoCard>
             ))}
-          </motion.div>
+          </BentoGrid>
         </Container>
       </Section>
       <CtaBanner />
