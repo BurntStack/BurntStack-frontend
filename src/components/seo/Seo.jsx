@@ -15,6 +15,7 @@ export default function Seo({
   image = DEFAULT_IMAGE,
   type = 'website',
   jsonLd,
+  noindex = false,
 }) {
   const fullTitle = title
     ? `${title} | ${COMPANY.shortName}`
@@ -29,6 +30,7 @@ export default function Seo({
       <title>{fullTitle}</title>
       <meta name="description" content={desc} />
       <link rel="canonical" href={url} />
+      {noindex && <meta name="robots" content="noindex, nofollow" />}
 
       {/* Open Graph */}
       <meta property="og:type" content={type} />

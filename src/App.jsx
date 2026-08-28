@@ -4,6 +4,8 @@ import { AnimatePresence } from 'framer-motion'
 import Layout from '@/components/layout/Layout.jsx'
 import ScrollToTop from '@/components/layout/ScrollToTop.jsx'
 import PageTransition from '@/components/layout/PageTransition.jsx'
+import { AuthProvider } from '@/context/AuthContext.jsx'
+import ProtectedRoute from '@/components/portal/ProtectedRoute.jsx'
 
 // Code-split every page for a small initial bundle (better Lighthouse score).
 const Home = lazy(() => import('@/pages/Home.jsx'))
@@ -21,6 +23,11 @@ const Privacy = lazy(() => import('@/pages/Privacy.jsx'))
 const Terms = lazy(() => import('@/pages/Terms.jsx'))
 const NotFound = lazy(() => import('@/pages/NotFound.jsx'))
 
+const PortalLogin = lazy(() => import('@/pages/portal/PortalLogin.jsx'))
+const PortalDashboard = lazy(() => import('@/pages/portal/PortalDashboard.jsx'))
+const PortalPostEditor = lazy(() => import('@/pages/portal/PortalPostEditor.jsx'))
+const PortalReview = lazy(() => import('@/pages/portal/PortalReview.jsx'))
+
 function PageLoader() {
   return (
     <div className="flex min-h-[60vh] items-center justify-center">
@@ -29,7 +36,8 @@ function PageLoader() {
   )
 }
 
-export default function App() {
+/** The public marketing site — Navbar, Footer, page transitions, everything today. */
+function MarketingApp() {
   const location = useLocation()
 
   return (
@@ -56,5 +64,31 @@ export default function App() {
         </AnimatePresence>
       </Suspense>
     </Layout>
+  )
+}
+
+/** The employee portal — its own auth, its own shell, no public chrome. */
+function PortalApp() {
+  return (
+    <AuthProvider>
+      <Suspense fallback={<PageLoader />}>
+        <Routes>
+          <Route path="login" element={<PortalLogin />} />
+          <Route path="" element={<ProtectedRoute><PortalDashboard /></ProtectedRoute>} />
+          <Route path="posts/new" element={<ProtectedRoute><PortalPostEditor /></ProtectedRoute>} />
+          <Route path="posts/:slug/edit" element={<ProtectedRoute><PortalPostEditor /></ProtectedRoute>} />
+          <Route path="review" element={<ProtectedRoute adminOnly><PortalReview /></ProtectedRoute>} />
+        </Routes>
+      </Suspense>
+    </AuthProvider>
+  )
+}
+
+export default function App() {
+  return (
+    <Routes>
+      <Route path="/portal/*" element={<PortalApp />} />
+      <Route path="/*" element={<MarketingApp />} />
+    </Routes>
   )
 }

@@ -91,6 +91,8 @@ export default function Footer() {
         <div className="mt-8 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-8 sm:flex-row">
           <p className="text-sm text-white/45">
             © {new Date().getFullYear()} {COMPANY.legalName}. All rights reserved.
+            {' · '}
+            <Link to="/portal/login" className="hover:text-white/70">Employee Login</Link>
           </p>
           <div className="flex items-center gap-2">
             {SOCIALS.map(({ label, href, icon: Icon }) => (
