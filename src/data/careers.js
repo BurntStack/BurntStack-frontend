@@ -3,7 +3,7 @@ export const JOB_OPENINGS = [
     id: 'senior-frontend',
     title: 'Senior Frontend Engineer',
     department: 'Engineering',
-    location: 'Hyderabad / Remote',
+    location: 'Warangal / Remote',
     type: 'Full-time',
     description:
       'Build beautiful, performant interfaces in React for our clients’ most ambitious products.',
@@ -12,7 +12,7 @@ export const JOB_OPENINGS = [
     id: 'backend-django',
     title: 'Backend Engineer (Django)',
     department: 'Engineering',
-    location: 'Hyderabad / Remote',
+    location: 'Warangal / Remote',
     type: 'Full-time',
     description:
       'Design and scale secure REST APIs and data platforms with Python, Django and PostgreSQL.',
@@ -30,7 +30,7 @@ export const JOB_OPENINGS = [
     id: 'product-designer',
     title: 'Product Designer',
     department: 'Design',
-    location: 'Hyderabad / Remote',
+    location: 'Warangal / Remote',
     type: 'Full-time',
     description:
       'Craft research-driven, accessible experiences and evolve our design system.',

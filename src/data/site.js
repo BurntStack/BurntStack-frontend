@@ -12,9 +12,12 @@ export const COMPANY = {
   legalName: 'BurntStack Technologies Private Limited',
   tagline: 'Building Software That Powers Businesses',
   email: 'hello@burntstack.com',
-  phone: '+91 98765 43210',
-  address: 'Hitec City, Hyderabad, Telangana 500081, India',
-  mapQuery: 'Hitec City, Hyderabad, Telangana, India',
+  phone: '+91 79816 72639',
+  address: 'Stambampalle, Khila Warangal Mandal, Warangal, Telangana 506013, India',
+  mapQuery: '17.966963,79.628964',
+  addressLocality: 'Warangal',
+  addressRegion: 'Telangana',
+  postalCode: '506013',
 }
 
 // Primary navigation shown in the navbar.

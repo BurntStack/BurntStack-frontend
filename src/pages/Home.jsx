@@ -22,7 +22,9 @@ const orgSchema = {
   description: COMPANY.tagline,
   address: {
     '@type': 'PostalAddress',
-    addressLocality: 'Hyderabad',
+    addressLocality: COMPANY.addressLocality,
+    addressRegion: COMPANY.addressRegion,
+    postalCode: COMPANY.postalCode,
     addressCountry: 'IN',
   },
 }

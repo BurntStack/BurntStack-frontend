@@ -7,7 +7,7 @@ const sections = [
   { heading: 'Payment Terms', body: 'Fees, milestones and payment schedules are defined per project. Invoices are due within the period specified in your agreement.' },
   { heading: 'Confidentiality', body: 'We treat client information as confidential and are happy to sign a mutual NDA before discussing any project in detail.' },
   { heading: 'Limitation of Liability', body: 'To the maximum extent permitted by law, BurntStack is not liable for indirect or consequential damages arising from the use of our website or services.' },
-  { heading: 'Governing Law', body: 'These terms are governed by the laws of India. Any disputes are subject to the exclusive jurisdiction of the courts of Hyderabad, Telangana.' },
+  { heading: 'Governing Law', body: 'These terms are governed by the laws of India. Any disputes are subject to the exclusive jurisdiction of the courts of Warangal, Telangana.' },
 ]
 
 export default function Terms() {
