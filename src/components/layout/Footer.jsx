@@ -25,7 +25,7 @@ export default function Footer() {
           <div className="flex flex-col gap-6">
             <Logo tone="onDark" tagline />
             <p className="max-w-sm text-sm leading-relaxed text-white/55">
-              {COMPANY.legalName}. We design and build software that powers ambitious businesses —
+              {COMPANY.legalName}. We design and build software that powers ambitious businesses,
               from websites and mobile apps to AI and enterprise platforms.
             </p>
 
@@ -51,7 +51,7 @@ export default function Footer() {
                   <FiArrowRight className="h-4 w-4" />
                 </button>
               </div>
-              {done && <p className="mt-2 text-xs text-amber-400">Thanks — you’re subscribed.</p>}
+              {done && <p className="mt-2 text-xs text-amber-400">Thanks! You’re subscribed.</p>}
             </form>
           </div>
 

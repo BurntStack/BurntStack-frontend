@@ -34,7 +34,7 @@ export const FEATURES = [
   {
     icon: FaLock,
     title: 'Secure Coding Practices',
-    description: 'Security baked in from day one — audits, reviews and OWASP-aligned standards.',
+    description: 'Security baked in from day one: audits, reviews and OWASP-aligned standards.',
   },
   {
     icon: FaComments,
@@ -44,7 +44,7 @@ export const FEATURES = [
   {
     icon: FaWrench,
     title: 'Long-term Maintenance',
-    description: 'We stay after launch — monitoring, updates and continuous improvement.',
+    description: 'We stay after launch: monitoring, updates and continuous improvement.',
   },
   {
     icon: FaAward,

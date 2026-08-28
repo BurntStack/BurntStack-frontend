@@ -20,7 +20,7 @@ export default function WhyChoose() {
             <BentoHeading
               eyebrow="Why BurntStack"
               title="A partner you can build on for the long run"
-              description="Senior engineers, careful design and real ownership — software that holds up as you grow."
+              description="Senior engineers, careful design and real ownership build software that holds up as you grow."
               tone="onDark"
               className="max-w-lg"
             />

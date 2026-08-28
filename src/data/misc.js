@@ -43,7 +43,7 @@ export const TESTIMONIALS = [
     company: 'CEO, MediSync',
     rating: 5,
     review:
-      'BurntStack rebuilt our entire platform in record time. The quality and communication were excellent — they feel like part of our team.',
+      'BurntStack rebuilt our entire platform in record time. The quality and communication were excellent. They feel like part of our team.',
     initials: 'AR',
   },
   {
@@ -110,7 +110,7 @@ export const FAQS = [
   },
   {
     q: 'Can you redesign existing websites?',
-    a: 'Absolutely. We frequently modernise legacy sites and platforms — improving performance, design and maintainability without disrupting your business.',
+    a: 'Absolutely. We frequently modernise legacy sites and platforms, improving performance, design and maintainability without disrupting your business.',
   },
   {
     q: 'Which technologies do you use?',

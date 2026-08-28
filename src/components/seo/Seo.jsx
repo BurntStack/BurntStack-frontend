@@ -5,7 +5,7 @@ const SITE_URL = 'https://burntstack.com'
 const DEFAULT_IMAGE = `${SITE_URL}/og-image.png`
 
 /**
- * Centralised SEO component — dynamic meta tags, Open Graph, Twitter cards,
+ * Centralised SEO component: dynamic meta tags, Open Graph, Twitter cards,
  * canonical URLs and optional JSON-LD structured data.
  */
 export default function Seo({
@@ -17,8 +17,8 @@ export default function Seo({
   jsonLd,
 }) {
   const fullTitle = title
-    ? `${title} — ${COMPANY.shortName}`
-    : `${COMPANY.name} — ${COMPANY.tagline}`
+    ? `${title} | ${COMPANY.shortName}`
+    : `${COMPANY.name} | ${COMPANY.tagline}`
   const url = `${SITE_URL}${path}`
   const desc =
     description ||

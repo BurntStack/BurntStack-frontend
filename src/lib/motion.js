@@ -1,9 +1,9 @@
 /**
  * Shared Framer Motion variants for consistent, professional motion.
- * Keep animations subtle — fade, slide, scale, stagger.
+ * Keep animations subtle: fade, slide, scale, stagger.
  */
 
-// Snappy, restrained ease-out. Reveals are quick and subtle — not slow drifts.
+// Snappy, restrained ease-out. Reveals are quick and subtle, not slow drifts.
 const EASE = [0.16, 1, 0.3, 1]
 
 export const fadeInUp = {

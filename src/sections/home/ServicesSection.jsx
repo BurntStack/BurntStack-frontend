@@ -9,7 +9,7 @@ import { BentoGrid } from '@/components/ui/Bento.jsx'
 import { SERVICES } from '@/data/services.js'
 import { fadeInUp, staggerContainer, viewportOnce } from '@/lib/motion.js'
 
-// Every 6th service runs wide — hierarchy from size, not extra chrome.
+// Every 6th service runs wide; hierarchy from size, not extra chrome.
 function spanFor(i) {
   return i % 6 === 0 ? 'col-span-2 lg:col-span-4' : 'col-span-2 sm:col-span-2 lg:col-span-2'
 }
@@ -18,7 +18,7 @@ export default function ServicesSection() {
   return (
     <Section id="services">
       <Container>
-        {/* Asymmetric header — breaks the always-centered rhythm */}
+        {/* Asymmetric header: breaks the always-centered rhythm */}
         <motion.div
           variants={staggerContainer(0.1)}
           initial="hidden"

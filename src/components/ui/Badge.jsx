@@ -1,7 +1,7 @@
 import { cn } from '@/utils/cn.js'
 
 /**
- * Editorial eyebrow label — a short brand-coloured rule followed by
+ * Editorial eyebrow label: a short brand-coloured rule followed by
  * upper-case tracked text. Sets an intentional, designed tone above headings.
  */
 export default function Badge({ children, className }) {

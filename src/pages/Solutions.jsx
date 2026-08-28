@@ -9,7 +9,7 @@ import CtaBanner from '@/sections/home/CtaBanner.jsx'
 
 const SOLUTIONS = [
   { icon: FaLayerGroup, title: 'SaaS Platforms', text: 'Multi-tenant products with billing, auth, analytics and everything you need to launch and scale.' },
-  { icon: FaRobot, title: 'AI Copilots', text: 'LLM-powered assistants grounded in your data — helpful, safe and production-ready.' },
+  { icon: FaRobot, title: 'AI Copilots', text: 'LLM-powered assistants grounded in your data, built to be helpful, safe and production-ready.' },
   { icon: FaCartShopping, title: 'Commerce Systems', text: 'Headless storefronts and marketplaces with fast checkout and personalised experiences.' },
   { icon: FaChartLine, title: 'Data & Analytics', text: 'Pipelines, warehouses and dashboards that turn raw data into decisions.' },
   { icon: FaMobileScreen, title: 'Mobile Products', text: 'Cross-platform apps with native performance and delightful UX.' },
@@ -31,7 +31,7 @@ export default function Solutions() {
       <Seo
         title="Solutions"
         path="/solutions"
-        description="Tailored solutions — SaaS, AI copilots, commerce, data, mobile and cloud modernisation."
+        description="Tailored solutions: SaaS, AI copilots, commerce, data, mobile and cloud modernisation."
       />
       <PageHero
         eyebrow="Solutions"

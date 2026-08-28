@@ -16,7 +16,7 @@ export default function Hero() {
       <BackgroundFX />
       <Container className="pt-32 pb-14 sm:pt-40 sm:pb-16">
         <BentoGrid cols="grid-cols-2 lg:grid-cols-6" stagger={0.09}>
-          {/* Flagship tile — headline, pitch, primary CTAs */}
+          {/* Flagship tile: headline, pitch, primary CTAs */}
           <BentoCard span="col-span-2 lg:col-span-4" tone="brand" hover={false} className="justify-center gap-6 py-10 sm:py-12">
             <span className="w-fit rounded-full bg-white/15 px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-white">
               Enterprise Software Studio

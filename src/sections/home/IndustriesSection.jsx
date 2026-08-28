@@ -11,7 +11,7 @@ export default function IndustriesSection() {
         <SectionHeading
           eyebrow="Industries"
           title="Deep expertise across sectors"
-          description="We speak the language of your industry — and we know what it takes to ship software that fits it."
+          description="We speak the language of your industry, and we know what it takes to ship software that fits it."
         />
 
         <BentoGrid className="mt-14" cols="grid-cols-2 sm:grid-cols-4 lg:grid-cols-6">

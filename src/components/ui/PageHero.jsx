@@ -7,7 +7,7 @@ import AnimatedCounter from './AnimatedCounter.jsx'
 
 const yearsStat = STATS.find((s) => s.label === 'Years of Experience') ?? STATS[0]
 
-/** Shared bento header for inner pages — a large title tile beside two compact stat tiles. */
+/** Shared bento header for inner pages: a large title tile beside two compact stat tiles. */
 export default function PageHero({ eyebrow, title, description, children }) {
   return (
     <section className="relative overflow-hidden border-b border-line">

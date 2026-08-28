@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 import { cn } from '@/utils/cn.js'
 
 /**
- * BurntStack logo mark — the brand's actual artwork (three stacked plates
+ * BurntStack logo mark: the brand's actual artwork (three stacked plates
  * dissolving into a rising flame), served as a cropped, transparent PNG
  * rather than a hand-approximated vector redraw.
  */
@@ -21,7 +21,7 @@ export function LogoMark({ className }) {
 /**
  * `tone="onDark"` swaps the wordmark to white/orange-400 for dark surfaces
  * (the footer). `tagline` adds the "Technologies Pvt. Ltd." row from the
- * full brand lockup — used where there's room to show the full identity.
+ * full brand lockup, used where there's room to show the full identity.
  */
 export default function Logo({ className, showText = true, tagline = false, tone = 'default' }) {
   const isDark = tone === 'onDark'

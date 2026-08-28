@@ -16,7 +16,7 @@ export default function Services() {
       <PageHero
         eyebrow="Services"
         title="Everything you need to design, build and scale"
-        description="A full-stack team that takes you from idea to production — and stays with you as you grow."
+        description="A full-stack team that takes you from idea to production, and stays with you as you grow."
       />
       <ServicesSection />
       <ProcessSection />

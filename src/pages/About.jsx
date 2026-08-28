@@ -12,7 +12,7 @@ import { STATS } from '@/data/misc.js'
 
 const PILLARS = [
   { icon: FiTarget, title: 'Our Mission', text: 'To help businesses grow faster by building software that is fast, reliable and a joy to use.' },
-  { icon: FiEye, title: 'Our Vision', text: 'To give every ambitious company access to senior engineering — without the overhead of building a large in-house team.' },
+  { icon: FiEye, title: 'Our Vision', text: 'To give every ambitious company access to senior engineering, without the overhead of building a large in-house team.' },
   { icon: FiHeart, title: 'Our Values', text: 'Craftsmanship, transparency and ownership. We treat your product like it’s our own.' },
 ]
 
@@ -45,7 +45,7 @@ export default function About() {
               </p>
               <p className="text-slate">
                 Our team brings senior engineering, thoughtful design and deep industry context to every
-                engagement — and we stay long after launch to help you grow.
+                engagement, and we stay long after launch to help you grow.
               </p>
             </BentoCard>
 

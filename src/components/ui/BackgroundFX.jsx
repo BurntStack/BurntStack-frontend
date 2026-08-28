@@ -1,7 +1,7 @@
 import { cn } from '@/utils/cn.js'
 
 /**
- * Clean, solid backdrop for hero bands. No glowing gradient blobs — just a
+ * Clean, solid backdrop for hero bands. No glowing gradient blobs, just a
  * faint hairline grid on the ivory wash that fades out toward the content.
  */
 export default function BackgroundFX({ className, variant = 'default' }) {

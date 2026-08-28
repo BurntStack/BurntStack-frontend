@@ -17,7 +17,7 @@ export default function Careers() {
       <Seo
         title="Careers"
         path="/careers"
-        description="Join BurntStack Technologies — build great software with a remote-first team."
+        description="Join BurntStack Technologies and build great software with a remote-first team."
       />
       <PageHero
         eyebrow="Careers"
@@ -100,7 +100,7 @@ function ApplicationForm({ selectedRole }) {
           <FiCheck />
         </span>
         <h3 className="mt-4 font-display text-xl font-bold text-ink">Application received!</h3>
-        <p className="mt-2 text-slate">Thanks for applying — our team will be in touch soon.</p>
+        <p className="mt-2 text-slate">Thanks for applying. Our team will be in touch soon.</p>
       </div>
     )
   }

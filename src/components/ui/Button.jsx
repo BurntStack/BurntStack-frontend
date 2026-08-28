@@ -17,7 +17,7 @@ const SIZES = {
   lg: 'h-12 px-6 text-[0.95rem] gap-2 rounded-lg',
 }
 
-/** Polymorphic button — renders as <Link>, <a> or <button> depending on props. */
+/** Polymorphic button. Renders as <Link>, <a> or <button> depending on props. */
 export default function Button({
   children,
   variant = 'primary',

@@ -14,7 +14,7 @@ export default function Testimonials() {
         <SectionHeading
           eyebrow="Testimonials"
           title="Loved by the teams we build with"
-          description="Don’t just take our word for it — here’s what our clients say about working with BurntStack."
+          description="Don’t just take our word for it. Here’s what our clients say about working with BurntStack."
         />
 
         <BentoGrid className="mt-14" cols="grid-cols-2 lg:grid-cols-6">

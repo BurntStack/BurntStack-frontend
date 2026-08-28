@@ -3,7 +3,7 @@ import { BentoCard, BentoIcon } from '@/components/ui/Bento.jsx'
 
 /**
  * A service as a bento tile. `featured` tiles run wider (set via `span` by the
- * caller) and get a slightly larger type scale — size itself signals priority.
+ * caller) and get a slightly larger type scale; size itself signals priority.
  */
 export default function ServiceCard({ icon, title, description, index, span, featured = false, to = '/services' }) {
   return (

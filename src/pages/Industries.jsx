@@ -14,7 +14,7 @@ export default function Industries() {
       <PageHero
         eyebrow="Industries"
         title="Software shaped to your sector"
-        description="We’ve shipped for regulated, high-stakes industries — and we bring that context to every build."
+        description="We’ve shipped for regulated, high-stakes industries, and we bring that context to every build."
       />
       <IndustriesSection />
       <CtaBanner />

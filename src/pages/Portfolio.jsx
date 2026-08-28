@@ -21,7 +21,7 @@ export default function Portfolio() {
       <PageHero
         eyebrow="Portfolio"
         title="Work we’re proud of"
-        description="Every project below started as a business problem — and shipped as measurable results."
+        description="Every project below started as a business problem, and shipped as measurable results."
       />
       <Section className="pt-0">
         <Container>

@@ -36,7 +36,7 @@ export function BentoGrid({ children, className, cols = 'grid-cols-2 sm:grid-col
 /**
  * A single bento tile. Renders as a `Link`/`a`/`div` depending on `to`/`href`,
  * always fills its grid cell, and gets the restrained "active grid" hover
- * treatment — a quiet lift plus an orange border-glow (no heavy shadow).
+ * treatment: a quiet lift plus an orange border-glow (no heavy shadow).
  */
 export function BentoCard({
   span = 'col-span-2 lg:col-span-3',
@@ -75,7 +75,7 @@ export function BentoCard({
   )
 }
 
-/** Small square icon chip used inside bento tiles — consistent across the site. */
+/** Small square icon chip used inside bento tiles, consistent across the site. */
 export function BentoIcon({ icon: Icon, tone = 'default', className }) {
   return (
     <span

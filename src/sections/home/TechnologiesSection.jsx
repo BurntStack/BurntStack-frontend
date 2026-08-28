@@ -17,7 +17,7 @@ export default function TechnologiesSection() {
         <SectionHeading
           eyebrow="Our Stack"
           title="Technologies we master"
-          description="A modern, battle-tested toolkit — chosen for performance, reliability and long-term maintainability."
+          description="A modern, battle-tested toolkit, chosen for performance, reliability and long-term maintainability."
         />
 
         {/* Category tabs */}
