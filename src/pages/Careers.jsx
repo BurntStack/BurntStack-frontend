@@ -8,9 +8,10 @@ import SectionHeading from '@/components/ui/SectionHeading.jsx'
 import Button from '@/components/ui/Button.jsx'
 import { BentoGrid, BentoCard } from '@/components/ui/Bento.jsx'
 import { JOB_OPENINGS, PERKS } from '@/data/careers.js'
+import { submitToWeb3Forms } from '@/lib/web3forms.js'
 
 export default function Careers() {
-  const [selectedRole, setSelectedRole] = useState('')
+  const [selectedRole, setSelectedRole] = useState(JOB_OPENINGS[0]?.title ?? '')
 
   return (
     <>
@@ -55,6 +56,9 @@ export default function Careers() {
                     <span className="flex items-center gap-1.5"><FiBriefcase className="h-3.5 w-3.5" /> {job.department}</span>
                     <span className="flex items-center gap-1.5"><FiMapPin className="h-3.5 w-3.5" /> {job.location}</span>
                     <span className="rounded-full bg-orange-500/10 px-2.5 py-0.5 font-semibold text-orange-600">{job.type}</span>
+                    {job.salary && (
+                      <span className="rounded-full bg-sand px-2.5 py-0.5 font-semibold text-ink">{job.salary}</span>
+                    )}
                   </div>
                 </div>
                 <Button
@@ -86,11 +90,16 @@ export default function Careers() {
 function ApplicationForm({ selectedRole }) {
   const [status, setStatus] = useState('idle')
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault()
     setStatus('sending')
-    // POST to /api/careers/applications/ in production (multipart for the résumé).
-    setTimeout(() => setStatus('done'), 900)
+    try {
+      const formData = new FormData(e.target)
+      await submitToWeb3Forms(formData, { subject: `New application: ${formData.get('role') || 'Digital Marketer'}` })
+      setStatus('done')
+    } catch {
+      setStatus('error')
+    }
   }
 
   if (status === 'done') {
@@ -115,7 +124,19 @@ function ApplicationForm({ selectedRole }) {
         <Field label="Phone" name="phone" type="tel" />
         <Field label="Role" name="role" defaultValue={selectedRole} placeholder="Which role?" required />
       </div>
-      <Field label="Portfolio / LinkedIn URL" name="portfolio" type="url" />
+      <Field label="Portfolio / Case Studies URL" name="portfolio" type="url" placeholder="Link to work you can walk us through" />
+      <div className="flex flex-col gap-2">
+        <label htmlFor="marketQuestion" className="text-sm font-medium text-ink">
+          Pick a product or brand you follow. How would you market it differently, and why?
+        </label>
+        <textarea
+          id="marketQuestion"
+          name="marketQuestion"
+          rows={4}
+          required
+          className="rounded-xl border border-line-strong bg-canvas px-4 py-3 text-sm text-ink outline-none transition-colors focus:border-orange-400"
+        />
+      </div>
       <div className="flex flex-col gap-2">
         <label htmlFor="cover" className="text-sm font-medium text-ink">Why BurntStack?</label>
         <textarea
@@ -138,6 +159,9 @@ function ApplicationForm({ selectedRole }) {
       <Button type="submit" size="lg" className="w-full" disabled={status === 'sending'}>
         {status === 'sending' ? 'Submitting…' : 'Submit Application'}
       </Button>
+      {status === 'error' && (
+        <p className="text-center text-sm text-red-500">Something went wrong. Please try again.</p>
+      )}
     </form>
   )
 }

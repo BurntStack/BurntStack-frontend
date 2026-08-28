@@ -7,7 +7,7 @@ import Container from '@/components/ui/Container.jsx'
 import Button from '@/components/ui/Button.jsx'
 import { BentoGrid, BentoCard } from '@/components/ui/Bento.jsx'
 import { COMPANY, SOCIALS } from '@/data/site.js'
-import api from '@/lib/axios.js'
+import { submitToWeb3Forms } from '@/lib/web3forms.js'
 
 const initialForm = { name: '', email: '', phone: '', subject: '', message: '' }
 
@@ -33,8 +33,7 @@ export default function Contact() {
     if (!validate()) return
     setStatus('sending')
     try {
-      // Wired to the Django contact endpoint; falls back gracefully if offline.
-      await api.post('/contact/', form).catch(() => {})
+      await submitToWeb3Forms(form, { subject: `New contact form message from ${form.name}` })
       setStatus('done')
       setForm(initialForm)
     } catch {
