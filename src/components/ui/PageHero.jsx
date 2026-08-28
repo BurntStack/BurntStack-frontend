@@ -1,13 +1,8 @@
-import { FaStar } from 'react-icons/fa6'
 import Container from './Container.jsx'
 import BackgroundFX from './BackgroundFX.jsx'
 import { BentoGrid, BentoCard, BentoHeading } from './Bento.jsx'
-import { STATS } from '@/data/misc.js'
-import AnimatedCounter from './AnimatedCounter.jsx'
 
-const yearsStat = STATS.find((s) => s.label === 'Years of Experience') ?? STATS[0]
-
-/** Shared bento header for inner pages: a large title tile beside two compact stat tiles. */
+/** Shared bento header for inner pages: a large title tile beside a founding-year tile. */
 export default function PageHero({ eyebrow, title, description, children }) {
   return (
     <section className="relative overflow-hidden border-b border-line">
@@ -19,22 +14,9 @@ export default function PageHero({ eyebrow, title, description, children }) {
             {children && <div className="mt-6">{children}</div>}
           </BentoCard>
 
-          <BentoCard span="col-span-2 lg:col-span-2" tone="brand" hover={false} className="justify-center gap-5">
-            <div className="flex flex-col gap-1.5">
-              <div className="flex text-amber-200">
-                {Array.from({ length: 5 }).map((_, i) => (
-                  <FaStar key={i} className="h-3.5 w-3.5" />
-                ))}
-              </div>
-              <p className="font-display text-2xl font-extrabold text-white">4.9/5 from 120+ clients</p>
-            </div>
-            <div className="h-px w-full bg-white/20" />
-            <div>
-              <p className="font-display text-2xl font-extrabold text-white">
-                <AnimatedCounter value={yearsStat.value} suffix={yearsStat.suffix} /> years
-              </p>
-              <p className="text-sm text-white/80">shipping production software</p>
-            </div>
+          <BentoCard span="col-span-2 lg:col-span-2" tone="brand" hover={false} className="justify-center gap-2">
+            <p className="font-display text-4xl font-extrabold text-white">2026</p>
+            <p className="text-sm text-white/80">Founded this year, senior team from day one</p>
           </BentoCard>
         </BentoGrid>
       </Container>

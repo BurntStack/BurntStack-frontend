@@ -1,8 +1,7 @@
 import {
   SiReact,
-  SiJavascript,
-  SiHtml5,
-  SiCss,
+  SiTypescript,
+  SiNextdotjs,
   SiTailwindcss,
   SiPython,
   SiDjango,
@@ -24,9 +23,8 @@ export const TECH_CATEGORIES = [
     category: 'Frontend',
     items: [
       { name: 'React', icon: SiReact, color: '#61DAFB' },
-      { name: 'JavaScript', icon: SiJavascript, color: '#F7DF1E' },
-      { name: 'HTML5', icon: SiHtml5, color: '#E34F26' },
-      { name: 'CSS3', icon: SiCss, color: '#1572B6' },
+      { name: 'Next.js', icon: SiNextdotjs, color: '#000000' },
+      { name: 'TypeScript', icon: SiTypescript, color: '#3178C6' },
       { name: 'Tailwind CSS', icon: SiTailwindcss, color: '#38BDF8' },
     ],
   },

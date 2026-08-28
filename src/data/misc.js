@@ -9,13 +9,6 @@ import {
   FaHouseChimney,
 } from 'react-icons/fa6'
 
-export const STATS = [
-  { value: 250, suffix: '+', label: 'Projects Completed' },
-  { value: 120, suffix: '+', label: 'Happy Clients' },
-  { value: 9, suffix: '+', label: 'Years of Experience' },
-  { value: 15, suffix: '+', label: 'Industries Served' },
-]
-
 export const INDUSTRIES = [
   { icon: FaHeartPulse, name: 'Healthcare', blurb: 'HIPAA-ready platforms & telehealth.' },
   { icon: FaGraduationCap, name: 'Education', blurb: 'LMS, e-learning & student portals.' },
@@ -35,41 +28,6 @@ export const PROCESS = [
   { step: '05', title: 'Testing', description: 'Automated and manual QA across devices, performance and security.' },
   { step: '06', title: 'Deployment', description: 'Zero-downtime releases with CI/CD, monitoring and rollback safety.' },
   { step: '07', title: 'Maintenance', description: 'Ongoing support, updates and iteration as your business grows.' },
-]
-
-export const TESTIMONIALS = [
-  {
-    name: 'Ananya Rao',
-    company: 'CEO, MediSync',
-    rating: 5,
-    review:
-      'BurntStack rebuilt our entire platform in record time. The quality and communication were excellent. They feel like part of our team.',
-    initials: 'AR',
-  },
-  {
-    name: 'Daniel Fischer',
-    company: 'CTO, FinTrack',
-    rating: 5,
-    review:
-      'Their AI expertise is the real deal. The analytics engine they built pays for itself every single month.',
-    initials: 'DF',
-  },
-  {
-    name: 'Priya Menon',
-    company: 'Founder, ShopWave',
-    rating: 5,
-    review:
-      'Conversions more than doubled after the rebuild. Thoughtful engineering and design at every step.',
-    initials: 'PM',
-  },
-  {
-    name: 'Marcus Lee',
-    company: 'VP Eng, LogiFlow',
-    rating: 5,
-    review:
-      'Scalable, secure and delivered on time. BurntStack is our go-to engineering partner now.',
-    initials: 'ML',
-  },
 ]
 
 export const PRICING = [
@@ -110,7 +68,7 @@ export const FAQS = [
   },
   {
     q: 'Can you redesign existing websites?',
-    a: 'Absolutely. We frequently modernise legacy sites and platforms, improving performance, design and maintainability without disrupting your business.',
+    a: 'Absolutely. We modernise legacy sites and platforms, improving performance, design and maintainability without disrupting your business.',
   },
   {
     q: 'Which technologies do you use?',

@@ -13,12 +13,12 @@ export default function CaseStudies() {
       <Seo
         title="Case Studies"
         path="/case-studies"
-        description="Deep dives into how we solved real business problems with software."
+        description="A closer look at how we approach real client work."
       />
       <PageHero
         eyebrow="Case Studies"
-        title="The story behind the results"
-        description="A closer look at the problem, the approach and the outcome for some of our favourite engagements."
+        title="The story behind the work"
+        description="A closer look at the problem, the approach and the outcome, as we document each engagement."
       />
       <Section className="pt-0">
         <Container>
@@ -41,16 +41,29 @@ export default function CaseStudies() {
                       {p.category}
                     </span>
                     <h2 className="font-display text-2xl font-bold text-ink">{p.name}</h2>
-                    <p className="text-sm text-slate"><strong className="text-ink">Problem:</strong> {p.problem}</p>
-                    <p className="text-sm text-slate"><strong className="text-ink">Solution:</strong> {p.solution}</p>
-                    <p className="text-sm text-slate"><strong className="text-orange-600">Results:</strong> {p.results}</p>
-                    <div className="mt-2 flex flex-wrap gap-2">
-                      {p.tech.map((t) => (
-                        <span key={t} className="rounded-full border border-line bg-sand px-2.5 py-1 text-xs text-slate">
-                          {t}
-                        </span>
-                      ))}
-                    </div>
+                    {p.blurb && <p className="text-sm text-slate">{p.blurb}</p>}
+                    {p.problem && <p className="text-sm text-slate"><strong className="text-ink">Problem:</strong> {p.problem}</p>}
+                    {p.solution && <p className="text-sm text-slate"><strong className="text-ink">Solution:</strong> {p.solution}</p>}
+                    {p.results && <p className="text-sm text-slate"><strong className="text-orange-600">Results:</strong> {p.results}</p>}
+                    {p.tech?.length > 0 && (
+                      <div className="mt-2 flex flex-wrap gap-2">
+                        {p.tech.map((t) => (
+                          <span key={t} className="rounded-full border border-line bg-sand px-2.5 py-1 text-xs text-slate">
+                            {t}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+                    {p.liveUrl && (
+                      <a
+                        href={p.liveUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="mt-2 inline-flex w-fit items-center gap-1.5 text-sm font-semibold text-orange-600 hover:gap-2"
+                      >
+                        Visit site
+                      </a>
+                    )}
                   </div>
                 </div>
               </BentoCard>

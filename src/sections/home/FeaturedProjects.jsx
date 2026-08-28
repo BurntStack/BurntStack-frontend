@@ -4,11 +4,8 @@ import Container from '@/components/ui/Container.jsx'
 import SectionHeading from '@/components/ui/SectionHeading.jsx'
 import Button from '@/components/ui/Button.jsx'
 import ProjectCard from '@/components/cards/ProjectCard.jsx'
-import { BentoGrid } from '@/components/ui/Bento.jsx'
+import { BentoGrid, BentoCard } from '@/components/ui/Bento.jsx'
 import { PROJECTS } from '@/data/projects.js'
-
-const SPANS = ['col-span-2 lg:col-span-4', 'col-span-2 lg:col-span-2', 'col-span-2 lg:col-span-3', 'col-span-2 lg:col-span-3']
-const COVERS = ['h-56', 'h-56', 'h-44', 'h-44']
 
 export default function FeaturedProjects() {
   return (
@@ -16,14 +13,21 @@ export default function FeaturedProjects() {
       <Container>
         <SectionHeading
           eyebrow="Featured Work"
-          title="Projects that moved the needle"
-          description="Real problems, real results. Here is a look at how we have helped businesses ship and scale."
+          title="What we’re building"
+          description="Real work for real clients. Here’s a look at what we’ve shipped so far."
         />
 
         <BentoGrid className="mt-14" cols="grid-cols-2 lg:grid-cols-6">
-          {PROJECTS.map((project, i) => (
-            <ProjectCard key={project.slug} project={project} span={SPANS[i]} coverHeight={COVERS[i]} />
+          {PROJECTS.map((project) => (
+            <ProjectCard key={project.slug} project={project} span="col-span-2 lg:col-span-4" coverHeight="h-56" />
           ))}
+
+          <BentoCard span="col-span-2 lg:col-span-2" tone="ink" hover={false} className="justify-center gap-2">
+            <p className="font-display text-lg font-semibold text-white">More in the works</p>
+            <p className="text-sm text-white/70">
+              We’re adding case studies as we finish documenting them, this is just the start.
+            </p>
+          </BentoCard>
         </BentoGrid>
 
         <div className="mt-12 flex justify-center">

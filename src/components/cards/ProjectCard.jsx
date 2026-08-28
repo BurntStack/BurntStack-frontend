@@ -4,7 +4,8 @@ import { BentoCard } from '@/components/ui/Bento.jsx'
 
 /** Case-study bento tile with a full-bleed gradient cover and a details body. */
 export default function ProjectCard({ project, span = 'col-span-2 lg:col-span-3', coverHeight = 'h-48' }) {
-  const { name, category, gradient, tech, problem, solution, results, liveUrl, githubUrl } = project
+  const { name, category, gradient, tech, blurb, problem, solution, results, liveUrl, githubUrl } = project
+  const hasDetails = problem || solution || results
 
   return (
     <BentoCard span={span} tone="surface" size="none">
@@ -23,28 +24,40 @@ export default function ProjectCard({ project, span = 'col-span-2 lg:col-span-3'
 
       {/* Body */}
       <div className="flex flex-1 flex-col gap-4 p-6 sm:p-7">
-        <div className="flex flex-wrap gap-2">
-          {tech.map((t) => (
-            <span key={t} className="rounded-full border border-line bg-sand px-2.5 py-1 text-xs font-medium text-slate">
-              {t}
-            </span>
-          ))}
-        </div>
+        {tech?.length > 0 && (
+          <div className="flex flex-wrap gap-2">
+            {tech.map((t) => (
+              <span key={t} className="rounded-full border border-line bg-sand px-2.5 py-1 text-xs font-medium text-slate">
+                {t}
+              </span>
+            ))}
+          </div>
+        )}
 
-        <dl className="space-y-2.5 text-sm">
-          <div>
-            <dt className="font-semibold text-ink">Problem</dt>
-            <dd className="text-slate">{problem}</dd>
-          </div>
-          <div>
-            <dt className="font-semibold text-ink">Solution</dt>
-            <dd className="text-slate">{solution}</dd>
-          </div>
-          <div>
-            <dt className="font-semibold text-orange-600">Results</dt>
-            <dd className="text-slate">{results}</dd>
-          </div>
-        </dl>
+        {blurb && <p className="text-sm text-slate">{blurb}</p>}
+
+        {hasDetails && (
+          <dl className="space-y-2.5 text-sm">
+            {problem && (
+              <div>
+                <dt className="font-semibold text-ink">Problem</dt>
+                <dd className="text-slate">{problem}</dd>
+              </div>
+            )}
+            {solution && (
+              <div>
+                <dt className="font-semibold text-ink">Solution</dt>
+                <dd className="text-slate">{solution}</dd>
+              </div>
+            )}
+            {results && (
+              <div>
+                <dt className="font-semibold text-orange-600">Results</dt>
+                <dd className="text-slate">{results}</dd>
+              </div>
+            )}
+          </dl>
+        )}
 
         <div className="mt-auto flex items-center gap-3 border-t border-line pt-4">
           {liveUrl && (

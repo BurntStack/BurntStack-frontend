@@ -4,11 +4,9 @@ import PageHero from '@/components/ui/PageHero.jsx'
 import Section from '@/components/ui/Section.jsx'
 import Container from '@/components/ui/Container.jsx'
 import SectionHeading from '@/components/ui/SectionHeading.jsx'
-import AnimatedCounter from '@/components/ui/AnimatedCounter.jsx'
 import { BentoGrid, BentoCard, BentoIcon } from '@/components/ui/Bento.jsx'
 import WhyChoose from '@/sections/home/WhyChoose.jsx'
 import CtaBanner from '@/sections/home/CtaBanner.jsx'
-import { STATS } from '@/data/misc.js'
 
 const PILLARS = [
   { icon: FiTarget, title: 'Our Mission', text: 'To help businesses grow faster by building software that is fast, reliable and a joy to use.' },
@@ -36,32 +34,24 @@ export default function About() {
           <BentoGrid cols="grid-cols-2 lg:grid-cols-6">
             <BentoCard span="col-span-2 lg:col-span-4" tone="ivory" hover={false} className="justify-center gap-5">
               <h2 className="font-display text-3xl font-bold text-ink sm:text-4xl">
-                Building since day one for <span className="text-orange-600">scale and trust</span>
+                Founded on a simple belief in <span className="text-orange-600">scale and trust</span>
               </h2>
               <p className="text-slate">
-                BurntStack Technologies Private Limited was founded on a simple belief: great software
-                is a competitive advantage. Over the years we’ve partnered with startups and enterprises
-                alike to design, build and scale products that people rely on every day.
+                BurntStack Technologies Private Limited was founded in 2026 on a simple belief: great
+                software is a competitive advantage. We’re building the studio around senior
+                engineering, thoughtful design and deep ownership of every project we take on.
               </p>
               <p className="text-slate">
-                Our team brings senior engineering, thoughtful design and deep industry context to every
-                engagement, and we stay long after launch to help you grow.
+                We’re early, and we like it that way. No bloated teams, no juniors learning on your
+                dime, just a small group of people who care about getting it right and staying with
+                you after launch.
               </p>
             </BentoCard>
 
-            {STATS.map((s, i) => (
-              <BentoCard
-                key={s.label}
-                span={i === 0 ? 'col-span-2 lg:col-span-2' : 'col-span-2 sm:col-span-1 lg:col-span-2'}
-                tone={i === 0 ? 'ink' : 'surface'}
-                className="items-center justify-center text-center"
-              >
-                <div className={`font-display text-3xl font-extrabold sm:text-4xl ${i === 0 ? 'text-white' : 'text-orange-600'}`}>
-                  <AnimatedCounter value={s.value} suffix={s.suffix} />
-                </div>
-                <div className={`mt-1 text-sm ${i === 0 ? 'text-white/70' : 'text-slate'}`}>{s.label}</div>
-              </BentoCard>
-            ))}
+            <BentoCard span="col-span-2 lg:col-span-2" tone="ink" hover={false} className="items-center justify-center text-center">
+              <p className="font-display text-4xl font-extrabold text-white">2026</p>
+              <p className="mt-1 text-sm text-white/70">The year we started building</p>
+            </BentoCard>
           </BentoGrid>
         </Container>
       </Section>
