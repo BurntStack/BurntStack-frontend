@@ -16,6 +16,7 @@ const Portfolio = lazy(() => import('@/pages/Portfolio.jsx'))
 const CaseStudies = lazy(() => import('@/pages/CaseStudies.jsx'))
 const Industries = lazy(() => import('@/pages/Industries.jsx'))
 const Blog = lazy(() => import('@/pages/Blog.jsx'))
+const BlogPost = lazy(() => import('@/pages/BlogPost.jsx'))
 const Careers = lazy(() => import('@/pages/Careers.jsx'))
 const Contact = lazy(() => import('@/pages/Contact.jsx'))
 const Privacy = lazy(() => import('@/pages/Privacy.jsx'))
@@ -54,6 +55,7 @@ export default function App() {
             <Route path="/case-studies" element={<PageTransition><CaseStudies /></PageTransition>} />
             <Route path="/industries" element={<PageTransition><Industries /></PageTransition>} />
             <Route path="/blog" element={<PageTransition><Blog /></PageTransition>} />
+            <Route path="/blog/:slug" element={<PageTransition><BlogPost /></PageTransition>} />
             <Route path="/careers" element={<PageTransition><Careers /></PageTransition>} />
             <Route path="/contact" element={<PageTransition><Contact /></PageTransition>} />
             <Route path="/privacy-policy" element={<PageTransition><Privacy /></PageTransition>} />

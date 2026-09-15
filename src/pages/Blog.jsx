@@ -68,7 +68,7 @@ export default function Blog() {
 
           {featured && (
             <BentoGrid cols="grid-cols-1">
-              <BentoCard span="col-span-1" tone="surface" size="none" className="lg:flex-row">
+              <BentoCard to={`/blog/${featured.slug}`} span="col-span-1" tone="surface" size="none" className="lg:flex-row">
                 <div className={cn('relative flex h-56 shrink-0 items-center justify-center bg-gradient-to-br lg:h-auto lg:w-2/5', !featured.cover_image && 'from-orange-100 via-amber-300/40 to-sand')}>
                   {featured.cover_image ? (
                     <img src={featured.cover_image} alt="" className="absolute inset-0 h-full w-full object-cover" />
@@ -127,7 +127,7 @@ export default function Blog() {
           {rest.length > 0 && (
             <BentoGrid className="mt-8" cols="grid-cols-2 sm:grid-cols-4 lg:grid-cols-6">
               {rest.map((post) => (
-                <BentoCard key={post.slug} span="col-span-2 sm:col-span-2 lg:col-span-2" tone="surface" size="none">
+                <BentoCard to={`/blog/${post.slug}`} key={post.slug} span="col-span-2 sm:col-span-2 lg:col-span-2" tone="surface" size="none">
                   <div className={cn('relative h-40', !post.cover_image && 'bg-gradient-to-br from-orange-100 via-amber-300/40 to-sand')}>
                     {post.cover_image ? (
                       <img src={post.cover_image} alt="" className="absolute inset-0 h-full w-full object-cover" />
