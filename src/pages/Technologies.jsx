@@ -17,7 +17,12 @@ export default function Technologies() {
         description="We pick tools for performance, reliability and longevity, never hype. Here’s what powers our work."
       />
       <TechnologiesSection />
-      <CtaBanner />
+      {/* TechnologiesSection carries its own generous bottom padding (shared
+          with the Home page, where more sections follow it) - pull the CTA
+          up here so a lone page doesn't end in a large dead gap. */}
+      <div className="-mt-16 sm:-mt-24">
+        <CtaBanner />
+      </div>
     </>
   )
 }

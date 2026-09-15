@@ -17,7 +17,11 @@ export default function Industries() {
         description="We’ve shipped for regulated, high-stakes industries, and we bring that context to every build."
       />
       <IndustriesSection />
-      <CtaBanner />
+      {/* Same fix as Technologies.jsx: IndustriesSection's bottom padding is
+          sized for the Home page, where more sections follow it. */}
+      <div className="-mt-16 sm:-mt-24">
+        <CtaBanner />
+      </div>
     </>
   )
 }

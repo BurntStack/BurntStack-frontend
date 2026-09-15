@@ -38,7 +38,7 @@ export default function Solutions() {
         title="Outcomes, not just output"
         description="We package our expertise into solutions built around the results your business actually needs."
       />
-      <Section className="pt-0">
+      <Section className="pt-0 pb-0">
         <Container>
           <BentoGrid cols="grid-cols-2 lg:grid-cols-6">
             {SOLUTIONS.map(({ icon: Icon, title, text }, i) => (

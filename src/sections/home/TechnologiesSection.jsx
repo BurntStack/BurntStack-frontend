@@ -41,8 +41,8 @@ export default function TechnologiesSection() {
         <AnimatePresence mode="wait">
           <BentoGrid
             key={active}
-            className="mt-10"
-            cols="grid-cols-2 sm:grid-cols-4 lg:grid-cols-6"
+            className="mt-10 max-w-3xl mx-auto"
+            cols="grid-cols-2 sm:grid-cols-3"
           >
             {current.items.map(({ name, icon: Icon, color }) => (
               <BentoCard key={name} span="col-span-1" size="sm" tone="surface" hover className="items-center gap-3 text-center">

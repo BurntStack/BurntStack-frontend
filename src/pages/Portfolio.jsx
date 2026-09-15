@@ -20,7 +20,7 @@ export default function Portfolio() {
         title="Work we’re proud of"
         description="A look at what we’ve shipped so far, with more case studies on the way as we finish them."
       />
-      <Section className="pt-0">
+      <Section className="pt-0 pb-0">
         <Container>
           <BentoGrid cols="grid-cols-2 lg:grid-cols-6">
             {PROJECTS.map((project) => (

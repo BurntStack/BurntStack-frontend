@@ -63,7 +63,7 @@ export default function LeadPopup() {
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 24, scale: 0.96 }}
           transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-          className="fixed bottom-5 left-5 z-40 w-[min(22rem,calc(100vw-2.5rem))] rounded-bento border border-line bg-white p-5 shadow-[var(--shadow-lg)] sm:bottom-7 sm:left-7"
+          className="fixed bottom-4 left-4 right-4 z-40 max-h-[min(30rem,calc(100dvh-2rem))] w-auto overflow-y-auto rounded-bento border border-line bg-white p-4 shadow-[var(--shadow-lg)] sm:bottom-7 sm:left-7 sm:right-auto sm:w-[22rem] sm:p-5"
         >
           <button
             type="button"
