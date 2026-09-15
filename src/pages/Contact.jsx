@@ -1,13 +1,15 @@
 import { useState } from 'react'
-import { FiMail, FiPhone, FiMapPin, FiCheck, FiSend } from 'react-icons/fi'
+import Cal from '@calcom/embed-react'
+import { FiMail, FiPhone, FiMapPin, FiCheck, FiSend, FiCalendar } from 'react-icons/fi'
 import Seo from '@/components/seo/Seo.jsx'
 import PageHero from '@/components/ui/PageHero.jsx'
 import Section from '@/components/ui/Section.jsx'
 import Container from '@/components/ui/Container.jsx'
 import Button from '@/components/ui/Button.jsx'
-import { BentoGrid, BentoCard } from '@/components/ui/Bento.jsx'
+import { BentoGrid, BentoCard, BentoIcon, BentoHeading } from '@/components/ui/Bento.jsx'
 import { COMPANY, SOCIALS } from '@/data/site.js'
 import { submitToWeb3Forms } from '@/lib/web3forms.js'
+import { CAL_LINK } from '@/lib/cal.js'
 
 const initialForm = { name: '', email: '', phone: '', subject: '', message: '' }
 
@@ -153,6 +155,33 @@ export default function Contact() {
                   )}
                 </form>
               )}
+            </BentoCard>
+          </BentoGrid>
+        </Container>
+      </Section>
+
+      <Section className="pt-0">
+        <Container>
+          <BentoGrid cols="grid-cols-1">
+            <BentoCard span="col-span-1" tone="surface" hover={false} size="none" className="p-6 sm:p-8">
+              <div className="flex flex-col gap-6">
+                <div className="flex items-center gap-4">
+                  <BentoIcon icon={FiCalendar} />
+                  <BentoHeading
+                    eyebrow="Or skip the form"
+                    title="Book a free 30-minute call"
+                    description="Pick a time that works for you — no back-and-forth emails."
+                    className="gap-1"
+                  />
+                </div>
+                <div className="overflow-hidden rounded-bento-sm border border-line" style={{ height: 620 }}>
+                  <Cal
+                    calLink={CAL_LINK}
+                    style={{ width: '100%', height: '100%' }}
+                    config={{ layout: 'month_view' }}
+                  />
+                </div>
+              </div>
             </BentoCard>
           </BentoGrid>
         </Container>

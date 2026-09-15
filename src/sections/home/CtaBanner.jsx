@@ -2,6 +2,7 @@ import { FiArrowRight } from 'react-icons/fi'
 import Container from '@/components/ui/Container.jsx'
 import Button from '@/components/ui/Button.jsx'
 import { BentoGrid, BentoCard } from '@/components/ui/Bento.jsx'
+import { CAL_LINK } from '@/lib/cal.js'
 
 export default function CtaBanner() {
   return (
@@ -20,7 +21,7 @@ export default function CtaBanner() {
             </p>
           </div>
           <div className="flex shrink-0 flex-wrap gap-3">
-            <Button to="/contact" size="lg" variant="secondary" className="border-transparent bg-white text-ink hover:bg-white/90">
+            <Button data-cal-link={CAL_LINK} size="lg" variant="secondary" className="border-transparent bg-white text-ink hover:bg-white/90">
               Get a Free Consultation <FiArrowRight className="h-4 w-4" />
             </Button>
             <Button to="/portfolio" size="lg" variant="ghost" className="text-white hover:bg-white/10 hover:text-white">

@@ -1,9 +1,10 @@
-import { Suspense, lazy } from 'react'
+import { Suspense, lazy, useEffect } from 'react'
 import { Routes, Route, useLocation } from 'react-router-dom'
 import { AnimatePresence } from 'framer-motion'
 import Layout from '@/components/layout/Layout.jsx'
 import ScrollToTop from '@/components/layout/ScrollToTop.jsx'
 import PageTransition from '@/components/layout/PageTransition.jsx'
+import { initCal } from '@/lib/cal.js'
 
 // Code-split every page for a small initial bundle (better Lighthouse score).
 const Home = lazy(() => import('@/pages/Home.jsx'))
@@ -31,6 +32,12 @@ function PageLoader() {
 
 export default function App() {
   const location = useLocation()
+
+  // Loads once, app-wide, so the "Free Consultation" popup works from any
+  // page (Navbar, CtaBanner) without every one of them re-initializing it.
+  useEffect(() => {
+    initCal()
+  }, [])
 
   return (
     <Layout>

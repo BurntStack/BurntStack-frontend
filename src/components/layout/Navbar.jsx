@@ -7,6 +7,7 @@ import { cn } from '@/utils/cn.js'
 import Container from '@/components/ui/Container.jsx'
 import Button from '@/components/ui/Button.jsx'
 import Logo from '@/components/ui/Logo.jsx'
+import { CAL_LINK } from '@/lib/cal.js'
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
@@ -70,7 +71,7 @@ export default function Navbar() {
 
           <div className="flex items-center gap-3">
             <div className="hidden sm:block">
-              <Button to="/contact" size="sm" variant="primary">
+              <Button data-cal-link={CAL_LINK} size="sm" variant="primary">
                 Free Consultation
                 <FiArrowUpRight className="h-4 w-4" />
               </Button>
@@ -113,7 +114,7 @@ export default function Navbar() {
                   {link.label}
                 </NavLink>
               ))}
-              <Button to="/contact" className="mt-4 w-full">
+              <Button data-cal-link={CAL_LINK} className="mt-4 w-full">
                 Free Consultation <FiArrowUpRight className="h-4 w-4" />
               </Button>
             </Container>
