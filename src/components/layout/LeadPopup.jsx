@@ -14,7 +14,7 @@ const SHOW_AFTER_MS = 5000
  */
 export default function LeadPopup() {
   const [visible, setVisible] = useState(false)
-  const [form, setForm] = useState({ name: '', email: '', message: '', website: '' })
+  const [form, setForm] = useState({ name: '', email: '', phone: '', message: '', website: '' })
   const [status, setStatus] = useState('idle')
   const [error, setError] = useState('')
   const reduceMotion = useReducedMotion()
@@ -114,6 +114,13 @@ export default function LeadPopup() {
                 value={form.email}
                 onChange={update('email')}
                 required
+                className="rounded-lg border border-line-strong bg-canvas px-3.5 py-2.5 text-sm text-ink outline-none transition-colors focus:border-orange-400"
+              />
+              <input
+                type="tel"
+                placeholder="Phone number (optional)"
+                value={form.phone}
+                onChange={update('phone')}
                 className="rounded-lg border border-line-strong bg-canvas px-3.5 py-2.5 text-sm text-ink outline-none transition-colors focus:border-orange-400"
               />
               <textarea

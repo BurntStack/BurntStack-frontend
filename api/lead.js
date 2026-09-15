@@ -1,6 +1,7 @@
 // Vercel serverless function (Node.js runtime) - not part of the Vite bundle,
 // so RESEND_API_KEY never reaches the browser. This is the only place that's
 // allowed to call Resend, since the key can send email as this account.
+import { buildLeadEmailHtml } from './_lead-email.js'
 
 const NOTIFY_TO = 'rohith@burntstack.com'
 const FROM = 'BurntStack Leads <onboarding@resend.dev>'
@@ -19,7 +20,7 @@ export default async function handler(req, res) {
     return
   }
 
-  const { name, email, message, website } = req.body || {}
+  const { name, email, phone, message, website } = req.body || {}
 
   // Honeypot: a real visitor never fills this hidden field in.
   if (website) {
@@ -54,12 +55,12 @@ export default async function handler(req, res) {
         to: [NOTIFY_TO],
         reply_to: email,
         subject: `New site lead: ${name}`,
-        html: `
-          <p><strong>Name:</strong> ${escapeHtml(name)}</p>
-          <p><strong>Email:</strong> ${escapeHtml(email)}</p>
-          ${message ? `<p><strong>Message:</strong> ${escapeHtml(message)}</p>` : ''}
-          <p style="color:#8b847a;font-size:12px">Submitted from the burntstack.com landing popup.</p>
-        `,
+        html: buildLeadEmailHtml({
+          name: escapeHtml(name),
+          email: escapeHtml(email),
+          phone: phone ? escapeHtml(phone) : '',
+          message: message ? escapeHtml(message) : '',
+        }),
       }),
     })
 

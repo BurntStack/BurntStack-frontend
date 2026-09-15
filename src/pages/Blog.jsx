@@ -94,7 +94,7 @@ export default function Blog() {
           )}
 
           {/* Controls */}
-          <div className="mt-12 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+          <div className="mt-12 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div className="flex flex-wrap gap-2">
               {['All', ...categories.map((c) => c.name)].map((cat) => (
                 <button
@@ -111,7 +111,7 @@ export default function Blog() {
                 </button>
               ))}
             </div>
-            <div className="flex items-center gap-2 rounded-full border border-line-strong bg-white px-4 py-2 lg:w-72">
+            <div className="flex items-center gap-2 rounded-full border border-line-strong bg-white px-4 py-2 sm:w-64 sm:shrink-0">
               <FiSearch className="h-4 w-4 text-slate" />
               <input
                 value={query}

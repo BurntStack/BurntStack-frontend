@@ -1,7 +1,7 @@
 import { getCalApi } from '@calcom/embed-react'
 
 /** Public booking link — Cal.com embeds are client-side and need no API key. */
-export const CAL_LINK = 'rohith-uppunuthula/30min'
+export const CAL_LINK = 'burntstack/30min'
 
 let initialized = false
 
