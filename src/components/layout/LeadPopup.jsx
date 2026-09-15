@@ -63,7 +63,7 @@ export default function LeadPopup() {
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 24, scale: 0.96 }}
           transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-          className="fixed bottom-4 left-4 right-4 z-40 max-h-[min(30rem,calc(100dvh-2rem))] w-auto overflow-y-auto rounded-bento border border-line bg-white p-4 shadow-[var(--shadow-lg)] sm:bottom-7 sm:left-7 sm:right-auto sm:w-[22rem] sm:p-5"
+          className="fixed bottom-4 left-4 right-4 z-40 max-h-[min(23rem,calc(100dvh-2rem))] w-auto overflow-y-auto rounded-bento border border-line bg-white p-4 shadow-[var(--shadow-lg)] sm:bottom-7 sm:left-7 sm:right-auto sm:w-[20rem] sm:p-4"
         >
           <button
             type="button"
@@ -82,10 +82,10 @@ export default function LeadPopup() {
               <p className="font-semibold text-ink">Thanks! We’ll be in touch soon.</p>
             </div>
           ) : (
-            <form onSubmit={onSubmit} className="flex flex-col gap-3">
+            <form onSubmit={onSubmit} className="flex flex-col gap-2.5">
               <div>
-                <h3 className="font-display text-lg font-bold text-ink">Have a project in mind?</h3>
-                <p className="mt-1 text-sm text-slate">Leave your details and we’ll reach out within a day.</p>
+                <h3 className="font-display text-base font-bold text-ink">Have a project in mind?</h3>
+                <p className="mt-0.5 text-xs text-slate">Leave your details and we’ll reach out within a day.</p>
               </div>
 
               {/* Honeypot - hidden from real visitors, bots tend to fill every field */}
@@ -106,7 +106,7 @@ export default function LeadPopup() {
                 value={form.name}
                 onChange={update('name')}
                 required
-                className="rounded-lg border border-line-strong bg-canvas px-3.5 py-2.5 text-sm text-ink outline-none transition-colors focus:border-orange-400"
+                className="rounded-lg border border-line-strong bg-canvas px-3 py-2 text-sm text-ink outline-none transition-colors focus:border-orange-400"
               />
               <input
                 type="email"
@@ -114,21 +114,21 @@ export default function LeadPopup() {
                 value={form.email}
                 onChange={update('email')}
                 required
-                className="rounded-lg border border-line-strong bg-canvas px-3.5 py-2.5 text-sm text-ink outline-none transition-colors focus:border-orange-400"
+                className="rounded-lg border border-line-strong bg-canvas px-3 py-2 text-sm text-ink outline-none transition-colors focus:border-orange-400"
               />
               <input
                 type="tel"
                 placeholder="Phone number (optional)"
                 value={form.phone}
                 onChange={update('phone')}
-                className="rounded-lg border border-line-strong bg-canvas px-3.5 py-2.5 text-sm text-ink outline-none transition-colors focus:border-orange-400"
+                className="rounded-lg border border-line-strong bg-canvas px-3 py-2 text-sm text-ink outline-none transition-colors focus:border-orange-400"
               />
               <textarea
                 placeholder="What are you looking to build? (optional)"
                 value={form.message}
                 onChange={update('message')}
-                rows={2}
-                className="rounded-lg border border-line-strong bg-canvas px-3.5 py-2.5 text-sm text-ink outline-none transition-colors focus:border-orange-400"
+                rows={1}
+                className="rounded-lg border border-line-strong bg-canvas px-3 py-2 text-sm text-ink outline-none transition-colors focus:border-orange-400"
               />
 
               {error && <p className="text-xs text-red-500">{error}</p>}
