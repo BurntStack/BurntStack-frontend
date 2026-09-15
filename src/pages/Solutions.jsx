@@ -38,7 +38,7 @@ export default function Solutions() {
         title="Outcomes, not just output"
         description="We package our expertise into solutions built around the results your business actually needs."
       />
-      <Section className="pt-0 pb-0">
+      <Section className="pt-0">
         <Container>
           <BentoGrid cols="grid-cols-2 lg:grid-cols-6">
             {SOLUTIONS.map(({ icon: Icon, title, text }, i) => (
@@ -54,7 +54,14 @@ export default function Solutions() {
           </BentoGrid>
         </Container>
       </Section>
-      <CtaBanner />
+      {/* Section's py-16/24 bottom padding plus CtaBanner's own top padding
+          doubled up into a large dead gap - pb-0 doesn't reliably win against
+          py-* here (cn() is a plain class joiner, no Tailwind conflict
+          resolution, so override order isn't guaranteed). Negative margin
+          sidesteps that entirely. */}
+      <div className="-mt-16 sm:-mt-24">
+        <CtaBanner />
+      </div>
     </>
   )
 }

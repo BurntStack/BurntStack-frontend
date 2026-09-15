@@ -20,7 +20,7 @@ export default function CaseStudies() {
         title="The story behind the work"
         description="A closer look at the problem, the approach and the outcome, as we document each engagement."
       />
-      <Section className="pt-0 pb-0">
+      <Section className="pt-0">
         <Container>
           <BentoGrid cols="grid-cols-1" className="gap-6">
             {PROJECTS.map((p, i) => (
@@ -71,7 +71,9 @@ export default function CaseStudies() {
           </BentoGrid>
         </Container>
       </Section>
-      <CtaBanner />
+      <div className="-mt-16 sm:-mt-24">
+        <CtaBanner />
+      </div>
     </>
   )
 }
