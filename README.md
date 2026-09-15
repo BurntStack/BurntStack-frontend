@@ -19,7 +19,7 @@ Built with React (JavaScript), Vite, Tailwind CSS v4 and Framer Motion.
 
 ```bash
 npm install
-cp .env.example .env      # set VITE_API_URL to your Django API
+cp .env.example .env      # set VITE_BLOG_API_URL to the employee portal's API
 npm run dev               # http://localhost:5173
 ```
 
@@ -63,7 +63,8 @@ src/
 
 ## Notes
 
-- All content lives in `src/data/*` so it is trivial to wire up to the Django API later
-  (the Axios instance in `src/lib/axios.js` is already configured with JWT support).
-- The Contact form posts to `${VITE_API_URL}/contact/`; the newsletter and careers forms are
-  ready to be wired to their respective endpoints.
+- The Blog page reads published posts from the employee portal's public API
+  (`${VITE_BLOG_API_URL}/blog/`) — see github.com/BurntStack/EmployeePortal-blog.
+  Everything else in `src/data/*` is still static content.
+- The Contact and Careers-application forms submit via Web3Forms directly
+  from the client (`src/lib/web3forms.js`) — no backend involved.
