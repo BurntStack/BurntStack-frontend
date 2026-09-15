@@ -37,7 +37,17 @@ export default function Blog() {
         if (err.name !== 'CanceledError') setError('Could not load posts right now.')
       })
     return () => controller.abort()
-  }, [category, query, categories])
+    // Deliberately excludes `categories`: a user can't select a real
+    // category until the buttons (rendered from `categories`) exist, so by
+    // the time `category` actually changes to something other than 'All',
+    // `categories` is already loaded. Including it here just means this
+    // effect re-fires the moment the categories fetch resolves independently
+    // of any real filter change, aborting the in-flight posts request and
+    // racing a replacement - occasionally the abort's rejection didn't
+    // resolve to a clean no-op, surfacing as "Could not load posts right
+    // now" even though nothing was actually wrong.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [category, query])
 
   const featured = posts?.find((p) => p.is_featured) || posts?.[0]
   const rest = posts?.filter((p) => p.slug !== featured?.slug) ?? []
