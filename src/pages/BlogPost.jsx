@@ -58,7 +58,10 @@ export default function BlogPost() {
   // as raw HTML in a different app than the one that wrote it - never trust
   // that as a substitute for sanitizing again on the way in here.
   const safeContent = DOMPurify.sanitize(post.content, {
-    ALLOWED_TAGS: ['p', 'br', 'strong', 'em', 'u', 's', 'a', 'ul', 'ol', 'li', 'h1', 'h2', 'h3', 'blockquote', 'code', 'pre', 'img', 'hr'],
+    ALLOWED_TAGS: [
+      'p', 'br', 'strong', 'em', 'u', 's', 'a', 'ul', 'ol', 'li', 'h1', 'h2', 'h3', 'blockquote', 'code', 'pre', 'img', 'hr',
+      'table', 'thead', 'tbody', 'tr', 'th', 'td',
+    ],
     ALLOWED_ATTR: ['href', 'title', 'target', 'rel', 'src', 'alt', 'width', 'height'],
   })
 
