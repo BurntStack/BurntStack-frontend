@@ -1,17 +1,13 @@
 import { useEffect, useState } from 'react'
-import { FiSearch, FiClock } from 'react-icons/fi'
+import { FiSearch, FiClock, FiBookmark } from 'react-icons/fi'
 import Seo from '@/components/seo/Seo.jsx'
 import PageHero from '@/components/ui/PageHero.jsx'
 import Section from '@/components/ui/Section.jsx'
 import Container from '@/components/ui/Container.jsx'
 import { cn } from '@/utils/cn.js'
-import { BentoGrid, BentoCard } from '@/components/ui/Bento.jsx'
+import { BentoCard } from '@/components/ui/Bento.jsx'
 import api from '@/lib/axios.js'
 import { readCache, writeCache } from '@/lib/sessionCache.js'
-
-function formatDate(iso) {
-  return new Date(iso).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
-}
 
 function CardSkeleton({ className }) {
   return <div className={cn('animate-pulse rounded-bento border border-line bg-sand/60', className)} />
@@ -73,9 +69,6 @@ export default function Blog() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [category, query])
 
-  const featured = posts?.find((p) => p.is_featured) || posts?.[0]
-  const rest = posts?.filter((p) => p.slug !== featured?.slug) ?? []
-
   return (
     <>
       <Seo
@@ -91,54 +84,8 @@ export default function Blog() {
 
       <Section className="pt-0">
         <Container>
-          {error && <p className="text-center text-slate">{error}</p>}
-
-          {posts === null && !error && (
-            <div className="flex flex-col gap-8">
-              <CardSkeleton className="h-64 w-full sm:h-72" />
-              <div className="grid grid-cols-2 gap-4 sm:grid-cols-4 lg:grid-cols-6">
-                {[0, 1, 2].map((i) => (
-                  <CardSkeleton key={i} className="col-span-2 h-64" />
-                ))}
-              </div>
-            </div>
-          )}
-
-          {posts?.length === 0 && (
-            <p className="rounded-bento border border-dashed border-line-strong bg-white p-10 text-center text-slate">
-              No posts yet, check back soon.
-            </p>
-          )}
-
-          {featured && (
-            <BentoGrid cols="grid-cols-1">
-              <BentoCard to={`/blog/${featured.slug}`} span="col-span-1" tone="surface" size="none" className="lg:flex-row">
-                <div className={cn('relative flex h-56 shrink-0 items-center justify-center bg-gradient-to-br lg:h-auto lg:w-2/5', !featured.cover_image && 'from-orange-100 via-amber-300/40 to-sand')}>
-                  {featured.cover_image ? (
-                    <img src={featured.cover_image} alt="" className="absolute inset-0 h-full w-full object-cover" />
-                  ) : (
-                    <div className="absolute inset-0 bg-dot-grid opacity-40" />
-                  )}
-                  <span className="relative rounded-full bg-white/70 px-4 py-1.5 text-sm font-semibold text-ink backdrop-blur">
-                    Featured
-                  </span>
-                </div>
-                <div className="flex flex-col justify-center gap-4 p-8 sm:p-10">
-                  <div className="flex flex-wrap items-center gap-3 text-sm text-slate">
-                    {featured.category && <span className="font-semibold text-orange-600">{featured.category}</span>}
-                    <span>By {featured.author}</span>
-                    {featured.published_at && <span>{formatDate(featured.published_at)}</span>}
-                    <span className="flex items-center gap-1"><FiClock className="h-3.5 w-3.5" /> {featured.reading_time} min</span>
-                  </div>
-                  <h2 className="font-display text-2xl font-bold text-ink sm:text-3xl">{featured.title}</h2>
-                  <p className="text-slate">{featured.excerpt}</p>
-                </div>
-              </BentoCard>
-            </BentoGrid>
-          )}
-
           {/* Controls */}
-          <div className="mt-12 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div className="flex flex-wrap gap-2">
               {['All', ...categories.map((c) => c.name)].map((cat) => (
                 <button
@@ -167,30 +114,62 @@ export default function Blog() {
             </div>
           </div>
 
-          {/* Post grid */}
-          {rest.length > 0 && (
-            <BentoGrid className="mt-8" cols="grid-cols-2 sm:grid-cols-4 lg:grid-cols-6">
-              {rest.map((post) => (
-                <BentoCard to={`/blog/${post.slug}`} key={post.slug} span="col-span-2 sm:col-span-2 lg:col-span-2" tone="surface" size="none">
-                  <div className={cn('relative h-40', !post.cover_image && 'bg-gradient-to-br from-orange-100 via-amber-300/40 to-sand')}>
+          {error && <p className="mt-12 text-center text-slate">{error}</p>}
+
+          {/* A real grid, always - never one giant card standing alone even
+              with a single post. Every post gets an equal-size cell and
+              wraps into a new row once there are more than fit the row
+              width, exactly like a news site's article grid. */}
+          {posts === null && !error && (
+            <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {[0, 1, 2].map((i) => (
+                <CardSkeleton key={i} className="h-80" />
+              ))}
+            </div>
+          )}
+
+          {posts?.length === 0 && (
+            <p className="mt-8 rounded-bento border border-dashed border-line-strong bg-white p-10 text-center text-slate">
+              No posts yet, check back soon.
+            </p>
+          )}
+
+          {posts?.length > 0 && (
+            <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {posts.map((post) => (
+                <BentoCard
+                  to={`/blog/${post.slug}`}
+                  key={post.slug}
+                  span="col-span-1"
+                  tone="surface"
+                  size="none"
+                >
+                  <div className={cn('relative h-48 shrink-0', !post.cover_image && 'bg-gradient-to-br from-orange-100 via-amber-300/40 to-sand')}>
                     {post.cover_image ? (
                       <img src={post.cover_image} alt="" className="absolute inset-0 h-full w-full object-cover" />
                     ) : (
                       <div className="absolute inset-0 bg-dot-grid opacity-40" />
                     )}
-                    {post.category && (
-                      <span className="absolute left-4 top-4 rounded-full bg-white/70 px-3 py-1 text-xs font-semibold text-ink backdrop-blur">
-                        {post.category}
-                      </span>
-                    )}
                   </div>
                   <div className="flex flex-1 flex-col gap-3 p-6">
-                    <div className="flex items-center gap-2 text-xs text-slate">
-                      <span>By {post.author}</span>
-                      <span className="flex items-center gap-1"><FiClock className="h-3 w-3" /> {post.reading_time} min</span>
+                    <div className="flex items-center justify-between text-xs font-semibold">
+                      {post.category ? (
+                        <span className="text-orange-600">{post.category}</span>
+                      ) : (
+                        <span />
+                      )}
+                      {post.is_featured && (
+                        <span className="flex items-center gap-1 text-mute">
+                          <FiBookmark className="h-3 w-3" /> Featured
+                        </span>
+                      )}
                     </div>
                     <h3 className="font-display text-lg font-bold text-ink">{post.title}</h3>
                     <p className="flex-1 text-sm text-slate">{post.excerpt}</p>
+                    <div className="flex items-center gap-2 text-xs text-mute">
+                      <span>By {post.author}</span>
+                      <span className="flex items-center gap-1"><FiClock className="h-3 w-3" /> {post.reading_time} min</span>
+                    </div>
                     {post.tags?.length > 0 && (
                       <div className="flex flex-wrap gap-1.5">
                         {post.tags.map((tag) => (
@@ -203,7 +182,7 @@ export default function Blog() {
                   </div>
                 </BentoCard>
               ))}
-            </BentoGrid>
+            </div>
           )}
         </Container>
       </Section>
