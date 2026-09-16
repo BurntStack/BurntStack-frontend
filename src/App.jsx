@@ -36,8 +36,15 @@ export default function App() {
 
   // Loads once, app-wide, so the "Free Consultation" popup works from any
   // page (Navbar, CtaBanner) without every one of them re-initializing it.
+  // Deferred via requestIdleCallback: this SDK isn't needed until someone
+  // actually clicks a booking button, so it shouldn't compete with the
+  // current page's own content/data fetches for bandwidth and main-thread
+  // time right after navigation.
   useEffect(() => {
-    initCal()
+    const idle = window.requestIdleCallback || ((cb) => setTimeout(cb, 1))
+    const cancelIdle = window.cancelIdleCallback || clearTimeout
+    const id = idle(() => initCal())
+    return () => cancelIdle(id)
   }, [])
 
   return (
