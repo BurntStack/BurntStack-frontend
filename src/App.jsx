@@ -5,9 +5,22 @@ import Layout from '@/components/layout/Layout.jsx'
 import ScrollToTop from '@/components/layout/ScrollToTop.jsx'
 import PageTransition from '@/components/layout/PageTransition.jsx'
 import { initCal } from '@/lib/cal.js'
+// Home is NOT code-split like the other pages: it's the entry point for
+// essentially every fresh visit (direct traffic, search, social), so its
+// chunk is downloaded immediately regardless - lazy-loading it bought
+// nothing and cost something real. Measured directly (Playwright's
+// PerformanceObserver, reproduced with every third-party script blocked
+// to rule those out): the Suspense fallback's tiny spinner (min-h-[60vh])
+// briefly occupied the page before the real, much taller Home content
+// swapped in, and the footer jumping from "just below a small spinner" to
+// "the bottom of the full homepage" was a single ~0.4 CLS layout shift -
+// by far the single biggest layout-stability issue on the site. Every
+// other route still lazy-loads normally: those benefit from it, and a
+// user landing there already has the app shell loaded, so any fallback
+// gap is comparatively small.
+import Home from '@/pages/Home.jsx'
 
-// Code-split every page for a small initial bundle (better Lighthouse score).
-const Home = lazy(() => import('@/pages/Home.jsx'))
+// Code-split every other page for a small initial bundle (better Lighthouse score).
 const About = lazy(() => import('@/pages/About.jsx'))
 const Services = lazy(() => import('@/pages/Services.jsx'))
 const Solutions = lazy(() => import('@/pages/Solutions.jsx'))
