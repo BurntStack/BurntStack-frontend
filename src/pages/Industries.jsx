@@ -1,4 +1,5 @@
 import Seo from '@/components/seo/Seo.jsx'
+import { buildBreadcrumbSchema } from '@/lib/schema.js'
 import PageHero from '@/components/ui/PageHero.jsx'
 import IndustriesSection from '@/sections/home/IndustriesSection.jsx'
 import CtaBanner from '@/sections/home/CtaBanner.jsx'
@@ -10,6 +11,7 @@ export default function Industries() {
         title="Industries"
         path="/industries"
         description="Software expertise across healthcare, finance, education, logistics, retail and more."
+        jsonLd={buildBreadcrumbSchema([{ name: 'Home', path: '/' }, { name: 'Industries', path: '/industries' }])}
       />
       <PageHero
         eyebrow="Industries"

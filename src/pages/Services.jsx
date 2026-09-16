@@ -1,4 +1,5 @@
 import Seo from '@/components/seo/Seo.jsx'
+import { buildBreadcrumbSchema } from '@/lib/schema.js'
 import PageHero from '@/components/ui/PageHero.jsx'
 import ServicesSection from '@/sections/home/ServicesSection.jsx'
 import ProcessSection from '@/sections/home/ProcessSection.jsx'
@@ -12,6 +13,7 @@ export default function Services() {
         title="Services"
         path="/services"
         description="End-to-end product development: web, mobile, AI, cloud, enterprise software and more."
+        jsonLd={buildBreadcrumbSchema([{ name: 'Home', path: '/' }, { name: 'Services', path: '/services' }])}
       />
       <PageHero
         eyebrow="Services"

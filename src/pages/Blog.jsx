@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react'
+import { useSearchParams } from 'react-router-dom'
 import { FiSearch, FiClock, FiBookmark } from 'react-icons/fi'
 import Seo from '@/components/seo/Seo.jsx'
+import { buildBreadcrumbSchema } from '@/lib/schema.js'
 import PageHero from '@/components/ui/PageHero.jsx'
 import Section from '@/components/ui/Section.jsx'
 import Container from '@/components/ui/Container.jsx'
@@ -21,7 +23,14 @@ export default function Blog() {
   // below - this is a cache, not a source of truth.
   const [categories, setCategories] = useState(() => readCache('blog-categories') ?? [])
   const [category, setCategory] = useState('All')
-  const [query, setQuery] = useState('')
+  // Synced with ?q= so a search is shareable/bookmarkable, and so the
+  // WebSite SearchAction in schema.js (which promises Google a working
+  // /blog?q={term} URL for the sitelinks search box) is actually true.
+  const [searchParams, setSearchParams] = useSearchParams()
+  const query = searchParams.get('q') || ''
+  const setQuery = (value) => {
+    setSearchParams(value ? { q: value } : {}, { replace: true })
+  }
   const [posts, setPosts] = useState(() => readCache('blog-posts:All:') ?? null)
   const [error, setError] = useState('')
 
@@ -75,6 +84,7 @@ export default function Blog() {
         title="Blog"
         path="/blog"
         description="Engineering, AI, cloud and design insights from the BurntStack team."
+        jsonLd={buildBreadcrumbSchema([{ name: 'Home', path: '/' }, { name: 'Blog', path: '/blog' }])}
       />
       <PageHero
         eyebrow="Blog"
@@ -146,7 +156,7 @@ export default function Blog() {
                 >
                   <div className={cn('relative h-48 shrink-0', !post.cover_image && 'bg-gradient-to-br from-orange-100 via-amber-300/40 to-sand')}>
                     {post.cover_image ? (
-                      <img src={post.cover_image} alt="" className="absolute inset-0 h-full w-full object-cover" />
+                      <img src={post.cover_image} alt={post.title} className="absolute inset-0 h-full w-full object-cover" />
                     ) : (
                       <div className="absolute inset-0 bg-dot-grid opacity-40" />
                     )}

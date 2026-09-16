@@ -10,7 +10,7 @@ export default function PageHero({ eyebrow, title, description, children }) {
       <Container>
         <BentoGrid className="pt-36 pb-12 sm:pt-44 sm:pb-16" cols="grid-cols-2 lg:grid-cols-6" stagger={0.08}>
           <BentoCard span="col-span-2 lg:col-span-4" tone="ink" hover={false} className="justify-center">
-            <BentoHeading eyebrow={eyebrow} title={title} description={description} tone="onDark" />
+            <BentoHeading as="h1" eyebrow={eyebrow} title={title} description={description} tone="onDark" />
             {children && <div className="mt-6">{children}</div>}
           </BentoCard>
 

@@ -1,7 +1,11 @@
 import { Helmet } from 'react-helmet-async'
 import { COMPANY } from '@/data/site.js'
 
-const SITE_URL = 'https://burntstack.com'
+// The actual serving domain - burntstack.com (no www) 301s here. Canonical
+// and social-share URLs must point straight at it: a canonical tag that
+// itself redirects elsewhere just adds ambiguity for Google about which
+// URL is authoritative.
+const SITE_URL = 'https://www.burntstack.com'
 const DEFAULT_IMAGE = `${SITE_URL}/og-image.png`
 
 /**
@@ -46,7 +50,12 @@ export default function Seo({
       <meta name="twitter:description" content={desc} />
       <meta name="twitter:image" content={image} />
 
-      {jsonLd && <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>}
+      {jsonLd &&
+        (Array.isArray(jsonLd) ? jsonLd : [jsonLd]).map((schema, i) => (
+          <script key={i} type="application/ld+json">
+            {JSON.stringify(schema)}
+          </script>
+        ))}
     </Helmet>
   )
 }

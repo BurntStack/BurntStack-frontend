@@ -1,5 +1,6 @@
 import Seo from '@/components/seo/Seo.jsx'
-import { COMPANY } from '@/data/site.js'
+import { FAQS } from '@/data/misc.js'
+import { buildFaqSchema, buildOrganizationSchema, buildWebsiteSchema } from '@/lib/schema.js'
 import Hero from '@/sections/home/Hero.jsx'
 import ServicesSection from '@/sections/home/ServicesSection.jsx'
 import WhyChoose from '@/sections/home/WhyChoose.jsx'
@@ -11,28 +12,17 @@ import PricingSection from '@/sections/home/PricingSection.jsx'
 import FaqSection from '@/sections/home/FaqSection.jsx'
 import CtaBanner from '@/sections/home/CtaBanner.jsx'
 
-// Organisation schema for rich results.
-const orgSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'Organization',
-  name: COMPANY.legalName,
-  url: 'https://burntstack.com',
-  email: COMPANY.email,
-  telephone: COMPANY.phone,
-  description: COMPANY.tagline,
-  address: {
-    '@type': 'PostalAddress',
-    addressLocality: COMPANY.addressLocality,
-    addressRegion: COMPANY.addressRegion,
-    postalCode: COMPANY.postalCode,
-    addressCountry: 'IN',
-  },
-}
+// One real Organization/LocalBusiness node the whole site's other schema
+// blocks reference by @id, plus the site-level search box and every FAQ
+// actually rendered on this page (FaqSection below) - so Google can offer
+// an expandable Q&A rich result for genuinely visible content, not schema
+// invented separately from the page.
+const homeSchema = [buildOrganizationSchema(), buildWebsiteSchema(), buildFaqSchema(FAQS)]
 
 export default function Home() {
   return (
     <>
-      <Seo path="/" jsonLd={orgSchema} />
+      <Seo path="/" jsonLd={homeSchema} />
       <Hero />
       <ServicesSection />
       <WhyChoose />

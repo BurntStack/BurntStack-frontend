@@ -7,6 +7,7 @@ import Section from '@/components/ui/Section.jsx'
 import Container from '@/components/ui/Container.jsx'
 import { cn } from '@/utils/cn.js'
 import api from '@/lib/axios.js'
+import { buildBlogPostingSchema, buildBreadcrumbSchema } from '@/lib/schema.js'
 
 function formatDate(iso) {
   return new Date(iso).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
@@ -67,7 +68,21 @@ export default function BlogPost() {
 
   return (
     <>
-      <Seo title={post.title} path={`/blog/${post.slug}`} description={post.excerpt} />
+      <Seo
+        title={post.title}
+        path={`/blog/${post.slug}`}
+        description={post.excerpt}
+        type="article"
+        image={post.cover_image || undefined}
+        jsonLd={[
+          buildBlogPostingSchema(post),
+          buildBreadcrumbSchema([
+            { name: 'Home', path: '/' },
+            { name: 'Blog', path: '/blog' },
+            { name: post.title, path: `/blog/${post.slug}` },
+          ]),
+        ]}
+      />
 
       <Section className="pb-0">
         <Container className="max-w-3xl">
@@ -87,7 +102,7 @@ export default function BlogPost() {
 
           {post.cover_image && (
             <div className="mt-8 overflow-hidden rounded-bento border border-line">
-              <img src={post.cover_image} alt="" className="w-full object-cover" />
+              <img src={post.cover_image} alt={post.title} className="w-full object-cover" />
             </div>
           )}
 

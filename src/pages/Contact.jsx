@@ -1,6 +1,7 @@
 import Cal from '@calcom/embed-react'
 import { FiMail, FiPhone, FiMapPin, FiCalendar } from 'react-icons/fi'
 import Seo from '@/components/seo/Seo.jsx'
+import { buildBreadcrumbSchema } from '@/lib/schema.js'
 import PageHero from '@/components/ui/PageHero.jsx'
 import Section from '@/components/ui/Section.jsx'
 import Container from '@/components/ui/Container.jsx'
@@ -15,6 +16,7 @@ export default function Contact() {
         title="Contact"
         path="/contact"
         description="Get in touch with BurntStack Technologies. Book a free consultation today."
+        jsonLd={buildBreadcrumbSchema([{ name: 'Home', path: '/' }, { name: 'Contact', path: '/contact' }])}
       />
       <PageHero
         eyebrow="Contact"

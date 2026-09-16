@@ -1,4 +1,5 @@
 import Seo from '@/components/seo/Seo.jsx'
+import { buildBreadcrumbSchema } from '@/lib/schema.js'
 import PageHero from '@/components/ui/PageHero.jsx'
 import Section from '@/components/ui/Section.jsx'
 import Container from '@/components/ui/Container.jsx'
@@ -14,6 +15,7 @@ export default function CaseStudies() {
         title="Case Studies"
         path="/case-studies"
         description="A closer look at how we approach real client work."
+        jsonLd={buildBreadcrumbSchema([{ name: 'Home', path: '/' }, { name: 'Case Studies', path: '/case-studies' }])}
       />
       <PageHero
         eyebrow="Case Studies"

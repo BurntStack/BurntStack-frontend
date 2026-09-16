@@ -92,8 +92,14 @@ export function BentoIcon({ icon: Icon, tone = 'default', className }) {
   )
 }
 
-/** Compact eyebrow + heading combo sized for a bento tile rather than a full section. */
-export function BentoHeading({ eyebrow, title, description, tone = 'default', className }) {
+/**
+ * Compact eyebrow + heading combo sized for a bento tile rather than a full
+ * section. `as` defaults to h2 (a subsection heading) - PageHero passes
+ * "h1" explicitly since it renders each inner page's *only* top-level
+ * heading, and every one of those pages was otherwise missing an h1
+ * entirely (a real, sitewide on-page SEO gap, not a style nitpick).
+ */
+export function BentoHeading({ eyebrow, title, description, tone = 'default', as: Tag = 'h2', className }) {
   const isDark = tone === 'onDark' || tone === 'onBrand'
   return (
     <div className={cn('flex flex-col gap-3', className)}>
@@ -110,7 +116,7 @@ export function BentoHeading({ eyebrow, title, description, tone = 'default', cl
           </span>
         </span>
       )}
-      <h2 className={cn('t-h2 font-bold', isDark ? 'text-white' : 'text-ink')}>{title}</h2>
+      <Tag className={cn('t-h2 font-bold', isDark ? 'text-white' : 'text-ink')}>{title}</Tag>
       {description && (
         <p className={cn('t-lead max-w-xl', isDark ? 'text-white/70' : 'text-slate')}>{description}</p>
       )}

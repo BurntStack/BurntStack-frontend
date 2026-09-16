@@ -1,6 +1,7 @@
 import { FiArrowUpRight } from 'react-icons/fi'
 import { FaLayerGroup, FaRobot, FaCartShopping, FaChartLine, FaMobileScreen, FaCloud } from 'react-icons/fa6'
 import Seo from '@/components/seo/Seo.jsx'
+import { buildBreadcrumbSchema } from '@/lib/schema.js'
 import PageHero from '@/components/ui/PageHero.jsx'
 import Section from '@/components/ui/Section.jsx'
 import Container from '@/components/ui/Container.jsx'
@@ -32,6 +33,7 @@ export default function Solutions() {
         title="Solutions"
         path="/solutions"
         description="Tailored solutions: SaaS, AI copilots, commerce, data, mobile and cloud modernisation."
+        jsonLd={buildBreadcrumbSchema([{ name: 'Home', path: '/' }, { name: 'Solutions', path: '/solutions' }])}
       />
       <PageHero
         eyebrow="Solutions"

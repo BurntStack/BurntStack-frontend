@@ -1,4 +1,5 @@
 import Seo from '@/components/seo/Seo.jsx'
+import { buildBreadcrumbSchema } from '@/lib/schema.js'
 import PageHero from '@/components/ui/PageHero.jsx'
 import Section from '@/components/ui/Section.jsx'
 import Container from '@/components/ui/Container.jsx'
@@ -14,6 +15,7 @@ export default function Portfolio() {
         title="Portfolio"
         path="/portfolio"
         description="A selection of the products and platforms we’ve designed and engineered for our clients."
+        jsonLd={buildBreadcrumbSchema([{ name: 'Home', path: '/' }, { name: 'Portfolio', path: '/portfolio' }])}
       />
       <PageHero
         eyebrow="Portfolio"

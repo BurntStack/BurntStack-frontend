@@ -1,5 +1,6 @@
 import { FiTarget, FiEye, FiHeart } from 'react-icons/fi'
 import Seo from '@/components/seo/Seo.jsx'
+import { buildBreadcrumbSchema } from '@/lib/schema.js'
 import PageHero from '@/components/ui/PageHero.jsx'
 import Section from '@/components/ui/Section.jsx'
 import Container from '@/components/ui/Container.jsx'
@@ -21,6 +22,7 @@ export default function About() {
         title="About Us"
         path="/about"
         description="BurntStack Technologies is a product studio building software that powers businesses."
+        jsonLd={buildBreadcrumbSchema([{ name: 'Home', path: '/' }, { name: 'About', path: '/about' }])}
       />
       <PageHero
         eyebrow="About Us"

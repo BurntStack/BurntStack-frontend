@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { FiMapPin, FiBriefcase, FiCheck } from 'react-icons/fi'
 import Seo from '@/components/seo/Seo.jsx'
+import { buildBreadcrumbSchema } from '@/lib/schema.js'
 import PageHero from '@/components/ui/PageHero.jsx'
 import Section from '@/components/ui/Section.jsx'
 import Container from '@/components/ui/Container.jsx'
@@ -19,6 +20,7 @@ export default function Careers() {
         title="Careers"
         path="/careers"
         description="Join BurntStack Technologies and build great software with a remote-first team."
+        jsonLd={buildBreadcrumbSchema([{ name: 'Home', path: '/' }, { name: 'Careers', path: '/careers' }])}
       />
       <PageHero
         eyebrow="Careers"

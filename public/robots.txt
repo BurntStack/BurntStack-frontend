@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://burntstack.com/sitemap.xml
+Sitemap: https://www.burntstack.com/sitemap.xml

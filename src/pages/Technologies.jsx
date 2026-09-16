@@ -1,4 +1,5 @@
 import Seo from '@/components/seo/Seo.jsx'
+import { buildBreadcrumbSchema } from '@/lib/schema.js'
 import PageHero from '@/components/ui/PageHero.jsx'
 import TechnologiesSection from '@/sections/home/TechnologiesSection.jsx'
 import CtaBanner from '@/sections/home/CtaBanner.jsx'
@@ -10,6 +11,7 @@ export default function Technologies() {
         title="Technologies"
         path="/technologies"
         description="The modern stack we use to ship fast, reliable software: React, Django, PostgreSQL, AWS, AI and more."
+        jsonLd={buildBreadcrumbSchema([{ name: 'Home', path: '/' }, { name: 'Technologies', path: '/technologies' }])}
       />
       <PageHero
         eyebrow="Technologies"
