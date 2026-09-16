@@ -8,7 +8,7 @@ export default function PageHero({ eyebrow, title, description, children }) {
     <section className="relative overflow-hidden border-b border-line">
       <BackgroundFX />
       <Container>
-        <BentoGrid className="pt-36 pb-12 sm:pt-44 sm:pb-16" cols="grid-cols-2 lg:grid-cols-6" stagger={0.08}>
+        <BentoGrid className="pt-36 pb-12 sm:pt-44 sm:pb-16" cols="grid-cols-2 lg:grid-cols-6" stagger={0.08} revealOnScroll={false}>
           <BentoCard span="col-span-2 lg:col-span-4" tone="ink" hover={false} className="justify-center">
             <BentoHeading as="h1" eyebrow={eyebrow} title={title} description={description} tone="onDark" />
             {children && <div className="mt-6">{children}</div>}

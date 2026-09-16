@@ -16,15 +16,25 @@ const TONES = {
   brand: 'border-orange-600 bg-gradient-to-br from-orange-500 to-orange-600 text-white hover:brightness-[1.04]',
 }
 
-/** Animated 6-col (desktop) / 4-col (tablet) / 2-col (mobile) grid. */
-export function BentoGrid({ children, className, cols = 'grid-cols-2 sm:grid-cols-4 lg:grid-cols-6', align = 'stretch', stagger = 0.07, as = 'div', ...props }) {
+/**
+ * Animated 6-col (desktop) / 4-col (tablet) / 2-col (mobile) grid.
+ *
+ * `revealOnScroll` (default true) is the scroll-into-view fade/stagger.
+ * Pass `false` for anything above the fold (Hero, PageHero): that content
+ * is already in the viewport on load, so "reveal on scroll" just adds an
+ * IntersectionObserver round-trip before it's allowed to be visible at
+ * all. Measured with Lighthouse: this was directly responsible for
+ * multi-second LCP "Render Delay" on the homepage hero, stacked on top of
+ * PageTransition's own entrance animation gating the same paint.
+ */
+export function BentoGrid({ children, className, cols = 'grid-cols-2 sm:grid-cols-4 lg:grid-cols-6', align = 'stretch', stagger = 0.07, as = 'div', revealOnScroll = true, ...props }) {
   const Tag = motion[as] || motion.div
+  const revealProps = revealOnScroll
+    ? { variants: staggerContainer(stagger), initial: 'hidden', whileInView: 'show', viewport: viewportOnce }
+    : { variants: staggerContainer(stagger), initial: 'show', animate: 'show' }
   return (
     <Tag
-      variants={staggerContainer(stagger)}
-      initial="hidden"
-      whileInView="show"
-      viewport={viewportOnce}
+      {...revealProps}
       className={cn('grid auto-rows-[minmax(0,auto)] gap-4 sm:gap-5', align === 'start' ? 'items-start' : 'items-stretch', cols, className)}
       {...props}
     >

@@ -8,13 +8,16 @@ import { cn } from '@/utils/cn.js'
  */
 export function LogoMark({ className }) {
   return (
-    <img
-      src="/logo-mark.png"
-      alt=""
-      className={cn('object-contain', className)}
-      width={256}
-      height={256}
-    />
+    <picture>
+      <source srcSet="/logo-mark.webp" type="image/webp" />
+      <img
+        src="/logo-mark.png"
+        alt=""
+        className={cn('object-contain', className)}
+        width={168}
+        height={168}
+      />
+    </picture>
   )
 }
 
