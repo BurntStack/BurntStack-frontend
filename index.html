@@ -21,11 +21,27 @@
       name="description"
       content="BurntStack Technologies builds websites, mobile apps, AI solutions, cloud platforms, and enterprise software that help businesses grow faster."
     />
+    <!-- Fonts loaded non-blocking (preload + swap-to-stylesheet on load):
+         this was a plain render-blocking <link rel="stylesheet">, and the
+         page's actual data fetch (see Blog.jsx) consistently didn't fire
+         until right around when these fonts finished loading - the browser
+         was gating rendering/commit work behind this stylesheet the whole
+         time. font-display: swap (already in the URL) means text still
+         paints immediately with a fallback font either way. -->
     <link rel="preconnect" href="https://api.fontshare.com" crossorigin />
+    <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin />
     <link
+      rel="preload"
+      as="style"
       href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,600,700,900&f[]=general-sans@500,600,700&display=swap"
-      rel="stylesheet"
+      onload="this.onload=null;this.rel='stylesheet'"
     />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,600,700,900&f[]=general-sans@500,600,700&display=swap"
+      />
+    </noscript>
     <title>BurntStack Technologies — Building Software That Powers Businesses</title>
   </head>
   <body>
