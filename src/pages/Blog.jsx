@@ -7,20 +7,36 @@ import Container from '@/components/ui/Container.jsx'
 import { cn } from '@/utils/cn.js'
 import { BentoGrid, BentoCard } from '@/components/ui/Bento.jsx'
 import api from '@/lib/axios.js'
+import { readCache, writeCache } from '@/lib/sessionCache.js'
 
 function formatDate(iso) {
   return new Date(iso).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
 }
 
+function CardSkeleton({ className }) {
+  return <div className={cn('animate-pulse rounded-bento border border-line bg-sand/60', className)} />
+}
+
 export default function Blog() {
-  const [categories, setCategories] = useState([])
+  // Seeded from sessionStorage so a repeat visit this session (or coming
+  // back from a post) renders instantly with the last known data instead
+  // of blanking out and re-showing a loading state for a network round
+  // trip that already happened once. Still revalidates in the background
+  // below - this is a cache, not a source of truth.
+  const [categories, setCategories] = useState(() => readCache('blog-categories') ?? [])
   const [category, setCategory] = useState('All')
   const [query, setQuery] = useState('')
-  const [posts, setPosts] = useState(null)
+  const [posts, setPosts] = useState(() => readCache('blog-posts:All:') ?? null)
   const [error, setError] = useState('')
 
   useEffect(() => {
-    api.get('/blog/categories/').then(({ data }) => setCategories(data)).catch(() => {})
+    api
+      .get('/blog/categories/')
+      .then(({ data }) => {
+        setCategories(data)
+        writeCache('blog-categories', data)
+      })
+      .catch(() => {})
   }, [])
 
   useEffect(() => {
@@ -28,13 +44,21 @@ export default function Blog() {
     const selected = categories.find((c) => c.name === category)
     if (selected) params.category__slug = selected.slug
     if (query) params.search = query
+    const cacheKey = `blog-posts:${category}:${query}`
+
+    const cached = readCache(cacheKey)
+    if (cached) setPosts(cached)
 
     const controller = new AbortController()
     api
       .get('/blog/', { params, signal: controller.signal })
-      .then(({ data }) => setPosts(data.results ?? data))
+      .then(({ data }) => {
+        const results = data.results ?? data
+        setPosts(results)
+        writeCache(cacheKey, results)
+      })
       .catch((err) => {
-        if (err.name !== 'CanceledError') setError('Could not load posts right now.')
+        if (err.name !== 'CanceledError' && !cached) setError('Could not load posts right now.')
       })
     return () => controller.abort()
     // Deliberately excludes `categories`: a user can't select a real
@@ -68,7 +92,17 @@ export default function Blog() {
       <Section className="pt-0">
         <Container>
           {error && <p className="text-center text-slate">{error}</p>}
-          {posts === null && !error && <p className="text-center text-slate">Loading posts…</p>}
+
+          {posts === null && !error && (
+            <div className="flex flex-col gap-8">
+              <CardSkeleton className="h-64 w-full sm:h-72" />
+              <div className="grid grid-cols-2 gap-4 sm:grid-cols-4 lg:grid-cols-6">
+                {[0, 1, 2].map((i) => (
+                  <CardSkeleton key={i} className="col-span-2 h-64" />
+                ))}
+              </div>
+            </div>
+          )}
 
           {posts?.length === 0 && (
             <p className="rounded-bento border border-dashed border-line-strong bg-white p-10 text-center text-slate">
