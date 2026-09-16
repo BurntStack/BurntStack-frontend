@@ -6,19 +6,10 @@ import {
   FaGithub,
 } from 'react-icons/fa6'
 
-export const COMPANY = {
-  name: 'BurntStack Technologies',
-  shortName: 'BurntStack',
-  legalName: 'BurntStack Technologies Private Limited',
-  tagline: 'Building Software That Powers Businesses',
-  email: 'hello@burntstack.com',
-  phone: '+91 79816 72639',
-  address: 'Stambampalle, Khila Warangal Mandal, Warangal, Telangana 506013, India',
-  mapQuery: '17.966963,79.628964',
-  addressLocality: 'Warangal',
-  addressRegion: 'Telangana',
-  postalCode: '506013',
-}
+// Re-exported so every existing `import { COMPANY } from '@/data/site.js'`
+// keeps working unchanged - see data/company.js for why the data itself
+// lives there instead of here.
+export { COMPANY } from './company.js'
 
 // Primary navigation shown in the navbar.
 export const NAV_LINKS = [

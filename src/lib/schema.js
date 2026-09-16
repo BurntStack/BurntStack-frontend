@@ -1,4 +1,4 @@
-import { COMPANY } from '@/data/site.js'
+import { COMPANY } from '@/data/company.js'
 
 const SITE_URL = 'https://www.burntstack.com'
 const LOGO_URL = `${SITE_URL}/logo-mark.png`
