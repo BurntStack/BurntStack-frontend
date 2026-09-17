@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useSearchParams } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 import { FiSearch, FiClock, FiBookmark } from 'react-icons/fi'
 import Seo from '@/components/seo/Seo.jsx'
 import { buildBreadcrumbSchema } from '@/lib/schema.js'
@@ -7,7 +7,8 @@ import PageHero from '@/components/ui/PageHero.jsx'
 import Section from '@/components/ui/Section.jsx'
 import Container from '@/components/ui/Container.jsx'
 import { cn } from '@/utils/cn.js'
-import { BentoCard } from '@/components/ui/Bento.jsx'
+import { motion } from 'framer-motion'
+import { fadeInUp } from '@/lib/motion.js'
 import api from '@/lib/axios.js'
 import { readCache, writeCache } from '@/lib/sessionCache.js'
 
@@ -131,7 +132,7 @@ export default function Blog() {
               wraps into a new row once there are more than fit the row
               width, exactly like a news site's article grid. */}
           {posts === null && !error && (
-            <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="mt-10 grid grid-cols-1 gap-x-10 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
               {[0, 1, 2].map((i) => (
                 <CardSkeleton key={i} className="h-80" />
               ))}
@@ -145,23 +146,21 @@ export default function Blog() {
           )}
 
           {posts?.length > 0 && (
-            <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="mt-10 grid grid-cols-1 gap-x-10 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
               {posts.map((post) => (
-                <BentoCard
-                  to={`/blog/${post.slug}`}
-                  key={post.slug}
-                  span="col-span-1"
-                  tone="surface"
-                  size="none"
-                >
-                  <div className={cn('relative h-48 shrink-0', !post.cover_image && 'bg-gradient-to-br from-orange-100 via-amber-300/40 to-sand')}>
+                <motion.div variants={fadeInUp} key={post.slug}>
+                  <Link
+                    to={`/blog/${post.slug}`}
+                    className="group flex h-full flex-col border-t border-line pt-5 transition-colors duration-300 hover:border-orange-400"
+                  >
+                  <div className={cn('relative h-44 shrink-0 overflow-hidden rounded-sm', !post.cover_image && 'bg-gradient-to-br from-orange-100 via-amber-300/40 to-sand')}>
                     {post.cover_image ? (
-                      <img src={post.cover_image} alt={post.title} className="absolute inset-0 h-full w-full object-cover" />
+                      <img src={post.cover_image} alt={post.title} className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
                     ) : (
                       <div className="absolute inset-0 bg-dot-grid opacity-40" />
                     )}
                   </div>
-                  <div className="flex flex-1 flex-col gap-3 p-6">
+                  <div className="flex flex-1 flex-col gap-3 pt-5">
                     <div className="flex items-center justify-between text-xs font-semibold">
                       {post.category ? (
                         <span className="text-orange-600">{post.category}</span>
@@ -174,7 +173,7 @@ export default function Blog() {
                         </span>
                       )}
                     </div>
-                    <h3 className="font-display text-lg font-bold text-ink">{post.title}</h3>
+                    <h3 className="font-display text-xl font-bold tracking-[-0.02em] text-ink transition-colors duration-300 group-hover:text-orange-600">{post.title}</h3>
                     <p className="flex-1 text-sm text-slate">{post.excerpt}</p>
                     <div className="flex items-center gap-2 text-xs text-mute">
                       <span>By {post.author}</span>
@@ -190,7 +189,8 @@ export default function Blog() {
                       </div>
                     )}
                   </div>
-                </BentoCard>
+                  </Link>
+                </motion.div>
               ))}
             </div>
           )}
