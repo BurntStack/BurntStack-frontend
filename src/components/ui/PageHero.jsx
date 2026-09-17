@@ -1,62 +1,65 @@
+import { motion } from 'framer-motion'
 import { FiArrowRight } from 'react-icons/fi'
 import Container from './Container.jsx'
 import Button from './Button.jsx'
-import BackgroundFX from './BackgroundFX.jsx'
-import { BentoGrid, BentoCard, BentoHeading } from './Bento.jsx'
+import { fadeInUp, staggerContainer } from '@/lib/motion.js'
+import { cn } from '@/utils/cn.js'
 
 /**
- * Shared bento header for the remaining inner pages (work, blog, contact,
- * legal). The side tile used to be a "2026 / Founded this year" stat -
- * that claim is gone from the site entirely, and a quote CTA is a far
- * better use of the most valuable tile on an inner page anyway.
+ * Header for the supporting routes (work, blog, contact, legal).
  *
- * `aside={false}` drops the side tile and lets the heading run full width,
- * which suits the legal pages where a sales CTA would be out of place.
+ * Matches the landing page's editorial bands: a tracked label, an oversized
+ * uppercase title with a serif italic accent, and a rule closing the block -
+ * no tiles. `aside={false}` drops the quote CTA for the legal pages, where
+ * a sales prompt would be out of place.
  */
-export default function PageHero({ eyebrow, title, description, aside = true, children }) {
+export default function PageHero({ eyebrow, title, accent, description, aside = true, children }) {
   return (
-    <section className="relative overflow-hidden border-b border-line">
-      <BackgroundFX />
-      <Container>
-        <BentoGrid
-          className="pt-36 pb-12 sm:pt-44 sm:pb-16"
-          cols="grid-cols-2 lg:grid-cols-6"
-          stagger={0.08}
-          revealOnScroll={false}
-        >
-          <BentoCard
-            span={aside ? 'col-span-2 lg:col-span-4' : 'col-span-2 lg:col-span-6'}
-            tone="ink"
-            hover={false}
-            className="justify-center"
-          >
-            <BentoHeading as="h1" eyebrow={eyebrow} title={title} description={description} tone="onDark" />
-            {children && <div className="mt-6">{children}</div>}
-          </BentoCard>
-
-          {aside && (
-            <BentoCard
-              span="col-span-2 lg:col-span-2"
-              tone="brand"
-              hover={false}
-              className="justify-center gap-3"
-            >
-              <p className="font-display text-xl font-bold text-white">
-                Know what you need? Get a fixed quote.
-              </p>
-              <p className="text-sm text-white/80">
-                A free 15-minute call, then a written price. No obligation either way.
-              </p>
-              <Button
-                to="/#quote"
-                variant="secondary"
-                className="mt-1 w-fit border-transparent bg-white text-ink hover:bg-white/90"
-              >
-                Get my quote <FiArrowRight className="h-4 w-4" />
-              </Button>
-            </BentoCard>
+    <section className="relative w-full overflow-hidden border-b border-line bg-canvas pt-32 pb-14 sm:pt-40 sm:pb-20">
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -right-1/4 -top-1/2 h-[30rem] w-[30rem] rounded-full opacity-40 blur-3xl"
+        style={{
+          background:
+            'radial-gradient(circle, color-mix(in oklab, var(--color-orange-300) 50%, transparent) 0%, transparent 70%)',
+        }}
+      />
+      <Container className="relative">
+        <motion.div variants={staggerContainer(0.08)} initial="show" animate="show">
+          {eyebrow && (
+            <motion.div variants={fadeInUp} className="t-label flex items-center gap-3 text-orange-600">
+              <span className="h-px w-8 bg-orange-500/60" />
+              {eyebrow}
+            </motion.div>
           )}
-        </BentoGrid>
+
+          <motion.h1 variants={fadeInUp} className={cn('t-editorial mt-6 max-w-[16ch] text-ink')}>
+            {title}
+            {accent && (
+              <>
+                <br />
+                <span className="t-accent text-orange-600">{accent}</span>
+              </>
+            )}
+          </motion.h1>
+
+          {(description || aside || children) && (
+            <motion.div
+              variants={fadeInUp}
+              className="mt-10 grid gap-8 border-t border-line pt-8 md:grid-cols-[minmax(0,1fr)_auto] md:items-end"
+            >
+              <div>
+                {description && <p className="max-w-xl text-lg text-slate">{description}</p>}
+                {children && <div className="mt-6">{children}</div>}
+              </div>
+              {aside && (
+                <Button to="/#quote" size="lg" className="w-fit shrink-0">
+                  Get my quote <FiArrowRight className="h-4 w-4" />
+                </Button>
+              )}
+            </motion.div>
+          )}
+        </motion.div>
       </Container>
     </section>
   )

@@ -1,73 +1,76 @@
+import { motion } from 'framer-motion'
 import { FiExternalLink, FiGithub, FiArrowUpRight } from 'react-icons/fi'
 import { cn } from '@/utils/cn.js'
-import { BentoCard } from '@/components/ui/Bento.jsx'
+import { fadeInUp } from '@/lib/motion.js'
 
-/** Case-study bento tile with a full-bleed gradient cover and a details body. */
-export default function ProjectCard({ project, span = 'col-span-2 lg:col-span-3', coverHeight = 'h-48' }) {
-  const { name, category, gradient, tech, blurb, problem, solution, results, liveUrl, githubUrl } = project
-  const hasDetails = problem || solution || results
+/**
+ * A project as a full-width editorial entry: oversized name, details in a
+ * readable column, cover as a wide band alongside. Replaces the bordered
+ * bento tile, which boxed a case study into the same visual container as a
+ * two-line service blurb.
+ */
+export default function ProjectCard({ project, coverHeight = 'h-56' }) {
+  const { name, category, gradient, tech, blurb, problem, solution, results, liveUrl, githubUrl } =
+    project
+  const details = [
+    ['Problem', problem],
+    ['Solution', solution],
+    ['Results', results],
+  ].filter(([, v]) => v)
 
   return (
-    <BentoCard span={span} tone="surface" size="none">
-      {/* Cover */}
-      <div className={cn('relative overflow-hidden bg-gradient-to-br', coverHeight, gradient)}>
-        <div className="absolute inset-0 bg-dot-grid opacity-40" />
-        <span className="absolute left-5 top-5 rounded-full bg-white/70 px-3 py-1 text-xs font-semibold text-ink backdrop-blur">
-          {category}
-        </span>
-        <div className="absolute inset-0 flex items-center justify-center">
-          <span className="font-display text-2xl font-extrabold tracking-tight text-ink/85 transition-transform duration-500 group-hover:scale-105">
-            {name}
-          </span>
-        </div>
-      </div>
+    <motion.article
+      variants={fadeInUp}
+      className="group grid gap-8 border-b border-line py-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,20rem)] lg:gap-16"
+    >
+      <div>
+        <span className="t-label text-mute">{category}</span>
+        <h2 className="t-editorial-sm mt-4 text-ink transition-colors duration-300 group-hover:text-orange-600">
+          {name}
+        </h2>
 
-      {/* Body */}
-      <div className="flex flex-1 flex-col gap-4 p-6 sm:p-7">
+        {blurb && <p className="mt-5 max-w-xl text-lg leading-relaxed text-slate">{blurb}</p>}
+
+        {details.length > 0 && (
+          <dl className="mt-8 space-y-5 border-t border-line pt-6">
+            {details.map(([term, value]) => (
+              <div key={term} className="grid gap-1 sm:grid-cols-[7rem_minmax(0,1fr)] sm:gap-6">
+                <dt
+                  className={cn(
+                    't-label',
+                    term === 'Results' ? 'text-orange-600' : 'text-mute',
+                  )}
+                >
+                  {term}
+                </dt>
+                <dd className="text-slate">{value}</dd>
+              </div>
+            ))}
+          </dl>
+        )}
+
         {tech?.length > 0 && (
-          <div className="flex flex-wrap gap-2">
+          <div className="mt-6 flex flex-wrap gap-2">
             {tech.map((t) => (
-              <span key={t} className="rounded-full border border-line bg-sand px-2.5 py-1 text-xs font-medium text-slate">
+              <span
+                key={t}
+                className="rounded-full border border-line bg-sand px-3 py-1 text-xs font-medium text-slate"
+              >
                 {t}
               </span>
             ))}
           </div>
         )}
 
-        {blurb && <p className="text-sm text-slate">{blurb}</p>}
-
-        {hasDetails && (
-          <dl className="space-y-2.5 text-sm">
-            {problem && (
-              <div>
-                <dt className="font-semibold text-ink">Problem</dt>
-                <dd className="text-slate">{problem}</dd>
-              </div>
-            )}
-            {solution && (
-              <div>
-                <dt className="font-semibold text-ink">Solution</dt>
-                <dd className="text-slate">{solution}</dd>
-              </div>
-            )}
-            {results && (
-              <div>
-                <dt className="font-semibold text-orange-600">Results</dt>
-                <dd className="text-slate">{results}</dd>
-              </div>
-            )}
-          </dl>
-        )}
-
-        <div className="mt-auto flex items-center gap-3 border-t border-line pt-4">
+        <div className="mt-8 flex items-center gap-6">
           {liveUrl && (
             <a
               href={liveUrl}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-1.5 text-sm font-semibold text-orange-600 hover:gap-2"
+              className="inline-flex items-center gap-2 text-sm font-semibold text-orange-600 transition-colors hover:text-orange-700"
             >
-              Live Demo <FiExternalLink className="h-4 w-4" />
+              Visit the live site <FiExternalLink className="h-4 w-4" />
             </a>
           )}
           {githubUrl && (
@@ -75,15 +78,24 @@ export default function ProjectCard({ project, span = 'col-span-2 lg:col-span-3'
               href={githubUrl}
               target="_blank"
               rel="noreferrer"
-              aria-label="View source on GitHub"
-              className="inline-flex items-center gap-1.5 text-sm font-medium text-slate hover:text-ink"
+              className="inline-flex items-center gap-2 text-sm font-medium text-slate transition-colors hover:text-ink"
             >
               <FiGithub className="h-4 w-4" /> Code
             </a>
           )}
-          <FiArrowUpRight className="ml-auto h-5 w-5 text-slate transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-orange-600" />
+          <FiArrowUpRight className="ml-auto h-5 w-5 text-mute transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-orange-600" />
         </div>
       </div>
-    </BentoCard>
+
+      <div
+        className={cn(
+          'relative w-full overflow-hidden rounded-sm bg-gradient-to-br transition-transform duration-500 group-hover:scale-[1.02]',
+          coverHeight,
+          gradient,
+        )}
+      >
+        <div className="absolute inset-0 bg-dot-grid opacity-40" />
+      </div>
+    </motion.article>
   )
 }

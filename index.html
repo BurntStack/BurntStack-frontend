@@ -42,6 +42,25 @@
         href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,600,700,900&f[]=general-sans@500,600,700&display=swap"
       />
     </noscript>
+    <!-- One serif, italic only, for the accent phrase in section headings.
+         A third family is a deliberate exception to the two-family rule:
+         the editorial direction needs the serif/sans contrast, and this is
+         a single 400-italic face rather than a full family. Loaded the same
+         non-blocking way as the rest. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@1&display=swap"
+      onload="this.onload=null;this.rel='stylesheet'"
+    />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@1&display=swap"
+      />
+    </noscript>
     <title>BurntStack Technologies — Building Software That Powers Businesses</title>
   </head>
   <body>
