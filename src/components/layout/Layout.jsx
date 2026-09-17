@@ -4,6 +4,7 @@ import Navbar from './Navbar.jsx'
 import Footer from './Footer.jsx'
 import FloatingActions from './FloatingActions.jsx'
 import LeadPopup from './LeadPopup.jsx'
+import ChatWidget from '@/components/chat/ChatWidget.jsx'
 
 /** App shell: smooth scroll, scroll-progress bar, navbar, page content, footer. */
 export default function Layout({ children }) {
@@ -32,6 +33,7 @@ export default function Layout({ children }) {
       </main>
       <Footer />
       <FloatingActions />
+      <ChatWidget />
       <LeadPopup />
     </div>
   )
