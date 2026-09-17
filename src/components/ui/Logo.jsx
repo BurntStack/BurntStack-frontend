@@ -8,12 +8,17 @@ import { cn } from '@/utils/cn.js'
  */
 export function LogoMark({ className }) {
   return (
-    <picture>
+    // The sizing classes go on <picture>, not on the <img>: <picture> is
+    // the flex child inside the header row, and with the sizing one level
+    // down it had nothing to stop it shrinking. On a 320px screen - once
+    // the header also had to fit the "Quote" CTA - it collapsed to zero
+    // width and the mark disappeared entirely, leaving a bare wordmark.
+    <picture className={cn('block shrink-0', className)}>
       <source srcSet="/logo-mark.webp" type="image/webp" />
       <img
         src="/logo-mark.png"
         alt=""
-        className={cn('object-contain', className)}
+        className="h-full w-full object-contain"
         width={168}
         height={168}
       />

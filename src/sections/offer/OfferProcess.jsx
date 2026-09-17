@@ -2,24 +2,30 @@ import Section from '@/components/ui/Section.jsx'
 import Container from '@/components/ui/Container.jsx'
 import SectionHeading from '@/components/ui/SectionHeading.jsx'
 import { BentoGrid, BentoCard } from '@/components/ui/Bento.jsx'
-import { PROCESS } from '@/data/misc.js'
+import { OFFER_STEPS } from '@/data/offer.js'
 
-export default function ProcessSection() {
-  const steps = PROCESS.slice(0, -1)
-  const last = PROCESS.at(-1)
+/**
+ * Five steps, down from the seven-stage agency process the old homepage
+ * ran. The point here is to remove the "what am I signing up for?" doubt
+ * right before the pricing section, not to document a methodology.
+ */
+export default function OfferProcess() {
+  const steps = OFFER_STEPS.slice(0, -1)
+  const last = OFFER_STEPS.at(-1)
 
   return (
-    <Section className="bg-ivory">
+    <Section id="process" className="bg-ivory">
       <Container>
         <SectionHeading
-          eyebrow="How We Work"
-          title="A proven path to launch"
-          description="A transparent, repeatable process that de-risks delivery and keeps you in the loop at every step."
+          eyebrow="How it works"
+          title="Five steps, no surprises"
+          description="You know the price before we start and you see the design before we build. That is the whole process."
+          align="left"
         />
 
-        <BentoGrid className="mt-14" cols="grid-cols-2 lg:grid-cols-6">
+        <BentoGrid className="mt-12" cols="grid-cols-2 lg:grid-cols-8">
           {steps.map(({ step, title, description }) => (
-            <BentoCard key={step} span="col-span-2 sm:col-span-2 lg:col-span-2" tone="surface" size="sm">
+            <BentoCard key={step} span="col-span-2 lg:col-span-2" tone="surface" size="sm">
               <span className="font-display text-3xl font-extrabold text-orange-500/25 transition-colors duration-300 group-hover:text-orange-500/60">
                 {step}
               </span>
@@ -29,7 +35,7 @@ export default function ProcessSection() {
           ))}
 
           <BentoCard
-            span="col-span-2 lg:col-span-6"
+            span="col-span-2 lg:col-span-8"
             tone="ink"
             hover={false}
             className="items-start gap-4 sm:flex-row sm:items-center sm:gap-6"

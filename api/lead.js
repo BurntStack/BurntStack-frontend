@@ -3,7 +3,11 @@
 // allowed to call Resend, since the key can send email as this account.
 import { buildLeadEmailHtml } from './_lead-email.js'
 
-const NOTIFY_TO = 'rohith@burntstack.com'
+// Single inbox for every enquiry the site produces, matching the address
+// published on the page (data/company.js) - a lead notification that
+// arrives somewhere other than the address customers are told to write to
+// is how replies get missed.
+const NOTIFY_TO = 'socials@burntstack.com'
 const FROM = 'BurntStack Leads <onboarding@resend.dev>'
 
 function escapeHtml(value) {
@@ -20,7 +24,7 @@ export default async function handler(req, res) {
     return
   }
 
-  const { name, email, phone, message, website } = req.body || {}
+  const { name, email, phone, plan, message, website } = req.body || {}
 
   // Honeypot: a real visitor never fills this hidden field in.
   if (website) {
@@ -54,11 +58,15 @@ export default async function handler(req, res) {
         from: FROM,
         to: [NOTIFY_TO],
         reply_to: email,
-        subject: `New site lead: ${name}`,
+        subject: plan ? `New lead (${plan}): ${name}` : `New site lead: ${name}`,
         html: buildLeadEmailHtml({
           name: escapeHtml(name),
           email: escapeHtml(email),
           phone: phone ? escapeHtml(phone) : '',
+          // Which package they were looking at when they asked. The old
+          // "Request a Quote" buttons all pointed at /contact and threw
+          // this away, so every lead arrived with no idea of budget.
+          plan: plan ? escapeHtml(plan) : '',
           message: message ? escapeHtml(message) : '',
         }),
       }),

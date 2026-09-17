@@ -80,6 +80,10 @@
   --shadow-glow: 0 20px 48px -20px rgba(224, 102, 26, 0.35);
 
   --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* Below Tailwind's smallest default (sm=640px): the navbar has to fit a
+     logo, a CTA and a menu button on a 320px screen. */
+  --breakpoint-xs: 26rem; /* 416px */
 }
 
 /* ------------------------------------------------------------------ */

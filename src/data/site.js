@@ -11,17 +11,19 @@ import {
 // lives there instead of here.
 export { COMPANY } from './company.js'
 
-// Primary navigation shown in the navbar.
+/**
+ * Primary navigation. The site is one offer landing page plus a handful of
+ * supporting routes, so most of these are in-page sections rather than
+ * separate pages. The `/#id` form works from any route - ScrollToTop
+ * honours the hash on arrival, and Lenis handles it when we're already on
+ * the homepage.
+ */
 export const NAV_LINKS = [
-  { label: 'Home', to: '/' },
-  { label: 'About', to: '/about' },
-  { label: 'Services', to: '/services' },
-  { label: 'Solutions', to: '/solutions' },
-  { label: 'Technologies', to: '/technologies' },
-  { label: 'Portfolio', to: '/portfolio' },
-  { label: 'Industries', to: '/industries' },
+  { label: 'What we do', to: '/#services' },
+  { label: 'Our work', to: '/portfolio' },
+  { label: 'Pricing', to: '/#pricing' },
+  { label: 'How it works', to: '/#process' },
   { label: 'Blog', to: '/blog' },
-  { label: 'Careers', to: '/careers' },
   { label: 'Contact', to: '/contact' },
 ]
 
@@ -34,25 +36,22 @@ export const SOCIALS = [
 ]
 
 export const FOOTER_LINKS = {
-  Services: [
-    { label: 'Web Development', to: '/services' },
-    { label: 'Mobile Apps', to: '/services' },
-    { label: 'AI & Machine Learning', to: '/services' },
-    { label: 'Cloud Solutions', to: '/services' },
-    { label: 'Enterprise Software', to: '/services' },
+  'What we do': [
+    { label: 'Business websites', to: '/#services' },
+    { label: 'Online stores', to: '/#services' },
+    { label: 'WhatsApp lead pipeline', to: '/#services' },
+    { label: 'SEO & Google setup', to: '/#services' },
   ],
   Company: [
-    { label: 'About Us', to: '/about' },
-    { label: 'Portfolio', to: '/portfolio' },
-    { label: 'Case Studies', to: '/case-studies' },
-    { label: 'Industries', to: '/industries' },
-    { label: 'Careers', to: '/careers' },
-  ],
-  Resources: [
+    { label: 'Our work', to: '/portfolio' },
+    { label: 'Pricing', to: '/#pricing' },
+    { label: 'How it works', to: '/#process' },
     { label: 'Blog', to: '/blog' },
-    { label: 'Solutions', to: '/solutions' },
-    { label: 'Technologies', to: '/technologies' },
-    { label: 'Contact', to: '/contact' },
+  ],
+  'Get in touch': [
+    { label: 'Get a quote', to: '/#quote' },
+    { label: 'Book a call', to: '/contact' },
+    { label: 'FAQ', to: '/#faq' },
   ],
   Legal: [
     { label: 'Privacy Policy', to: '/privacy-policy' },

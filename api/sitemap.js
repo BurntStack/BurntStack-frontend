@@ -5,16 +5,14 @@
 // page, which is slow and unreliable for fresh content.
 
 const STATIC_PAGES = [
+  // The offer landing page carries what used to be /about, /services,
+  // /solutions, /technologies, /industries and /case-studies. Those paths
+  // now redirect (see REDIRECTS in src/App.jsx) and are deliberately kept
+  // out of the sitemap - submitting URLs that redirect is a crawl-budget
+  // tax, and Google treats the redirect target as canonical anyway.
   { path: '/', priority: '1.0' },
-  { path: '/about', priority: '0.8' },
-  { path: '/services', priority: '0.9' },
-  { path: '/solutions', priority: '0.8' },
-  { path: '/technologies', priority: '0.7' },
   { path: '/portfolio', priority: '0.8' },
-  { path: '/case-studies', priority: '0.7' },
-  { path: '/industries', priority: '0.7' },
   { path: '/blog', priority: '0.7' },
-  { path: '/careers', priority: '0.6' },
   { path: '/contact', priority: '0.8' },
   { path: '/privacy-policy', priority: '0.3' },
   { path: '/terms', priority: '0.3' },

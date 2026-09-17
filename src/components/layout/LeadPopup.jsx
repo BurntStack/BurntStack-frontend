@@ -2,15 +2,30 @@ import { useEffect, useState } from 'react'
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
 import { FiX, FiCheck, FiSend } from 'react-icons/fi'
 import { cn } from '@/utils/cn.js'
+import { CHAT_STATE_EVENT } from '@/components/chat/ChatWidget.jsx'
 
 const STORAGE_KEY = 'bs-lead-popup-dismissed'
-const SHOW_AFTER_MS = 5000
+// Show only once the visitor is past the hero. The previous 5-second timer
+// fired while they were still reading the headline, and on the offer
+// landing page it covered the hero outright - at 390px wide it hid the
+// entire first screen, headline, CTAs and all.
+const SHOW_AFTER_SCROLL_PX = 900
 
 /**
  * Small, restrained lead-capture popup. Shows once per browser (localStorage
- * gated, not per-page-view) a few seconds after landing, asks for name +
- * email, and posts to /api/lead (a Vercel serverless function - the only
- * place the Resend API key lives, never in client code).
+ * gated, not per-page-view), asks for name + email, and posts to /api/lead
+ * (a Vercel serverless function - the only place the Resend API key lives,
+ * never in client code).
+ *
+ * It stays hidden while the page's own quote form (#quote) is on screen,
+ * and while the chat panel is open: asking for the same details twice, in
+ * two places at once, reads as a malfunction rather than as persistence.
+ *
+ * Positioning is load-bearing, not cosmetic. It used to span the full
+ * width at `bottom-4` on `z-40`, which put it directly over the chat
+ * launcher in the bottom-right corner - on a phone it swallowed the click
+ * and the chat could not be opened at all while the popup was up. Hence
+ * `right-24` (clear of the floating button column) and `z-30` (below it).
  */
 export default function LeadPopup() {
   const [visible, setVisible] = useState(false)
@@ -19,15 +34,59 @@ export default function LeadPopup() {
   const [error, setError] = useState('')
   const reduceMotion = useReducedMotion()
 
+  const [quoteFormOnScreen, setQuoteFormOnScreen] = useState(false)
+  const [chatOpen, setChatOpen] = useState(false)
+
   useEffect(() => {
-    if (localStorage.getItem(STORAGE_KEY)) return
-    const timer = setTimeout(() => setVisible(true), SHOW_AFTER_MS)
-    return () => clearTimeout(timer)
+    let dismissed = false
+    try {
+      dismissed = Boolean(localStorage.getItem(STORAGE_KEY))
+    } catch {
+      // Private mode / blocked storage: fall through and just show it.
+    }
+    if (dismissed) return undefined
+
+    const onScroll = () => {
+      if (window.scrollY > SHOW_AFTER_SCROLL_PX) {
+        setVisible(true)
+        window.removeEventListener('scroll', onScroll)
+      }
+    }
+    window.addEventListener('scroll', onScroll, { passive: true })
+    onScroll()
+    return () => window.removeEventListener('scroll', onScroll)
   }, [])
+
+  useEffect(() => {
+    const onChatState = (e) => setChatOpen(Boolean(e.detail?.open))
+    window.addEventListener(CHAT_STATE_EVENT, onChatState)
+    return () => window.removeEventListener(CHAT_STATE_EVENT, onChatState)
+  }, [])
+
+  // The quote section only exists on the landing page; elsewhere this
+  // observer simply never attaches and the popup behaves as before.
+  useEffect(() => {
+    const quote = document.getElementById('quote')
+    if (!quote) return undefined
+    const observer = new IntersectionObserver(
+      ([entry]) => setQuoteFormOnScreen(entry.isIntersecting),
+      { threshold: 0.15 },
+    )
+    observer.observe(quote)
+    return () => observer.disconnect()
+  }, [])
+
+  const remember = () => {
+    try {
+      localStorage.setItem(STORAGE_KEY, '1')
+    } catch {
+      // Nothing to do - worst case it reappears on the next visit.
+    }
+  }
 
   const dismiss = () => {
     setVisible(false)
-    localStorage.setItem(STORAGE_KEY, '1')
+    remember()
   }
 
   const update = (field) => (e) => setForm((f) => ({ ...f, [field]: e.target.value }))
@@ -45,7 +104,7 @@ export default function LeadPopup() {
       const data = await res.json().catch(() => ({}))
       if (!res.ok) throw new Error(data.error || 'Something went wrong.')
       setStatus('done')
-      localStorage.setItem(STORAGE_KEY, '1')
+      remember()
       setTimeout(() => setVisible(false), 2200)
     } catch (err) {
       setStatus('idle')
@@ -55,7 +114,7 @@ export default function LeadPopup() {
 
   return (
     <AnimatePresence>
-      {visible && (
+      {visible && !quoteFormOnScreen && !chatOpen && (
         <motion.div
           role="dialog"
           aria-label="Get in touch"
@@ -63,7 +122,7 @@ export default function LeadPopup() {
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 24, scale: 0.96 }}
           transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-          className="fixed bottom-4 left-4 right-4 z-40 max-h-[min(23rem,calc(100dvh-2rem))] w-auto overflow-y-auto rounded-bento border border-line bg-white p-4 shadow-[var(--shadow-lg)] sm:bottom-7 sm:left-7 sm:right-auto sm:w-[20rem] sm:p-4"
+          className="fixed bottom-4 left-4 right-24 z-30 max-h-[min(23rem,calc(100dvh-2rem))] w-auto overflow-y-auto rounded-bento border border-line bg-white p-4 shadow-[var(--shadow-lg)] sm:bottom-7 sm:left-7 sm:right-auto sm:w-[20rem] sm:p-4"
         >
           <button
             type="button"

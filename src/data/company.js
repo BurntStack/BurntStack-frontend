@@ -10,7 +10,9 @@ export const COMPANY = {
   shortName: 'BurntStack',
   legalName: 'BurntStack Technologies Private Limited',
   tagline: 'Building Software That Powers Businesses',
-  email: 'hello@burntstack.com',
+  // Single inbox for every enquiry the marketing site produces - the
+  // quote form, the popup, the footer and the legal pages all route here.
+  email: 'socials@burntstack.com',
   phone: '+91 79816 72639',
   address: 'Stambampalle, Khila Warangal Mandal, Warangal, Telangana 506013, India',
   mapQuery: '17.966963,79.628964',

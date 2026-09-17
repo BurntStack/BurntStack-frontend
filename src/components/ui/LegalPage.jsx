@@ -8,7 +8,7 @@ export default function LegalPage({ title, path, updated, sections }) {
   return (
     <>
       <Seo title={title} path={path} />
-      <PageHero eyebrow="Legal" title={title} description={`Last updated ${updated}`} />
+      <PageHero eyebrow="Legal" title={title} description={`Last updated ${updated}`} aside={false} />
       <Section className="pt-0">
         <Container className="max-w-3xl">
           <div className="space-y-8">
