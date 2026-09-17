@@ -29,7 +29,7 @@ export default function Home() {
       <Seo
         path="/"
         title="Websites that turn local searches into customers"
-        description="BurntStack builds fast, custom websites and online stores for local businesses in Warangal and across India — wired to WhatsApp and Google so enquiries reach your phone. Fixed-price packages, free consultation."
+        description="BurntStack builds fast, custom websites and online stores for local businesses in Warangal and across India, wired to WhatsApp and Google so enquiries reach your phone. Fixed-price packages, free consultation."
         jsonLd={homeSchema}
       />
       <OfferHero />

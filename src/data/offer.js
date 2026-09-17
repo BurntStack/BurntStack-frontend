@@ -42,7 +42,7 @@ export const OFFER = {
   headline: 'Turn local searches into paying customers.',
   headlineAccent: 'Websites that sell, not just sit there.',
   subline:
-    'Design, build and launch handled end to end — a fast, mobile-first site wired to WhatsApp and Google so enquiries actually reach your phone. No technical knowledge needed on your side.',
+    'Design, build and launch handled end to end. A fast, mobile-first site wired to WhatsApp and Google so enquiries actually reach your phone. No technical knowledge needed on your side.',
   primaryCta: 'Get my quote',
   secondaryCta: 'See our work',
   reassurance: 'Free consultation · No obligation · We reply within one business day',
@@ -52,7 +52,7 @@ export const OFFER = {
 export const PROOF_POINTS = [
   { value: '7 days', label: 'Typical launch time for a standard site' },
   { value: '1 month', label: 'Free post-launch support on every package' },
-  { value: '100%', label: 'Custom built — never a recycled template' },
+  { value: '100%', label: 'Custom built, never a recycled template' },
   { value: 'Warangal', label: 'Local team you can actually call' },
 ]
 
@@ -85,7 +85,7 @@ export const OFFER_SERVICES = [
     icon: FaMobileScreen,
     title: 'Mobile apps',
     description:
-      'iOS and Android apps for when a website is not enough — bookings, ordering, memberships or internal tools.',
+      'iOS and Android apps for when a website is not enough, such as bookings, ordering, memberships or internal tools.',
   },
   {
     icon: FaBrain,
@@ -111,7 +111,7 @@ export const PACKAGES = [
   {
     name: 'Landing Page', // TODO: confirm name
     tagline: 'One page, one goal: get the enquiry.',
-    price: '₹—', // TODO: confirm price
+    price: 'TBC', // TODO: confirm price
     priceNote: 'one-time', // TODO: confirm
     delivery: 'TODO: delivery time',
     features: [
@@ -126,7 +126,7 @@ export const PACKAGES = [
   {
     name: 'Business Website', // TODO: confirm name
     tagline: 'The full picture of your business, done properly.',
-    price: '₹—', // TODO: confirm price
+    price: 'TBC', // TODO: confirm price
     priceNote: 'one-time', // TODO: confirm
     delivery: 'TODO: delivery time',
     features: [
@@ -141,7 +141,7 @@ export const PACKAGES = [
   {
     name: 'Premium Website', // TODO: confirm name
     tagline: 'Content you control, built to grow.',
-    price: '₹—', // TODO: confirm price
+    price: 'TBC', // TODO: confirm price
     priceNote: 'one-time', // TODO: confirm
     delivery: 'TODO: delivery time',
     features: [
@@ -205,7 +205,7 @@ export const OFFER_FAQS = [
   },
   {
     q: 'Who owns the website and the domain?',
-    a: 'You do. The domain is registered in your name and the site is handed over to you in full — we are not holding anything hostage.',
+    a: 'You do. The domain is registered in your name and the site is handed over to you in full. We are not holding anything hostage.',
   },
   {
     q: 'How do payments work?',

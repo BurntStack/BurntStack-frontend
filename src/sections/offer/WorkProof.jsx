@@ -91,7 +91,7 @@ export default function WorkProof() {
             </blockquote>
             <figcaption className="mt-5 text-sm text-mute">
               <span className="font-semibold text-ink">{name}</span>
-              {' — '}
+              {', '}
               {role ? `${role}, ` : ''}
               {company}
             </figcaption>
