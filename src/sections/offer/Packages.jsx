@@ -4,6 +4,7 @@ import Band from '@/components/editorial/Band.jsx'
 import Label from '@/components/editorial/Label.jsx'
 import Display from '@/components/editorial/Display.jsx'
 import Button from '@/components/ui/Button.jsx'
+import { useQuoteForm } from '@/components/lead/useQuoteForm.js'
 import { PACKAGES, PACKAGES_CONFIRMED, OFFER } from '@/data/offer.js'
 import { fadeInUp } from '@/lib/motion.js'
 import { cn } from '@/utils/cn.js'
@@ -38,11 +39,13 @@ function Price({ plan }) {
 }
 
 export default function Packages() {
+  const { openQuoteForm } = useQuoteForm()
+
   return (
     <Band id="pricing" tone="canvas">
       <div className="grid gap-8 md:grid-cols-[minmax(0,1fr)_minmax(0,22rem)] md:items-end">
         <div>
-          <Label index="04">Packages</Label>
+          <Label index="06">Packages</Label>
           <Display className="mt-6 max-w-[15ch]" accent="or ask us to scope one.">
             Pick the package that fits,
           </Display>
@@ -93,7 +96,7 @@ export default function Packages() {
             </ul>
 
             <Button
-              to="/#quote"
+              onClick={openQuoteForm}
               variant={plan.highlighted ? 'primary' : 'secondary'}
               className="mt-8 w-full"
             >
@@ -106,7 +109,7 @@ export default function Packages() {
       {OFFER.badge && (
         <motion.p variants={fadeInUp} className="mt-10 border-t border-line pt-6 text-sm text-slate">
           <span className="font-semibold text-orange-600">{OFFER.badge}.</span> Standard pricing
-          returns once the current round of local projects is filled.
+          returns once the current round of projects is filled.
         </motion.p>
       )}
     </Band>

@@ -23,7 +23,7 @@ export default function OfferFaq() {
     <Band id="faq" tone="ivory">
       <div className="grid gap-8 md:grid-cols-[minmax(0,1fr)_minmax(0,22rem)] md:items-end">
         <div>
-          <Label index="05">Questions</Label>
+          <Label index="07">Questions</Label>
           <Display className="mt-6 max-w-[16ch]" accent="before saying yes.">
             The things people ask
           </Display>

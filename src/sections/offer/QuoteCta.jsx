@@ -3,6 +3,7 @@ import { FaWhatsapp } from 'react-icons/fa6'
 import Band from '@/components/editorial/Band.jsx'
 import Display from '@/components/editorial/Display.jsx'
 import Button from '@/components/ui/Button.jsx'
+import { useQuoteForm } from '@/components/lead/useQuoteForm.js'
 import { CONTACT_CHANNELS } from '@/data/offer.js'
 
 /**
@@ -10,6 +11,8 @@ import { CONTACT_CHANNELS } from '@/data/offer.js'
  * quote form of their own.
  */
 export default function QuoteCta() {
+  const { openQuoteForm } = useQuoteForm()
+
   return (
     <Band tone="brand" spacing="tight">
       <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
@@ -18,7 +21,7 @@ export default function QuoteCta() {
         </Display>
         <div className="flex flex-wrap items-center gap-3">
           <Button
-            to="/#quote"
+            onClick={openQuoteForm}
             size="lg"
             variant="secondary"
             className="border-transparent bg-white text-ink hover:bg-white/90"

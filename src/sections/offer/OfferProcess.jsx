@@ -10,7 +10,7 @@ export default function OfferProcess() {
     <Band id="process" tone="ink">
       <div className="grid gap-8 md:grid-cols-[minmax(0,1fr)_minmax(0,22rem)] md:items-end">
         <div>
-          <Label index="03" tone="onDark">
+          <Label index="05" tone="onDark">
             How it works
           </Label>
           <Display className="mt-6 max-w-[14ch]" tone="onDark" accent="no surprises.">

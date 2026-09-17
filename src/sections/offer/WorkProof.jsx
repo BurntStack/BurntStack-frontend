@@ -4,6 +4,7 @@ import Band from '@/components/editorial/Band.jsx'
 import Label from '@/components/editorial/Label.jsx'
 import Display from '@/components/editorial/Display.jsx'
 import Button from '@/components/ui/Button.jsx'
+import { useQuoteForm } from '@/components/lead/useQuoteForm.js'
 import { PROJECTS } from '@/data/projects.js'
 import { TESTIMONIALS } from '@/data/offer.js'
 import { fadeInUp } from '@/lib/motion.js'
@@ -17,11 +18,13 @@ import { fadeInUp } from '@/lib/motion.js'
  * quote is added to data/offer.js.
  */
 export default function WorkProof() {
+  const { openQuoteForm } = useQuoteForm()
+
   return (
     <Band id="work" tone="ivory">
       <div className="grid gap-8 md:grid-cols-[minmax(0,1fr)_minmax(0,22rem)] md:items-end">
         <div>
-          <Label index="02">Our work</Label>
+          <Label index="04">Our work</Label>
           <Display className="mt-6 max-w-[14ch]" accent="real businesses.">
             Real sites,
           </Display>
@@ -66,11 +69,11 @@ export default function WorkProof() {
           <div>
             <h3 className="font-display text-xl font-semibold text-ink">Yours could be next</h3>
             <p className="mt-2 max-w-md text-slate">
-              We take on a limited number of local projects at a time so each one gets proper
+              We take on a limited number of projects at a time so each one gets proper
               attention.
             </p>
           </div>
-          <Button to="/#quote" variant="secondary" className="w-fit shrink-0">
+          <Button onClick={openQuoteForm} variant="secondary" className="w-fit shrink-0">
             Start a project <FiArrowUpRight className="h-4 w-4" />
           </Button>
         </motion.div>

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Link, NavLink, useLocation } from 'react-router-dom'
+import { NavLink, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { FiMenu, FiX, FiArrowUpRight } from 'react-icons/fi'
 import { FaWhatsapp } from 'react-icons/fa6'
@@ -8,9 +8,13 @@ import { CONTACT_CHANNELS } from '@/data/offer.js'
 import { cn } from '@/utils/cn.js'
 import Container from '@/components/ui/Container.jsx'
 import Button from '@/components/ui/Button.jsx'
+import { useQuoteForm } from '@/components/lead/useQuoteForm.js'
+import { useSectionNav } from '@/lib/useSectionNav.js'
 import Logo from '@/components/ui/Logo.jsx'
 
 export default function Navbar() {
+  const { openQuoteForm } = useQuoteForm()
+  const goToSection = useSectionNav()
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
   const location = useLocation()
@@ -44,15 +48,16 @@ export default function Navbar() {
 
           <nav className="hidden items-center gap-8 lg:flex" aria-label="Primary">
             {NAV_LINKS.map((link) =>
-              link.to.includes('#') ? (
-                <Link
-                  key={link.to}
-                  to={link.to}
+              link.section ? (
+                <button
+                  key={link.label}
+                  type="button"
+                  onClick={() => goToSection(link.section)}
                   className="group relative text-[0.9rem] font-medium text-slate transition-colors hover:text-ink"
                 >
                   {link.label}
                   <span className="absolute -bottom-1.5 left-0 h-0.5 w-0 rounded-full bg-orange-500 transition-all duration-300 group-hover:w-full" />
-                </Link>
+                </button>
               ) : (
                 <NavLink
                   key={link.to}
@@ -82,7 +87,7 @@ export default function Navbar() {
           </nav>
 
           <div className="flex items-center gap-3">
-            <Button to="/#quote" size="sm" variant="primary">
+            <Button onClick={openQuoteForm} size="sm" variant="primary">
               <span className="hidden xs:inline">Get a quote</span>
               <span className="xs:hidden">Quote</span>
               <FiArrowUpRight className="h-4 w-4" />
@@ -111,14 +116,15 @@ export default function Navbar() {
           >
             <Container className="flex flex-col py-3">
               {NAV_LINKS.map((link) =>
-                link.to.includes('#') ? (
-                  <Link
-                    key={link.to}
-                    to={link.to}
-                    className="border-b border-line/70 py-3.5 text-[0.95rem] font-medium text-slate transition-colors last:border-0 hover:text-ink"
+                link.section ? (
+                  <button
+                    key={link.label}
+                    type="button"
+                    onClick={() => { setOpen(false); goToSection(link.section) }}
+                    className="border-b border-line/70 py-3.5 text-left text-[0.95rem] font-medium text-slate transition-colors last:border-0 hover:text-ink"
                   >
                     {link.label}
-                  </Link>
+                  </button>
                 ) : (
                   <NavLink
                     key={link.to}
@@ -135,7 +141,7 @@ export default function Navbar() {
                   </NavLink>
                 ),
               )}
-              <Button to="/#quote" className="mt-4 w-full">
+              <Button onClick={openQuoteForm} className="mt-4 w-full">
                 Get a quote <FiArrowUpRight className="h-4 w-4" />
               </Button>
               <a

@@ -34,18 +34,22 @@ const Terms = lazy(() => import('@/pages/Terms.jsx'))
 const NotFound = lazy(() => import('@/pages/NotFound.jsx'))
 
 /**
- * Routes that used to be their own page and are now sections of the offer
+ * Routes that used to be their own page and are now sections of the
  * landing page (or folded into another route). These are kept as permanent
  * client-side redirects rather than deleted outright: they're in Google's
  * index, in the old sitemap and in any link anyone has shared, and a 404
  * on all of them would throw that away for nothing.
+ *
+ * The third entry is a section to scroll to on arrival, passed through
+ * router state rather than a URL fragment so the visitor doesn't end up
+ * looking at `burntstack.com/#services`.
  */
 const REDIRECTS = [
-  ['/about', '/#work'],
-  ['/services', '/#services'],
-  ['/solutions', '/#services'],
-  ['/technologies', '/#services'],
-  ['/industries', '/#services'],
+  ['/about', '/', 'work'],
+  ['/services', '/', 'services'],
+  ['/solutions', '/', 'services'],
+  ['/technologies', '/', 'services'],
+  ['/industries', '/', 'services'],
   ['/case-studies', '/portfolio'],
   ['/careers', '/contact'],
 ]
@@ -88,8 +92,14 @@ export default function App() {
             <Route path="/privacy-policy" element={<PageTransition><Privacy /></PageTransition>} />
             <Route path="/terms" element={<PageTransition><Terms /></PageTransition>} />
 
-            {REDIRECTS.map(([from, to]) => (
-              <Route key={from} path={from} element={<Navigate to={to} replace />} />
+            {REDIRECTS.map(([from, to, section]) => (
+              <Route
+                key={from}
+                path={from}
+                element={
+                  <Navigate to={to} replace state={section ? { scrollTo: section } : undefined} />
+                }
+              />
             ))}
 
             <Route path="*" element={<PageTransition><NotFound /></PageTransition>} />

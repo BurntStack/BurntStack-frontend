@@ -2,10 +2,14 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { FiMail, FiPhone, FiMapPin, FiArrowRight } from 'react-icons/fi'
 import { COMPANY, FOOTER_LINKS, SOCIALS } from '@/data/site.js'
+import { useQuoteForm } from '@/components/lead/useQuoteForm.js'
+import { useSectionNav } from '@/lib/useSectionNav.js'
 import Container from '@/components/ui/Container.jsx'
 import Logo from '@/components/ui/Logo.jsx'
 
 export default function Footer() {
+  const { openQuoteForm } = useQuoteForm()
+  const goToSection = useSectionNav()
   const [email, setEmail] = useState('')
   const [done, setDone] = useState(false)
 
@@ -63,9 +67,23 @@ export default function Footer() {
                 <ul className="flex flex-col gap-3">
                   {links.map((link) => (
                     <li key={link.label}>
-                      <Link to={link.to} className="text-sm text-white/55 transition-colors hover:text-white">
-                        {link.label}
-                      </Link>
+                      {/* A footer entry is a real route, a section of the
+                          landing page, or the quote form. Only the first
+                          is a link; the others would otherwise need a URL
+                          fragment to point at. */}
+                      {link.to ? (
+                        <Link to={link.to} className="text-sm text-white/55 transition-colors hover:text-white">
+                          {link.label}
+                        </Link>
+                      ) : (
+                        <button
+                          type="button"
+                          onClick={() => (link.quote ? openQuoteForm() : goToSection(link.section))}
+                          className="text-left text-sm text-white/55 transition-colors hover:text-white"
+                        >
+                          {link.label}
+                        </button>
+                      )}
                     </li>
                   ))}
                 </ul>
