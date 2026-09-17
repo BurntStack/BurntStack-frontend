@@ -93,7 +93,7 @@ export default function QuoteSection() {
               <span className="flex h-14 w-14 items-center justify-center rounded-full bg-orange-500 text-2xl text-white">
                 <FiCheck />
               </span>
-              <h3 className="t-editorial-sm text-white">Got it — thank you</h3>
+              <h3 className="t-editorial-sm text-white">Got it, thank you</h3>
               <p className="max-w-md text-white/55">
                 We have your details and will be in touch within one business day. If it is urgent,
                 WhatsApp or call and we will pick it up straight away.
@@ -156,7 +156,7 @@ export default function QuoteSection() {
                     onChange={update('plan')}
                     className={cn(FIELD, 'border-white/20 text-white [&>option]:text-ink')}
                   >
-                    <option value="">Not sure yet — advise me</option>
+                    <option value="">Not sure yet, advise me</option>
                     {PACKAGES.map((plan) => (
                       <option key={plan.name} value={plan.name}>
                         {plan.name}

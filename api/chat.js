@@ -221,7 +221,7 @@ export default async function handler(req, res) {
     } catch (err) {
       if (!saved) throw err
       console.error('Follow-up generation failed after a lead was saved:', err.message)
-      reply = `Thanks ${validated.lead.name.split(' ')[0]} — your details are with the team and someone will be in touch within one business day.`
+      reply = `Thanks ${validated.lead.name.split(' ')[0]}, your details are with the team and someone will be in touch within one business day.`
     }
 
     res.status(200).json({ reply, leadCaptured: saved })

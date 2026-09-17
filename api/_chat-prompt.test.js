@@ -78,3 +78,23 @@ describe('LEAD_TOOL', () => {
     expect(Object.keys(props).sort()).toEqual(['email', 'mobile', 'name', 'requirement'])
   })
 })
+
+describe('dash-free copy', () => {
+  const DASHES = /[–—]/
+
+  it('the prompt itself contains no em or en dashes', () => {
+    expect(DASHES.test(prompt)).toBe(false)
+  })
+
+  it('forbids the assistant from writing them either', () => {
+    // The prompt being clean is not enough: the model produces em dashes
+    // constantly on its own unless told not to, and its replies are what
+    // visitors actually read.
+    expect(prompt).toMatch(/never use an em dash or an en dash/i)
+  })
+
+  it('still allows ordinary hyphens inside words', () => {
+    expect(prompt).toMatch(/mobile-first/)
+    expect(DASHES.test(LEAD_TOOL.function.description)).toBe(false)
+  })
+})

@@ -12,7 +12,7 @@ import { cn } from '@/utils/cn.js'
 const GREETING = {
   role: 'assistant',
   content:
-    "Hi, I'm Burnty — BurntStack's assistant. Ask me anything about websites, online stores or what a project involves, or tell me what you're after and I'll get the team to call you back.",
+    "Hi, I'm Burnty, BurntStack's assistant. Ask me anything about websites, online stores or what a project involves, or tell me what you're after and I'll get the team to call you back.",
 }
 
 /** Fired whenever the panel opens or closes. LeadPopup listens for it. */
@@ -231,7 +231,7 @@ export default function ChatWidget() {
               {leadCaptured && (
                 <div className="flex items-start gap-2 rounded-bento-sm border border-orange-200 bg-orange-50 px-3.5 py-2.5 text-sm text-orange-900">
                   <FiCheck className="mt-0.5 h-4 w-4 shrink-0 text-orange-600" />
-                  Your details are with the team — someone will be in touch within one business day.
+                  Your details are with the team. Someone will be in touch within one business day.
                 </div>
               )}
 
