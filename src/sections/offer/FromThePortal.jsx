@@ -85,7 +85,7 @@ export default function FromThePortal() {
                 )}
               </div>
               {post.category && (
-                <span className="t-label mt-5 text-orange-600">
+                <span className="t-label mt-5 text-orange-700">
                   {typeof post.category === 'string' ? post.category : post.category.name}
                 </span>
               )}

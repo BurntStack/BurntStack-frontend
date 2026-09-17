@@ -119,7 +119,7 @@ export default function Blog() {
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Search articles..."
-                className="w-full bg-transparent text-sm text-ink outline-none placeholder:text-mute"
+                className="w-full bg-transparent text-sm text-ink placeholder:text-mute"
                 aria-label="Search articles"
               />
             </div>

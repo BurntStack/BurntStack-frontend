@@ -40,7 +40,7 @@ export default function OfferHero() {
         >
           <div>
             {OFFER.badge && (
-              <motion.div variants={fadeInUp} className="t-label mb-7 flex items-center gap-3 text-orange-600">
+              <motion.div variants={fadeInUp} className="t-label mb-7 flex items-center gap-3 text-orange-700">
                 <span className="relative flex h-2 w-2">
                   <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-orange-400 opacity-70" />
                   <span className="relative inline-flex h-2 w-2 rounded-full bg-orange-500" />
@@ -69,13 +69,13 @@ export default function OfferHero() {
                 href={CONTACT_CHANNELS.whatsapp}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-2 text-sm font-semibold text-ink transition-colors hover:text-orange-600"
+                className="tap-target inline-flex items-center gap-2 py-2 text-sm font-semibold text-ink transition-colors hover:text-orange-700"
               >
                 <FaWhatsapp className="h-4 w-4 text-[#25D366]" /> WhatsApp us
               </a>
               <a
                 href={`tel:${CONTACT_CHANNELS.phone}`}
-                className="inline-flex items-center gap-2 text-sm font-semibold text-ink transition-colors hover:text-orange-600"
+                className="tap-target inline-flex items-center gap-2 py-2 text-sm font-semibold text-ink transition-colors hover:text-orange-700"
               >
                 <FiPhone className="h-4 w-4 text-orange-500" /> {CONTACT_CHANNELS.phoneLabel}
               </a>
@@ -89,7 +89,7 @@ export default function OfferHero() {
             id="lead-form"
             className="rounded-bento border border-line bg-white p-6 shadow-[var(--shadow-md)] sm:p-7"
           >
-            <p className="t-label text-orange-600">Free quote</p>
+            <p className="t-label text-orange-700">Free quote</p>
             <h2 className="mt-3 font-display text-2xl font-bold tracking-[-0.02em] text-ink">
               Tell us what you need
             </h2>

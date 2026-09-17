@@ -22,7 +22,7 @@ export default function LeadForm({ tone = 'light', compact = false, onSuccess })
   const update = (field) => (e) => setForm((f) => ({ ...f, [field]: e.target.value }))
 
   const field = cn(
-    'w-full rounded-lg border px-3.5 py-2.5 text-[0.95rem] outline-none transition-colors',
+    'w-full rounded-lg border px-3.5 py-2.5 text-[0.95rem] transition-colors',
     onDark
       ? 'border-white/20 bg-white/5 text-white placeholder:text-white/35 focus:border-orange-400'
       : 'border-line-strong bg-canvas text-ink placeholder:text-mute/70 focus:border-orange-500',
@@ -154,7 +154,7 @@ export default function LeadForm({ tone = 'light', compact = false, onSuccess })
       <button
         type="submit"
         disabled={status === 'sending'}
-        className="inline-flex h-12 items-center justify-center gap-2 rounded-lg bg-orange-500 px-6 text-[0.95rem] font-semibold text-white transition-colors hover:bg-orange-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-500 disabled:opacity-60"
+        className="inline-flex h-12 items-center justify-center gap-2 rounded-lg bg-orange-600 px-6 text-[0.95rem] font-semibold text-white transition-colors hover:bg-orange-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-500 disabled:opacity-60"
       >
         {status === 'sending' ? 'Sending…' : (<>Get my quote <FiSend className="h-4 w-4" /></>)}
       </button>

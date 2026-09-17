@@ -27,7 +27,7 @@ export default function Footer() {
         <div className="grid gap-12 lg:grid-cols-[1.3fr_2fr]">
           {/* Brand + newsletter */}
           <div className="flex flex-col gap-6">
-            <Logo tone="onDark" tagline />
+            <Logo tone="onDark" tagline lazy />
             <p className="max-w-sm text-sm leading-relaxed text-white/55">
               {COMPANY.legalName}. We design and build software that powers ambitious businesses,
               from websites and mobile apps to AI and enterprise platforms.
@@ -45,7 +45,7 @@ export default function Footer() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="you@company.com"
-                  className="w-full bg-transparent text-sm text-white outline-none placeholder:text-white/35"
+                  className="w-full bg-transparent text-sm text-white placeholder:text-white/55"
                 />
                 <button
                   type="submit"
@@ -72,14 +72,14 @@ export default function Footer() {
                           is a link; the others would otherwise need a URL
                           fragment to point at. */}
                       {link.to ? (
-                        <Link to={link.to} className="text-sm text-white/55 transition-colors hover:text-white">
+                        <Link to={link.to} className="tap-target inline-block py-1.5 text-sm text-white/55 transition-colors hover:text-white">
                           {link.label}
                         </Link>
                       ) : (
                         <button
                           type="button"
                           onClick={() => (link.quote ? openQuoteForm() : goToSection(link.section))}
-                          className="text-left text-sm text-white/55 transition-colors hover:text-white"
+                          className="tap-target inline-block py-1.5 text-left text-sm text-white/55 transition-colors hover:text-white"
                         >
                           {link.label}
                         </button>
@@ -94,10 +94,10 @@ export default function Footer() {
 
         {/* Contact row */}
         <div className="mt-14 grid gap-4 border-t border-white/10 pt-8 text-sm sm:grid-cols-3">
-          <a href={`mailto:${COMPANY.email}`} className="flex items-center gap-2.5 text-white/60 transition-colors hover:text-white">
+          <a href={`mailto:${COMPANY.email}`} className="tap-target flex items-center gap-2.5 py-2 text-white/60 transition-colors hover:text-white">
             <FiMail className="h-4 w-4 text-orange-400" /> {COMPANY.email}
           </a>
-          <a href={`tel:${COMPANY.phone}`} className="flex items-center gap-2.5 text-white/60 transition-colors hover:text-white">
+          <a href={`tel:${COMPANY.phone}`} className="tap-target flex items-center gap-2.5 py-2 text-white/60 transition-colors hover:text-white">
             <FiPhone className="h-4 w-4 text-orange-400" /> {COMPANY.phone}
           </a>
           <span className="flex items-center gap-2.5 text-white/60">
@@ -107,7 +107,7 @@ export default function Footer() {
 
         {/* Bottom bar */}
         <div className="mt-8 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-8 sm:flex-row">
-          <p className="text-sm text-white/45">
+          <p className="text-sm text-white/55">
             © {new Date().getFullYear()} {COMPANY.legalName}. All rights reserved.
           </p>
           <div className="flex items-center gap-2">

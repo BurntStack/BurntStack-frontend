@@ -75,7 +75,7 @@ export default function Packages() {
                   aria-hidden="true"
                   className="absolute inset-x-0 -top-px hidden h-0.5 bg-orange-500 lg:block"
                 />
-                <span className="t-label mb-4 text-orange-600">Most popular</span>
+                <span className="t-label mb-4 text-orange-700">Most popular</span>
               </>
             )}
 
@@ -108,7 +108,7 @@ export default function Packages() {
 
       {OFFER.badge && (
         <motion.p variants={fadeInUp} className="mt-10 border-t border-line pt-6 text-sm text-slate">
-          <span className="font-semibold text-orange-600">{OFFER.badge}.</span> Standard pricing
+          <span className="font-semibold text-orange-700">{OFFER.badge}.</span> Standard pricing
           returns once the current round of projects is filled.
         </motion.p>
       )}

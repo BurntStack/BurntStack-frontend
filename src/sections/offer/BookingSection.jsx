@@ -30,7 +30,7 @@ export default function BookingSection() {
             Prefer to talk now? Call{' '}
             <a
               href={`tel:${CONTACT_CHANNELS.phone}`}
-              className="font-semibold text-ink underline underline-offset-2 hover:text-orange-600"
+              className="tap-target inline-block py-1 font-semibold text-ink underline underline-offset-2 hover:text-orange-700"
             >
               {CONTACT_CHANNELS.phoneLabel}
             </a>

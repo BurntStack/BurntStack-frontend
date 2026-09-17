@@ -44,7 +44,7 @@ export default function OfferFaq() {
                 <span
                   className={cn(
                     'font-display text-lg font-semibold tracking-[-0.015em] transition-colors duration-300 sm:text-xl',
-                    isOpen ? 'text-orange-600' : 'text-ink group-hover:text-orange-600',
+                    isOpen ? 'text-orange-700' : 'text-ink group-hover:text-orange-700',
                   )}
                 >
                   {faq.q}
@@ -55,8 +55,8 @@ export default function OfferFaq() {
                   className={cn(
                     'flex h-9 w-9 shrink-0 items-center justify-center rounded-full border transition-colors duration-300',
                     isOpen
-                      ? 'border-orange-500 bg-orange-500 text-white'
-                      : 'border-line-strong text-mute group-hover:border-orange-500 group-hover:text-orange-600',
+                      ? 'border-orange-600 bg-orange-600 text-white'
+                      : 'border-line-strong text-mute group-hover:border-orange-600 group-hover:text-orange-700',
                   )}
                 >
                   <FiPlus className="h-4 w-4" />

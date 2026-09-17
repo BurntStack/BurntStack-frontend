@@ -38,7 +38,7 @@ export default function ProjectCard({ project, coverHeight = 'h-56' }) {
                 <dt
                   className={cn(
                     't-label',
-                    term === 'Results' ? 'text-orange-600' : 'text-mute',
+                    term === 'Results' ? 'text-orange-700' : 'text-mute',
                   )}
                 >
                   {term}

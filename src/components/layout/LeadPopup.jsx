@@ -165,7 +165,7 @@ export default function LeadPopup() {
                 value={form.name}
                 onChange={update('name')}
                 required
-                className="rounded-lg border border-line-strong bg-canvas px-3 py-2 text-sm text-ink outline-none transition-colors focus:border-orange-400"
+                className="rounded-lg border border-line-strong bg-canvas px-3 py-2 text-sm text-ink transition-colors focus:border-orange-400"
               />
               <input
                 type="email"
@@ -173,21 +173,21 @@ export default function LeadPopup() {
                 value={form.email}
                 onChange={update('email')}
                 required
-                className="rounded-lg border border-line-strong bg-canvas px-3 py-2 text-sm text-ink outline-none transition-colors focus:border-orange-400"
+                className="rounded-lg border border-line-strong bg-canvas px-3 py-2 text-sm text-ink transition-colors focus:border-orange-400"
               />
               <input
                 type="tel"
                 placeholder="Phone number (optional)"
                 value={form.phone}
                 onChange={update('phone')}
-                className="rounded-lg border border-line-strong bg-canvas px-3 py-2 text-sm text-ink outline-none transition-colors focus:border-orange-400"
+                className="rounded-lg border border-line-strong bg-canvas px-3 py-2 text-sm text-ink transition-colors focus:border-orange-400"
               />
               <textarea
                 placeholder="What are you looking to build? (optional)"
                 value={form.message}
                 onChange={update('message')}
                 rows={1}
-                className="rounded-lg border border-line-strong bg-canvas px-3 py-2 text-sm text-ink outline-none transition-colors focus:border-orange-400"
+                className="rounded-lg border border-line-strong bg-canvas px-3 py-2 text-sm text-ink transition-colors focus:border-orange-400"
               />
 
               {error && <p className="text-xs text-red-500">{error}</p>}
@@ -196,8 +196,8 @@ export default function LeadPopup() {
                 type="submit"
                 disabled={status === 'sending'}
                 className={cn(
-                  'mt-1 inline-flex items-center justify-center gap-2 rounded-lg bg-orange-500 px-4 py-2.5 text-sm font-semibold text-white transition-colors',
-                  'hover:bg-orange-600 disabled:opacity-60',
+                  'mt-1 inline-flex items-center justify-center gap-2 rounded-lg bg-orange-600 px-4 py-2.5 text-sm font-semibold text-white transition-colors',
+                  'hover:bg-orange-700 disabled:opacity-60',
                 )}
               >
                 {status === 'sending' ? 'Sending…' : (<>Send <FiSend className="h-3.5 w-3.5" /></>)}

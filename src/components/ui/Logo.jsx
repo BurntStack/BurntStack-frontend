@@ -6,7 +6,7 @@ import { cn } from '@/utils/cn.js'
  * dissolving into a rising flame), served as a cropped, transparent PNG
  * rather than a hand-approximated vector redraw.
  */
-export function LogoMark({ className }) {
+export function LogoMark({ className, lazy = false }) {
   return (
     // The sizing classes go on <picture>, not on the <img>: <picture> is
     // the flex child inside the header row, and with the sizing one level
@@ -21,6 +21,9 @@ export function LogoMark({ className }) {
         className="h-full w-full object-contain"
         width={168}
         height={168}
+        // The footer mark is below the fold on every route.
+        loading={lazy ? 'lazy' : 'eager'}
+        decoding="async"
       />
     </picture>
   )
@@ -31,7 +34,7 @@ export function LogoMark({ className }) {
  * (the footer). `tagline` adds the "Technologies Pvt. Ltd." row from the
  * full brand lockup, used where there's room to show the full identity.
  */
-export default function Logo({ className, showText = true, tagline = false, tone = 'default' }) {
+export default function Logo({ className, showText = true, tagline = false, tone = 'default', lazy = false }) {
   const isDark = tone === 'onDark'
   return (
     <Link
@@ -41,10 +44,10 @@ export default function Logo({ className, showText = true, tagline = false, tone
     >
       {isDark ? (
         <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-white/95 p-1.5">
-          <LogoMark className="h-full w-full" />
+          <LogoMark className="h-full w-full" lazy={lazy} />
         </span>
       ) : (
-        <LogoMark className="h-12 w-12 shrink-0" />
+        <LogoMark className="h-12 w-12 shrink-0" lazy={lazy} />
       )}
       {showText && (
         <span className="flex flex-col leading-none">
@@ -60,7 +63,7 @@ export default function Logo({ className, showText = true, tagline = false, tone
             <span
               className={cn(
                 'mt-2 flex items-center gap-2 text-[0.68rem] font-semibold uppercase tracking-[0.22em]',
-                isDark ? 'text-white/40' : 'text-mute',
+                isDark ? 'text-white/55' : 'text-mute',
               )}
             >
               <span className={cn('h-px w-4', isDark ? 'bg-white/20' : 'bg-line-strong')} />
