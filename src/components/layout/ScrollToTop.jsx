@@ -20,9 +20,25 @@ const TARGET_WAIT_MS = 1500
  * Lenis was also allowed to handle anchors itself.
  */
 export default function ScrollToTop() {
-  const { pathname, hash } = useLocation()
+  const { pathname, hash, state } = useLocation()
 
   useEffect(() => {
+    // A section link from another route (see useSectionNav) passes its
+    // target through router state instead of a URL fragment.
+    const target = state?.scrollTo
+    if (target) {
+      let frame
+      const deadline = performance.now() + TARGET_WAIT_MS
+      const attempt = () => {
+        const el = document.getElementById(target)
+        if (el) return scrollToTarget(el)
+        if (performance.now() < deadline) frame = requestAnimationFrame(attempt)
+        return undefined
+      }
+      frame = requestAnimationFrame(attempt)
+      return () => cancelAnimationFrame(frame)
+    }
+
     if (!hash) {
       scrollToTarget(0, { immediate: true })
       return undefined
@@ -44,7 +60,7 @@ export default function ScrollToTop() {
 
     frame = requestAnimationFrame(attempt)
     return () => cancelAnimationFrame(frame)
-  }, [pathname, hash])
+  }, [pathname, hash, state])
 
   return null
 }

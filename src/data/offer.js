@@ -39,7 +39,7 @@ export const OFFER = {
   // the pill and the matching strip in the quote section when no offer is
   // actually running — we'd rather show nothing than fake a countdown.
   badge: 'Limited-time launch pricing',
-  headline: 'Turn local searches into paying customers.',
+  headline: 'Turn visitors into paying customers.',
   headlineAccent: 'Websites that sell, not just sit there.',
   subline:
     'Design, build and launch handled end to end. A fast, mobile-first site wired to WhatsApp and Google so enquiries actually reach your phone. No technical knowledge needed on your side.',
@@ -53,7 +53,7 @@ export const PROOF_POINTS = [
   { value: '7 days', label: 'Typical launch time for a standard site' },
   { value: '1 month', label: 'Free post-launch support on every package' },
   { value: '100%', label: 'Custom built, never a recycled template' },
-  { value: 'Warangal', label: 'Local team you can actually call' },
+  { value: 'Direct', label: 'A real team you can call, not a ticket queue' },
 ]
 
 export const OFFER_SERVICES = [
@@ -193,7 +193,7 @@ export const OFFER_FAQS = [
   },
   {
     q: 'Will the site work properly on phones?',
-    a: 'Yes. We design for mobile first and test on real devices, because that is where almost all local searches actually happen.',
+    a: 'Yes. We design for mobile first and test on real devices, because that is where most of your customers will see it.',
   },
   {
     q: 'Can I edit the site myself afterwards?',

@@ -17,7 +17,7 @@ export default function OfferServices() {
     <Band id="services" tone="canvas" bordered>
       <div className="grid gap-8 md:grid-cols-[minmax(0,1fr)_minmax(0,22rem)] md:items-end">
         <div>
-          <Label index="01">What you get</Label>
+          <Label index="03">What you get</Label>
           <Display className="mt-6 max-w-[16ch]" accent="from first sketch to launch.">
             Everything handled,
           </Display>

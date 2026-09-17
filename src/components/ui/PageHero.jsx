@@ -2,6 +2,7 @@ import { motion } from 'framer-motion'
 import { FiArrowRight } from 'react-icons/fi'
 import Container from './Container.jsx'
 import Button from './Button.jsx'
+import { useQuoteForm } from '@/components/lead/useQuoteForm.js'
 import { fadeInUp, staggerContainer } from '@/lib/motion.js'
 import { cn } from '@/utils/cn.js'
 
@@ -14,6 +15,8 @@ import { cn } from '@/utils/cn.js'
  * a sales prompt would be out of place.
  */
 export default function PageHero({ eyebrow, title, accent, description, aside = true, children }) {
+  const { openQuoteForm } = useQuoteForm()
+
   return (
     <section className="relative w-full overflow-hidden border-b border-line bg-canvas pt-32 pb-14 sm:pt-40 sm:pb-20">
       <div
@@ -53,7 +56,7 @@ export default function PageHero({ eyebrow, title, accent, description, aside = 
                 {children && <div className="mt-6">{children}</div>}
               </div>
               {aside && (
-                <Button to="/#quote" size="lg" className="w-fit shrink-0">
+                <Button onClick={openQuoteForm} size="lg" className="w-fit shrink-0">
                   Get my quote <FiArrowRight className="h-4 w-4" />
                 </Button>
               )}

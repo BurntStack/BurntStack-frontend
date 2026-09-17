@@ -5,6 +5,7 @@ import Footer from './Footer.jsx'
 import FloatingActions from './FloatingActions.jsx'
 import LeadPopup from './LeadPopup.jsx'
 import ChatWidget from '@/components/chat/ChatWidget.jsx'
+import { LeadFormProvider } from '@/components/lead/LeadFormModal.jsx'
 
 /** App shell: smooth scroll, scroll-progress bar, navbar, page content, footer. */
 export default function Layout({ children }) {
@@ -13,6 +14,7 @@ export default function Layout({ children }) {
   const progress = useSpring(scrollYProgress, { stiffness: 120, damping: 25, mass: 0.3 })
 
   return (
+    <LeadFormProvider>
     <div className="relative flex min-h-screen flex-col">
       {/* Skip link for keyboard users */}
       <a
@@ -36,5 +38,6 @@ export default function Layout({ children }) {
       <ChatWidget />
       <LeadPopup />
     </div>
+    </LeadFormProvider>
   )
 }
