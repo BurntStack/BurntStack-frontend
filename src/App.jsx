@@ -1,5 +1,5 @@
 import { Suspense, lazy, useEffect } from 'react'
-import { Routes, Route, useLocation } from 'react-router-dom'
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom'
 import { AnimatePresence } from 'framer-motion'
 import Layout from '@/components/layout/Layout.jsx'
 import ScrollToTop from '@/components/layout/ScrollToTop.jsx'
@@ -25,20 +25,30 @@ import { initCal } from '@/lib/cal.js'
 // shell loaded, so any fallback gap is comparatively small.
 import Home from '@/pages/Home.jsx'
 
-const About = lazy(() => import('@/pages/About.jsx'))
-const Services = lazy(() => import('@/pages/Services.jsx'))
-const Solutions = lazy(() => import('@/pages/Solutions.jsx'))
-const Technologies = lazy(() => import('@/pages/Technologies.jsx'))
 const Portfolio = lazy(() => import('@/pages/Portfolio.jsx'))
-const CaseStudies = lazy(() => import('@/pages/CaseStudies.jsx'))
-const Industries = lazy(() => import('@/pages/Industries.jsx'))
 const Blog = lazy(() => import('@/pages/Blog.jsx'))
 const BlogPost = lazy(() => import('@/pages/BlogPost.jsx'))
-const Careers = lazy(() => import('@/pages/Careers.jsx'))
 const Contact = lazy(() => import('@/pages/Contact.jsx'))
 const Privacy = lazy(() => import('@/pages/Privacy.jsx'))
 const Terms = lazy(() => import('@/pages/Terms.jsx'))
 const NotFound = lazy(() => import('@/pages/NotFound.jsx'))
+
+/**
+ * Routes that used to be their own page and are now sections of the offer
+ * landing page (or folded into another route). These are kept as permanent
+ * client-side redirects rather than deleted outright: they're in Google's
+ * index, in the old sitemap and in any link anyone has shared, and a 404
+ * on all of them would throw that away for nothing.
+ */
+const REDIRECTS = [
+  ['/about', '/#work'],
+  ['/services', '/#services'],
+  ['/solutions', '/#services'],
+  ['/technologies', '/#services'],
+  ['/industries', '/#services'],
+  ['/case-studies', '/portfolio'],
+  ['/careers', '/contact'],
+]
 
 function PageLoader() {
   return (
@@ -52,7 +62,7 @@ export default function App() {
   const location = useLocation()
 
   // Loads once, app-wide, so the "Free Consultation" popup works from any
-  // page (Navbar, CtaBanner) without every one of them re-initializing it.
+  // page (Navbar, Contact) without every one of them re-initializing it.
   // Deferred via requestIdleCallback: this SDK isn't needed until someone
   // actually clicks a booking button, so it shouldn't compete with the
   // current page's own content/data fetches for bandwidth and main-thread
@@ -71,19 +81,17 @@ export default function App() {
         <AnimatePresence mode="wait">
           <Routes location={location} key={location.pathname}>
             <Route path="/" element={<PageTransition><Home /></PageTransition>} />
-            <Route path="/about" element={<PageTransition><About /></PageTransition>} />
-            <Route path="/services" element={<PageTransition><Services /></PageTransition>} />
-            <Route path="/solutions" element={<PageTransition><Solutions /></PageTransition>} />
-            <Route path="/technologies" element={<PageTransition><Technologies /></PageTransition>} />
             <Route path="/portfolio" element={<PageTransition><Portfolio /></PageTransition>} />
-            <Route path="/case-studies" element={<PageTransition><CaseStudies /></PageTransition>} />
-            <Route path="/industries" element={<PageTransition><Industries /></PageTransition>} />
             <Route path="/blog" element={<PageTransition><Blog /></PageTransition>} />
             <Route path="/blog/:slug" element={<PageTransition><BlogPost /></PageTransition>} />
-            <Route path="/careers" element={<PageTransition><Careers /></PageTransition>} />
             <Route path="/contact" element={<PageTransition><Contact /></PageTransition>} />
             <Route path="/privacy-policy" element={<PageTransition><Privacy /></PageTransition>} />
             <Route path="/terms" element={<PageTransition><Terms /></PageTransition>} />
+
+            {REDIRECTS.map(([from, to]) => (
+              <Route key={from} path={from} element={<Navigate to={to} replace />} />
+            ))}
+
             <Route path="*" element={<PageTransition><NotFound /></PageTransition>} />
           </Routes>
         </AnimatePresence>

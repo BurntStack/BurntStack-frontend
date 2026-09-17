@@ -5,7 +5,7 @@ import Section from '@/components/ui/Section.jsx'
 import Container from '@/components/ui/Container.jsx'
 import ProjectCard from '@/components/cards/ProjectCard.jsx'
 import { BentoGrid, BentoCard } from '@/components/ui/Bento.jsx'
-import CtaBanner from '@/sections/home/CtaBanner.jsx'
+import QuoteCta from '@/sections/offer/QuoteCta.jsx'
 import { PROJECTS } from '@/data/projects.js'
 
 export default function Portfolio() {
@@ -38,7 +38,7 @@ export default function Portfolio() {
         </Container>
       </Section>
       <div className="-mt-16 sm:-mt-24">
-        <CtaBanner />
+        <QuoteCta />
       </div>
     </>
   )

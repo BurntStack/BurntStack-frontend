@@ -40,7 +40,6 @@ export function buildOrganizationSchema() {
       latitude: lat,
       longitude: lng,
     },
-    foundingDate: '2026',
   }
 }
 

@@ -1,13 +1,14 @@
 import { useEffect, useState } from 'react'
-import { NavLink, useLocation } from 'react-router-dom'
+import { Link, NavLink, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { FiMenu, FiX, FiArrowUpRight } from 'react-icons/fi'
+import { FaWhatsapp } from 'react-icons/fa6'
 import { NAV_LINKS } from '@/data/site.js'
+import { CONTACT_CHANNELS } from '@/data/offer.js'
 import { cn } from '@/utils/cn.js'
 import Container from '@/components/ui/Container.jsx'
 import Button from '@/components/ui/Button.jsx'
 import Logo from '@/components/ui/Logo.jsx'
-import { CAL_LINK } from '@/lib/cal.js'
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
@@ -42,40 +43,50 @@ export default function Navbar() {
           <Logo />
 
           <nav className="hidden items-center gap-8 lg:flex" aria-label="Primary">
-            {NAV_LINKS.map((link) => (
-              <NavLink
-                key={link.to}
-                to={link.to}
-                end={link.to === '/'}
-                className={({ isActive }) =>
-                  cn(
-                    'group relative text-[0.9rem] font-medium transition-colors',
-                    isActive ? 'text-ink' : 'text-slate hover:text-ink',
-                  )
-                }
-              >
-                {({ isActive }) => (
-                  <>
-                    {link.label}
-                    <span
-                      className={cn(
-                        'absolute -bottom-1.5 left-0 h-0.5 rounded-full bg-orange-500 transition-all duration-300',
-                        isActive ? 'w-full' : 'w-0 group-hover:w-full',
-                      )}
-                    />
-                  </>
-                )}
-              </NavLink>
-            ))}
+            {NAV_LINKS.map((link) =>
+              link.to.includes('#') ? (
+                <Link
+                  key={link.to}
+                  to={link.to}
+                  className="group relative text-[0.9rem] font-medium text-slate transition-colors hover:text-ink"
+                >
+                  {link.label}
+                  <span className="absolute -bottom-1.5 left-0 h-0.5 w-0 rounded-full bg-orange-500 transition-all duration-300 group-hover:w-full" />
+                </Link>
+              ) : (
+                <NavLink
+                  key={link.to}
+                  to={link.to}
+                  end={link.to === '/'}
+                  className={({ isActive }) =>
+                    cn(
+                      'group relative text-[0.9rem] font-medium transition-colors',
+                      isActive ? 'text-ink' : 'text-slate hover:text-ink',
+                    )
+                  }
+                >
+                  {({ isActive }) => (
+                    <>
+                      {link.label}
+                      <span
+                        className={cn(
+                          'absolute -bottom-1.5 left-0 h-0.5 rounded-full bg-orange-500 transition-all duration-300',
+                          isActive ? 'w-full' : 'w-0 group-hover:w-full',
+                        )}
+                      />
+                    </>
+                  )}
+                </NavLink>
+              ),
+            )}
           </nav>
 
           <div className="flex items-center gap-3">
-            <div className="hidden sm:block">
-              <Button data-cal-link={CAL_LINK} size="sm" variant="primary">
-                Free Consultation
-                <FiArrowUpRight className="h-4 w-4" />
-              </Button>
-            </div>
+            <Button to="/#quote" size="sm" variant="primary">
+              <span className="hidden xs:inline">Get a quote</span>
+              <span className="xs:hidden">Quote</span>
+              <FiArrowUpRight className="h-4 w-4" />
+            </Button>
             <button
               type="button"
               onClick={() => setOpen((v) => !v)}
@@ -99,24 +110,42 @@ export default function Navbar() {
             className="border-b border-line bg-canvas lg:hidden"
           >
             <Container className="flex flex-col py-3">
-              {NAV_LINKS.map((link) => (
-                <NavLink
-                  key={link.to}
-                  to={link.to}
-                  end={link.to === '/'}
-                  className={({ isActive }) =>
-                    cn(
-                      'border-b border-line/70 py-3.5 text-[0.95rem] font-medium transition-colors last:border-0',
-                      isActive ? 'text-orange-600' : 'text-slate hover:text-ink',
-                    )
-                  }
-                >
-                  {link.label}
-                </NavLink>
-              ))}
-              <Button data-cal-link={CAL_LINK} className="mt-4 w-full">
-                Free Consultation <FiArrowUpRight className="h-4 w-4" />
+              {NAV_LINKS.map((link) =>
+                link.to.includes('#') ? (
+                  <Link
+                    key={link.to}
+                    to={link.to}
+                    className="border-b border-line/70 py-3.5 text-[0.95rem] font-medium text-slate transition-colors last:border-0 hover:text-ink"
+                  >
+                    {link.label}
+                  </Link>
+                ) : (
+                  <NavLink
+                    key={link.to}
+                    to={link.to}
+                    end={link.to === '/'}
+                    className={({ isActive }) =>
+                      cn(
+                        'border-b border-line/70 py-3.5 text-[0.95rem] font-medium transition-colors last:border-0',
+                        isActive ? 'text-orange-600' : 'text-slate hover:text-ink',
+                      )
+                    }
+                  >
+                    {link.label}
+                  </NavLink>
+                ),
+              )}
+              <Button to="/#quote" className="mt-4 w-full">
+                Get a quote <FiArrowUpRight className="h-4 w-4" />
               </Button>
+              <a
+                href={CONTACT_CHANNELS.whatsapp}
+                target="_blank"
+                rel="noreferrer"
+                className="mt-2 inline-flex h-11 w-full items-center justify-center gap-2 rounded-lg bg-[#25D366] text-[0.9rem] font-semibold text-white"
+              >
+                <FaWhatsapp className="h-4 w-4" /> WhatsApp us
+              </a>
             </Container>
           </motion.div>
         )}

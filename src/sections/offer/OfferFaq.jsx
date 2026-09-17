@@ -5,19 +5,28 @@ import Section from '@/components/ui/Section.jsx'
 import Container from '@/components/ui/Container.jsx'
 import SectionHeading from '@/components/ui/SectionHeading.jsx'
 import { BentoGrid, BentoCard } from '@/components/ui/Bento.jsx'
-import { FAQS } from '@/data/misc.js'
+import { OFFER_FAQS } from '@/data/offer.js'
 import { cn } from '@/utils/cn.js'
 
-export default function FaqSection() {
+/**
+ * The objections that actually stop a local business from buying - who
+ * writes the content, does it work on a phone, can I change it myself,
+ * who owns the domain - answered immediately before the quote form.
+ */
+export default function OfferFaq() {
   const [open, setOpen] = useState(0)
 
   return (
     <Section id="faq">
       <Container>
-        <SectionHeading eyebrow="FAQ" title="Questions, answered" />
+        <SectionHeading
+          eyebrow="FAQ"
+          title="The things people ask before saying yes"
+          align="left"
+        />
 
         <BentoGrid className="mt-12" align="start" cols="grid-cols-2 lg:grid-cols-6">
-          {FAQS.map((faq, i) => {
+          {OFFER_FAQS.map((faq, i) => {
             const isOpen = open === i
             return (
               <BentoCard
@@ -29,6 +38,7 @@ export default function FaqSection() {
                 className={cn(isOpen && 'border-orange-300')}
               >
                 <button
+                  type="button"
                   onClick={() => setOpen(isOpen ? -1 : i)}
                   aria-expanded={isOpen}
                   className="flex w-full items-center justify-between gap-4 px-6 py-5 text-left"
