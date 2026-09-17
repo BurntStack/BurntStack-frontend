@@ -53,7 +53,7 @@ export default function Navbar() {
                   key={link.label}
                   type="button"
                   onClick={() => goToSection(link.section)}
-                  className="group relative text-[0.9rem] font-medium text-slate transition-colors hover:text-ink"
+                  className="tap-target group relative py-2 text-[0.9rem] font-medium text-slate transition-colors hover:text-ink"
                 >
                   {link.label}
                   <span className="absolute -bottom-1.5 left-0 h-0.5 w-0 rounded-full bg-orange-500 transition-all duration-300 group-hover:w-full" />
@@ -65,7 +65,7 @@ export default function Navbar() {
                   end={link.to === '/'}
                   className={({ isActive }) =>
                     cn(
-                      'group relative text-[0.9rem] font-medium transition-colors',
+                      'tap-target group relative py-2 text-[0.9rem] font-medium transition-colors',
                       isActive ? 'text-ink' : 'text-slate hover:text-ink',
                     )
                   }

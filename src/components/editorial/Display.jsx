@@ -34,7 +34,10 @@ export default function Display({
       {accent && (
         <>
           <br />
-          <span className={cn('t-accent', onDark ? 'text-orange-300' : 'text-orange-600')}>
+          {/* amber-300 measures 3.16:1 on the lightest end of the brand
+              gradient and 4.41:1 on ink; orange-300 measured 2.15:1 and
+              failed even the 3:1 large-text threshold. */}
+          <span className={cn('t-accent', onDark ? 'text-amber-300' : 'text-orange-700')}>
             {accent}
           </span>
         </>

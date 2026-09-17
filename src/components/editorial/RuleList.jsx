@@ -34,7 +34,7 @@ export function RuleRow({ index, title, description, to, href, tone = 'default',
         )}
       >
         {index && (
-          <span className={cn('t-numeral', onDark ? 'text-white/35' : 'text-mute')}>{index}</span>
+          <span className={cn('t-numeral', onDark ? 'text-white/60' : 'text-mute')}>{index}</span>
         )}
         <h3
           className={cn(

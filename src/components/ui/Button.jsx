@@ -1,18 +1,21 @@
 import { Link } from 'react-router-dom'
 import { cn } from '@/utils/cn.js'
 
+// White on orange-500 measures 3.45:1, which is below the 4.5:1 a normal
+// button label needs. orange-600 measures 4.55:1, so the solid variants
+// start there and darken on hover rather than the other way round.
 const VARIANTS = {
   primary:
-    'bg-orange-500 text-white shadow-xs hover:bg-orange-600 active:translate-y-px',
+    'bg-orange-600 text-white shadow-xs hover:bg-orange-700 active:translate-y-px',
   secondary:
     'bg-white text-ink border border-line-strong hover:border-ink/25 hover:bg-ivory active:translate-y-px',
   ghost: 'text-slate hover:text-ink hover:bg-sand',
-  outline: 'text-orange-600 border border-orange-500/35 hover:bg-orange-50 active:translate-y-px',
-  link: 'text-orange-600 hover:text-orange-700 underline-offset-4 hover:underline px-0',
+  outline: 'text-orange-700 border border-orange-600/40 hover:bg-orange-50 active:translate-y-px',
+  link: 'text-orange-700 hover:text-orange-800 underline-offset-4 hover:underline px-0',
 }
 
 const SIZES = {
-  sm: 'h-9 px-4 text-[0.85rem] gap-1.5 rounded-md',
+  sm: 'h-10 px-4 text-[0.85rem] gap-1.5 rounded-md',
   md: 'h-11 px-5 text-[0.9rem] gap-2 rounded-lg',
   lg: 'h-12 px-6 text-[0.95rem] gap-2 rounded-lg',
 }

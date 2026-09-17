@@ -51,7 +51,7 @@ export default function WorkProof() {
                 {project.name}
               </h3>
               <p className="mt-4 max-w-md text-slate">{project.blurb}</p>
-              <span className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-orange-600">
+              <span className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-orange-700">
                 Visit the live site
                 <FiArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </span>

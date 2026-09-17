@@ -58,7 +58,7 @@ export default function Contact() {
               </>
             )
             const shared =
-              'block border-b border-line py-7 lg:border-b-0 lg:border-l lg:px-8 lg:first:border-l-0 lg:first:pl-0'
+              'block min-h-[3rem] border-b border-line py-7 lg:border-b-0 lg:border-l lg:px-8 lg:first:border-l-0 lg:first:pl-0'
             return href ? (
               <a
                 key={label}

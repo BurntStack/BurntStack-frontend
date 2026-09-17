@@ -284,13 +284,13 @@ export default function ChatWidget() {
                 placeholder="Message Burnty…"
                 autoComplete="off"
                 maxLength={2000}
-                className="min-w-0 flex-1 rounded-lg border border-line-strong bg-canvas px-3.5 py-2.5 text-sm text-ink outline-none transition-colors placeholder:text-mute focus:border-orange-400"
+                className="min-w-0 flex-1 rounded-lg border border-line-strong bg-canvas px-3.5 py-2.5 text-sm text-ink transition-colors placeholder:text-mute focus:border-orange-400"
               />
               <button
                 type="submit"
                 disabled={sending || !input.trim()}
                 aria-label="Send message"
-                className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-orange-500 text-white transition-colors hover:bg-orange-600 disabled:opacity-50"
+                className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-orange-600 text-white transition-colors hover:bg-orange-700 disabled:opacity-50"
               >
                 <FiSend className="h-4 w-4" />
               </button>

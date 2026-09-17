@@ -14,14 +14,14 @@ export default function Label({ children, index, tone = 'default', className }) 
       variants={fadeInUp}
       className={cn(
         't-label flex items-center gap-3',
-        onDark ? 'text-orange-300' : 'text-orange-600',
+        onDark ? 'text-orange-300' : 'text-orange-700',
         className,
       )}
     >
       <span className={cn('h-px w-8', onDark ? 'bg-orange-300/60' : 'bg-orange-500/60')} />
       <span>{children}</span>
       {index && (
-        <span className={onDark ? 'text-white/35' : 'text-mute'}>{index}</span>
+        <span className={onDark ? 'text-white/60' : 'text-mute'}>{index}</span>
       )}
     </motion.div>
   )

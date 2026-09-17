@@ -19,7 +19,10 @@ const TONES = {
   ivory: 'bg-ivory text-slate',
   sand: 'bg-sand text-slate',
   ink: 'bg-ink text-white/70',
-  brand: 'bg-gradient-to-br from-orange-500 to-orange-600 text-white/85',
+  // orange-500 -> white measures 3.45:1, which no normal-size label on
+  // this band could pass. orange-600 -> orange-700 gives 4.55:1 at the
+  // lightest end and 6.36:1 at the darkest.
+  brand: 'bg-gradient-to-br from-orange-600 to-orange-700 text-white',
 }
 
 const SPACING = {

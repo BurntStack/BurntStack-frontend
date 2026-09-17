@@ -13,7 +13,11 @@
   --color-line-strong: #ddd6c9;    /* stronger borders */
   --color-ink: #1b1712;            /* headings / primary text (warm charcoal) */
   --color-slate: #57514a;          /* body text */
-  --color-mute: #8b847a;           /* secondary / captions */
+  /* Measured against every ground it is used on. The previous #8b847a
+     scored 3.70 on white, 3.49 on ivory and 3.28 on sand - below the
+     4.5:1 needed for body text, and it carried every form label,
+     caption and eyebrow on the site. This scores 5.91 / 5.57 / 5.24. */
+  --color-mute: #6b6359;           /* secondary / captions */
 
   /* Brand — orange (primary) */
   --color-orange-50: #fdf3ec;
@@ -31,6 +35,16 @@
   --color-amber-300: #fcd34d;
   --color-amber-400: #f8b724;
   --color-amber-500: #f2a20c;
+
+  /* Accent split into fill vs text.
+     White on orange-500 measures 3.45:1 - fine behind large display
+     type (needs 3:1) but failing under 14-16px button labels. Small
+     orange text on sand measures 4.03:1 and fails too. So: -fill for
+     backgrounds under large text, -solid for button backgrounds
+     carrying normal text, -text for small orange type on light. */
+  --color-accent-fill: var(--color-orange-500);   /* 3.45:1 with white - large text only */
+  --color-accent-solid: var(--color-orange-600);  /* 4.55:1 with white - button labels */
+  --color-accent-text: var(--color-orange-700);   /* 6.36 / 6.00 / 5.64 on light grounds */
 
   /* Semantic aliases used across components */
   --color-background: var(--color-canvas);
@@ -110,6 +124,66 @@
     font-family: var(--font-sans);
     font-size: 1rem;
     line-height: 1.6;
+  }
+
+  /* ------------------------------------------------------------------ */
+  /*  Interaction baseline                                                */
+  /*  Audited against the live site: 28 clickable controls reported       */
+  /*  cursor:default, and the four form fields had no focus indicator at  */
+  /*  all - they only shifted border colour, which a keyboard user cannot */
+  /*  reliably see and which fails the 3:1 focus-appearance contrast.     */
+  /* ------------------------------------------------------------------ */
+  button:not(:disabled),
+  [role="button"]:not([aria-disabled="true"]),
+  summary,
+  label:has(input[type="checkbox"]),
+  label:has(input[type="radio"]) {
+    cursor: pointer;
+  }
+
+  button:disabled,
+  [aria-disabled="true"] {
+    cursor: not-allowed;
+  }
+
+  /* Removes the 300ms tap delay without disabling pinch-zoom. */
+  button,
+  a,
+  input,
+  select,
+  textarea,
+  [role="button"] {
+    touch-action: manipulation;
+  }
+
+  /* One visible focus treatment for everything reachable by keyboard.
+     :focus-visible so a mouse click doesn't leave a ring behind. */
+  :where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+    outline: 2px solid var(--color-accent-text);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  /* On dark grounds the brand orange is too close to the surface to
+     carry a 3:1 focus contrast, so the ring flips to white there. */
+  .bg-ink :where(a, button, input, select, textarea, [tabindex]):focus-visible,
+  [data-tone="dark"] :where(a, button, input, select, textarea, [tabindex]):focus-visible {
+    outline-color: #ffffff;
+  }
+
+  /* Pointer targets: WCAG 2.2 AA asks for 24x24 CSS px. Inline nav and
+     footer links measured 17-23px tall, so give them a real hit area
+     without changing how they look. */
+  .tap-target {
+    position: relative;
+  }
+
+  .tap-target::after {
+    content: "";
+    position: absolute;
+    inset: 50% 0 auto 0;
+    height: max(100%, 2.75rem);
+    transform: translateY(-50%);
   }
 
   h1, h2, h3, h4, h5 {
@@ -355,6 +429,22 @@
     animation-duration: 0.001ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/*  Reduced motion                                                     */
+/*  Everything still renders in its final, readable state - reveals    */
+/*  collapse to no-ops rather than leaving content stuck at opacity:0. */
+/* ------------------------------------------------------------------ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
 }

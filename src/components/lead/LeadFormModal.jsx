@@ -83,7 +83,7 @@ export function LeadFormProvider({ children }) {
                     <FiX className="h-4 w-4" />
                   </button>
 
-                  <p className="t-label text-orange-600">Free quote</p>
+                  <p className="t-label text-orange-700">Free quote</p>
                   <h2 className="t-editorial-sm mt-3 text-ink">Tell us what you need</h2>
                   <p className="mt-3 text-sm text-slate">
                     Leave your details and we will come back within one business day with a fixed
@@ -99,13 +99,13 @@ export function LeadFormProvider({ children }) {
                       href={CONTACT_CHANNELS.whatsapp}
                       target="_blank"
                       rel="noreferrer"
-                      className="inline-flex items-center gap-2 text-sm font-semibold text-ink transition-colors hover:text-orange-600"
+                      className="tap-target inline-flex items-center gap-2 py-2 text-sm font-semibold text-ink transition-colors hover:text-orange-700"
                     >
                       <FaWhatsapp className="h-4 w-4 text-[#25D366]" /> WhatsApp instead
                     </a>
                     <a
                       href={`tel:${CONTACT_CHANNELS.phone}`}
-                      className="inline-flex items-center gap-2 text-sm font-semibold text-ink transition-colors hover:text-orange-600"
+                      className="tap-target inline-flex items-center gap-2 py-2 text-sm font-semibold text-ink transition-colors hover:text-orange-700"
                     >
                       <FiPhone className="h-4 w-4 text-orange-500" /> {CONTACT_CHANNELS.phoneLabel}
                     </a>

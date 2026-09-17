@@ -30,7 +30,7 @@ export default function PageHero({ eyebrow, title, accent, description, aside = 
       <Container className="relative">
         <motion.div variants={staggerContainer(0.08)} initial="show" animate="show">
           {eyebrow && (
-            <motion.div variants={fadeInUp} className="t-label flex items-center gap-3 text-orange-600">
+            <motion.div variants={fadeInUp} className="t-label flex items-center gap-3 text-orange-700">
               <span className="h-px w-8 bg-orange-500/60" />
               {eyebrow}
             </motion.div>
