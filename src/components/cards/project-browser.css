@@ -1,0 +1,96 @@
+.project-browser {
+  overflow:hidden;
+  min-width:0;
+  border:1px solid #27282135;
+  border-radius:10px;
+  background:#fff;
+  box-shadow:0 18px 60px #5f253b12;
+  color:#22231f;
+}
+.project-browser-bar {
+  display:flex;
+  align-items:center;
+  gap:24px;
+  padding:14px 20px;
+  border-bottom:1px solid #27282120;
+  background:#eeede6;
+}
+.browser-dots { display:flex; gap:6px; flex-shrink:0 }
+.browser-dots i { width:9px; height:9px; border-radius:50%; background:#e1816d }
+.browser-dots i:nth-child(2) { background:#d4b260 }
+.browser-dots i:nth-child(3) { background:#8d9c72 }
+.browser-address {
+  display:flex;
+  align-items:center;
+  gap:10px;
+  width:min(480px,100%);
+  min-width:0;
+  margin-inline:auto;
+  padding:8px 12px;
+  border:1px solid #27282115;
+  border-radius:5px;
+  background:#f9f8f3;
+  font:11px ui-monospace,monospace;
+  color:#56574d;
+}
+.browser-address span { flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap }
+.browser-address svg { flex-shrink:0 }
+.browser-controls { display:flex; gap:4px }
+.browser-controls button { display:grid; place-items:center; width:36px; height:36px; border-radius:4px }
+.browser-controls button:hover { background:#deddd4 }
+.project-browser-viewport { position:relative; height:600px; background:#f7f6f0 }
+.project-browser-viewport>picture { display:block; height:100% }
+.project-browser-viewport img { display:block; width:100%; height:100%; object-fit:cover; object-position:top; }
+.project-browser-viewport>iframe { display:block; width:100%; height:100%; border:0; background:white }
+.browser-preview-action { position:absolute; inset:0; display:flex; align-items:flex-end; justify-content:center; padding:32px; background:linear-gradient(transparent 60%,#22231f44); pointer-events:none }
+.browser-preview-action>a,.browser-preview-action>button { pointer-events:auto; box-shadow:0 6px 24px #22231f25; min-height:48px }
+.browser-placeholder { display:grid; place-items:center; height:100%; font-size:90px; color:#6b6359; background:#e8edcc }
+.project-browser-caption { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:10px 24px; padding:12px 20px; background:#f7f6f0; border-top:1px solid #27282120; font-size:11px; line-height:1.5; color:#626359 }
+.project-browser-caption a { display:inline-flex; align-items:center; gap:8px; padding-block:6px; color:#22231f; font-weight:600 }
+.project-browser a:hover { color:#a1420f }
+.project-browser .studio-button:hover { color:white }
+.featured-project .project-browser { border-radius:8px }
+.portfolio-project-browser { grid-column:1/-1 }
+@media(max-width:760px) {
+  .project-browser-bar { gap:10px; padding:10px }
+  .browser-dots { gap:4px }
+  .browser-dots i { width:7px; height:7px }
+  .browser-address { font-size:9px; gap:6px; padding:8px }
+  .browser-controls button { width:28px; height:32px }
+  .project-browser-viewport { height:450px }
+  .project-browser-viewport img { object-fit:cover; object-position:top }
+  .browser-preview-action { padding:20px }
+  .project-browser-caption { padding:10px 14px; font-size:10px }
+}
+
+.project-selector { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:10px; margin-bottom:24px }
+.project-selector button { display:flex; align-items:center; gap:12px; min-height:66px; padding:14px 16px; border:1px solid #27282130; border-radius:6px; text-align:left; font-size:12px; line-height:1.5; color:#626359; transition:background .2s,color .2s }
+.project-selector button>span { flex:1 }
+.project-selector button>svg { flex-shrink:0 }
+.project-selector-number { font:10px ui-monospace,monospace; opacity:.7 }
+.project-selector button:hover { background:#eeede6; color:#22231f }
+.project-selector button[aria-pressed="true"] { background:#22231f; border-color:#22231f; color:#f7f6f0 }
+.project-showcase .project-caption { gap:24px }
+.project-showcase .project-caption p { max-width:650px; line-height:1.7 }
+.project-showcase .project-tags { flex-wrap:wrap; flex-shrink:0 }
+.project-showcase .project-tags>a { display:grid; place-items:center; width:40px; height:40px; font-size:22px }
+@media(max-width:900px) {
+  .project-selector { grid-template-columns:repeat(2,minmax(0,1fr)) }
+  .project-showcase .project-caption { align-items:flex-start; flex-direction:column; gap:14px }
+}
+
+.project-browser button:focus-visible,
+.project-browser a:focus-visible { outline:3px solid #e7b869; outline-offset:3px }
+.project-browser-caption { font-size:13px }
+.project-selector button { font-size:14px }
+.project-selector-number { font-size:12px }
+.project-browser-caption,.project-selector button { color:#42443b }
+.project-browser-caption a { color:#24251f }
+.project-browser .browser-address { color:#42443b; background:#fffdf7; border-color:#27282145 }
+.project-selector button[aria-pressed="true"] { background:#24251f; color:#fffaf2 }
+@media(max-width:370px) {
+  .project-selector button { padding:12px 10px; gap:7px; font-size:12px }
+}
+@media(prefers-reduced-motion:reduce) {
+  .project-selector button { transition:none }
+}

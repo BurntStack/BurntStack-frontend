@@ -2,6 +2,7 @@ import { motion } from 'framer-motion'
 import { FiExternalLink, FiGithub, FiArrowUpRight } from 'react-icons/fi'
 import { cn } from '@/utils/cn.js'
 import { fadeInUp } from '@/lib/motion.js'
+import ProjectBrowser from './ProjectBrowser.jsx'
 
 /**
  * A project as a full-width editorial entry: oversized name, details in a
@@ -21,10 +22,11 @@ export default function ProjectCard({ project, coverHeight = 'h-56' }) {
   return (
     <motion.article
       variants={fadeInUp}
-      className="group grid gap-8 border-b border-line py-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,20rem)] lg:gap-16"
+      className={cn('group grid gap-8 border-b border-line py-12 lg:gap-12', !liveUrl && 'lg:grid-cols-[minmax(0,1fr)_minmax(0,20rem)]')}
     >
       <div>
         <span className="t-label text-mute">{category}</span>
+        {project.status && <span className="ml-3 rounded-full border border-line px-3 py-1 text-xs text-mute">{project.status}</span>}
         <h2 className="t-editorial-sm mt-4 text-ink transition-colors duration-300 group-hover:text-orange-600">
           {name}
         </h2>
@@ -68,7 +70,7 @@ export default function ProjectCard({ project, coverHeight = 'h-56' }) {
               href={liveUrl}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-2 text-sm font-semibold text-orange-600 transition-colors hover:text-orange-700"
+              className="inline-flex items-center gap-2 py-1 text-sm font-semibold text-orange-600 transition-colors hover:text-orange-700"
             >
               Visit the live site <FiExternalLink className="h-4 w-4" />
             </a>
@@ -87,7 +89,7 @@ export default function ProjectCard({ project, coverHeight = 'h-56' }) {
         </div>
       </div>
 
-      <div
+      {liveUrl ? <div className="portfolio-project-browser"><ProjectBrowser project={project} /></div> : <div
         className={cn(
           'relative w-full overflow-hidden rounded-sm bg-gradient-to-br transition-transform duration-500 group-hover:scale-[1.02]',
           coverHeight,
@@ -95,7 +97,7 @@ export default function ProjectCard({ project, coverHeight = 'h-56' }) {
         )}
       >
         <div className="absolute inset-0 bg-dot-grid opacity-40" />
-      </div>
+      </div>}
     </motion.article>
   )
 }

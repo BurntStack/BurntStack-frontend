@@ -1,10 +1,9 @@
-import { Suspense, lazy, useEffect } from 'react'
+import { Suspense, lazy } from 'react'
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom'
 import { AnimatePresence } from 'framer-motion'
 import Layout from '@/components/layout/Layout.jsx'
 import ScrollToTop from '@/components/layout/ScrollToTop.jsx'
 import PageTransition from '@/components/layout/PageTransition.jsx'
-import { initCal } from '@/lib/cal.js'
 // Home is NOT code-split like the other pages: it's the entry point for
 // essentially every fresh visit (direct traffic, search, social), so its
 // chunk is downloaded immediately regardless - lazy-loading it bought
@@ -64,19 +63,6 @@ function PageLoader() {
 
 export default function App() {
   const location = useLocation()
-
-  // Loads once, app-wide, so the "Free Consultation" popup works from any
-  // page (Navbar, Contact) without every one of them re-initializing it.
-  // Deferred via requestIdleCallback: this SDK isn't needed until someone
-  // actually clicks a booking button, so it shouldn't compete with the
-  // current page's own content/data fetches for bandwidth and main-thread
-  // time right after navigation.
-  useEffect(() => {
-    const idle = window.requestIdleCallback || ((cb) => setTimeout(cb, 1))
-    const cancelIdle = window.cancelIdleCallback || clearTimeout
-    const id = idle(() => initCal())
-    return () => cancelIdle(id)
-  }, [])
 
   return (
     <Layout>

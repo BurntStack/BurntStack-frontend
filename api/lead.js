@@ -8,7 +8,6 @@ import { buildLeadEmailHtml } from './_lead-email.js'
 // arrives somewhere other than the address customers are told to write to
 // is how replies get missed.
 const NOTIFY_TO = 'socials@burntstack.com'
-const FROM = 'BurntStack Leads <onboarding@resend.dev>'
 
 function escapeHtml(value) {
   return String(value)
@@ -36,26 +35,33 @@ export default async function handler(req, res) {
     res.status(400).json({ error: 'Please enter your name.' })
     return
   }
-  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+  if (typeof email !== 'string' || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
     res.status(400).json({ error: 'Please enter a valid email.' })
+    return
+  }
+
+  const fields = [[name, 120], [email, 254], [phone, 40], [plan, 120], [message, 5000]]
+  if (fields.some(([value, max]) => value != null && (typeof value !== 'string' || value.length > max))) {
+    res.status(400).json({ error: 'Please check your details and keep the message under 5,000 characters.' })
     return
   }
 
   const apiKey = process.env.RESEND_API_KEY
   if (!apiKey) {
-    res.status(500).json({ error: 'Email is not configured.' })
+    res.status(503).json({ error: 'Enquiries are temporarily unavailable. Please WhatsApp or email socials@burntstack.com.' })
     return
   }
 
   try {
     const resendRes = await fetch('https://api.resend.com/emails', {
+      signal: AbortSignal.timeout(15000),
       method: 'POST',
       headers: {
         Authorization: `Bearer ${apiKey}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        from: FROM,
+        from: process.env.RESEND_FROM || 'BurntStack Leads <onboarding@resend.dev>',
         to: [NOTIFY_TO],
         reply_to: email,
         subject: plan ? `New lead (${plan}): ${name}` : `New site lead: ${name}`,

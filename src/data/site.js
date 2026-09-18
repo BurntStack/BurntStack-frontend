@@ -31,19 +31,25 @@ export const NAV_LINKS = [
 ]
 
 export const SOCIALS = [
-  { label: 'LinkedIn', href: 'https://linkedin.com', icon: FaLinkedinIn },
-  { label: 'X (Twitter)', href: 'https://x.com', icon: FaXTwitter },
-  { label: 'Instagram', href: 'https://instagram.com', icon: FaInstagram },
-  { label: 'Facebook', href: 'https://facebook.com', icon: FaFacebookF },
-  { label: 'GitHub', href: 'https://github.com', icon: FaGithub },
-]
+  { label: 'LinkedIn', href: import.meta.env.VITE_SOCIAL_LINKEDIN, icon: FaLinkedinIn },
+  { label: 'X (Twitter)', href: import.meta.env.VITE_SOCIAL_X, icon: FaXTwitter },
+  { label: 'Instagram', href: import.meta.env.VITE_SOCIAL_INSTAGRAM, icon: FaInstagram },
+  { label: 'Facebook', href: import.meta.env.VITE_SOCIAL_FACEBOOK, icon: FaFacebookF },
+  { label: 'GitHub', href: import.meta.env.VITE_SOCIAL_GITHUB, icon: FaGithub },
+].filter(({ href }) => {
+  try { return new URL(href).protocol === 'https:' } catch { return false }
+})
 
 export const FOOTER_LINKS = {
   'What we do': [
-    { label: 'Business websites', section: 'services' },
-    { label: 'Online stores', section: 'services' },
-    { label: 'WhatsApp lead pipeline', section: 'services' },
-    { label: 'SEO & Google setup', section: 'services' },
+    { label: 'Websites', section: 'services' },
+    { label: 'Software applications', section: 'services' },
+    { label: 'ERP applications', section: 'services' },
+    { label: 'AI automations', section: 'services' },
+    { label: 'Voice agents', section: 'services' },
+    { label: 'SaaS applications', section: 'services' },
+    { label: 'Mobile applications', section: 'services' },
+    { label: 'E-commerce', section: 'services' },
   ],
   Company: [
     { label: 'Our work', to: '/portfolio' },

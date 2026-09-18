@@ -15,7 +15,6 @@ const FALLBACK_MODEL = 'openai/gpt-oss-20b'
 
 // Matches the quote form and the popup - one inbox for every enquiry.
 const NOTIFY_TO = 'socials@burntstack.com'
-const FROM = 'BurntStack Leads <onboarding@resend.dev>'
 
 // Best-effort throttle. Serverless instances aren't shared, so this bounds
 // abuse from a single warm instance rather than enforcing a global limit -
@@ -48,6 +47,7 @@ function escapeHtml(value) {
 
 async function post(apiKey, body) {
   return fetch(GROQ_URL, {
+    signal: AbortSignal.timeout(20000),
     method: 'POST',
     headers: { Authorization: `Bearer ${apiKey}`, 'Content-Type': 'application/json' },
     body: JSON.stringify(body),
@@ -86,10 +86,11 @@ async function notifyTeam(lead, history) {
 
   try {
     const res = await fetch('https://api.resend.com/emails', {
+      signal: AbortSignal.timeout(15000),
       method: 'POST',
       headers: { Authorization: `Bearer ${apiKey}`, 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        from: FROM,
+        from: process.env.RESEND_FROM || 'BurntStack Leads <onboarding@resend.dev>',
         to: [NOTIFY_TO],
         ...(lead.email ? { reply_to: lead.email } : {}),
         subject: `New chat lead: ${lead.name} (${lead.mobile})`,

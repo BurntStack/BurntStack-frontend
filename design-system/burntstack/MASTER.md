@@ -1,3 +1,5 @@
+> September 2026: the studio homepage and shared navigation/footer now use the direction documented in [REDESIGN.md](./REDESIGN.md). The measurements below describe the previous design and are retained as historical evidence; they are not a fresh audit of the redesign.
+
 # BurntStack — Design System (Master)
 
 Source of truth for visual and interaction decisions on burntstack.com.

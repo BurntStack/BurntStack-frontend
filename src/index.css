@@ -136,6 +136,10 @@
   button:not(:disabled),
   [role="button"]:not([aria-disabled="true"]),
   summary,
+  /* A select opens a menu on click like any other control, but the
+     browser default leaves it on cursor:default - the quote form's
+     package picker was the last control on the site still reporting it. */
+  select:not(:disabled),
   label:has(input[type="checkbox"]),
   label:has(input[type="radio"]) {
     cursor: pointer;
@@ -181,9 +185,11 @@
   .tap-target::after {
     content: "";
     position: absolute;
-    inset: 50% 0 auto 0;
+    top: 50%;
+    left: 50%;
+    width: max(100%, 2.75rem);
     height: max(100%, 2.75rem);
-    transform: translateY(-50%);
+    transform: translate(-50%, -50%);
   }
 
   h1, h2, h3, h4, h5 {

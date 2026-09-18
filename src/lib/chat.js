@@ -28,7 +28,7 @@ export async function sendChat(messages, { signal } = {}) {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ messages }),
-      signal,
+      signal: signal ? AbortSignal.any([signal, AbortSignal.timeout(75000)]) : AbortSignal.timeout(75000),
     })
   } catch (err) {
     // A cancelled request isn't a failure - the caller unmounted or the
@@ -49,6 +49,8 @@ export async function sendChat(messages, { signal } = {}) {
     // WhatsApp instead), so the server's own wording wins where it exists.
     throw new Error(data?.error || GENERIC_ERROR)
   }
+
+  if (typeof data?.reply !== 'string' || !data.reply.trim()) throw new Error(GENERIC_ERROR)
 
   return { reply: data?.reply || '', leadCaptured: data?.leadCaptured === true }
 }

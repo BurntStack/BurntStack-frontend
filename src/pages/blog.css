@@ -1,0 +1,114 @@
+.blog-page { padding-bottom:90px; color:#22231f }
+.blog-header { display:flex; align-items:flex-end; justify-content:space-between; gap:48px; padding:74px 0 44px }
+.blog-header h1 { max-width:800px; font-size:clamp(42px,5.3vw,78px); line-height:1.08; letter-spacing:-.065em; font-weight:500 }
+.blog-header h1 em { font-family:'Instrument Serif',Georgia,serif; font-weight:400; color:#a1420f }
+.blog-header p { max-width:330px; flex-shrink:0; padding-bottom:6px; color:#626359; font-size:14px; line-height:1.8 }
+.blog-controls { display:flex; align-items:center; justify-content:space-between; gap:24px; border-block:1px solid #27282130; padding:20px 0; margin-bottom:36px }
+.blog-filters { display:flex; flex-wrap:wrap; gap:8px }
+.blog-filters button { padding:10px 16px; border:1px solid transparent; border-radius:30px; font-size:13px; color:#626359 }
+.blog-filters button:hover { border-color:#27282135 }
+.blog-filters button[aria-pressed="true"] { background:#22231f; color:#f7f6f0 }
+.blog-search { display:flex; align-items:center; gap:12px; flex-shrink:0; width:300px; border:1px solid #27282130; border-radius:30px; padding:0 16px; background:#fffefa }
+.blog-search>svg { flex-shrink:0; color:#626359 }
+/* padding-block, not the wrapper's, so the input's own hit area clears
+   the 24px minimum rather than only the ring around it. */
+.blog-search input { width:100%; min-width:0; padding-block:11px; font-size:13px; outline:none; background:transparent }
+.blog-search:focus-within { outline:2px solid #a1420f; outline-offset:3px }
+.blog-search button { display:grid; place-items:center; width:24px; height:24px; flex-shrink:0 }
+.article-card { min-width:0; position:relative }
+.article-card>a { display:flex; flex-direction:column; height:100%; border:1px solid #27282124; border-radius:8px; overflow:hidden; background:#fffefa; transition:border-color .2s }
+.article-card>a:hover { border-color:#a1420f }
+.article-image { aspect-ratio:16/10; overflow:hidden; flex-shrink:0; position:relative; background:#e8edcc }
+.article-image-1 { background:#e7c5cd }
+.article-image-2 { background:#e9d9be }
+.article-image img { height:100%; width:100%; object-fit:cover; display:block; transition:transform .35s }
+.article-card>a:hover .article-image img { transform:scale(1.025) }
+.article-art { position:relative; width:100%; height:100%; overflow:hidden; display:grid; place-items:center }
+.article-art>span { font:110px Georgia,serif; z-index:1; color:#34392d; transform:rotate(-12deg) }
+.article-art>i { position:absolute; height:70%; aspect-ratio:1; border:1px solid #34392d50; border-radius:50%; right:-8%; top:-10% }
+.article-art>b { position:absolute; width:50%; height:50%; bottom:-20%; left:-5%; background:#ffffff55; transform:rotate(-25deg) }
+.article-copy { padding:26px; display:flex; flex-direction:column; flex:1; min-width:0 }
+.article-labels { display:flex; flex-wrap:wrap; align-items:center; gap:12px; font-size:12px; color:#a1420f; margin-bottom:12px }
+.article-labels:empty { display:none }
+.article-card h2 { font-size:23px; font-weight:500; line-height:1.28; letter-spacing:-.65px; overflow-wrap:anywhere; display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; min-height:3.84em }
+.article-excerpt { font-size:14px; line-height:1.8; color:#626359; margin-top:14px; display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; min-height:5.4em }
+.article-topics { display:flex; gap:6px; margin-top:20px; min-width:0 }
+.article-topics>span { border:1px solid #27282124; border-radius:20px; padding:5px 9px; font-size:10px; color:#626359; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; min-width:0; max-width:65% }
+.article-byline { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:8px 12px; margin-top:auto; padding-top:24px; font-size:11px; color:#626359 }
+.article-byline>span:last-child { display:inline-flex; align-items:center; gap:5px }
+.article-corner { position:absolute; right:14px; top:14px; display:grid; place-items:center; height:34px; width:34px; border-radius:50%; background:#fffefa; color:#22231f; pointer-events:none }
+.article-featured { margin-bottom:40px }
+.article-featured>a { display:grid; grid-template-columns:1.12fr 1fr; background:#eaece0 }
+.article-featured .article-image { min-height:400px; height:100%; aspect-ratio:auto }
+.article-featured .article-copy { padding:40px }
+.article-featured h2 { font-size:clamp(27px,2.6vw,40px); min-height:0; display:block; line-height:1.15; letter-spacing:-1.2px }
+.article-featured .article-excerpt { min-height:0; margin-top:20px; -webkit-line-clamp:4 }
+.article-featured .article-byline { margin-top:0; justify-content:flex-start; gap:20px; padding-top:22px }
+.article-latest { border:1px solid #69724755; border-radius:30px; padding:6px 11px; color:#45522c; background:#f7f8ee }
+.article-read { display:flex; align-items:center; gap:12px; margin-top:30px; font-size:13px; font-weight:600 }
+.article-read>svg { width:30px; height:30px; padding:5px; border-radius:50%; border:1px solid #27282145 }
+.article-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:26px }
+.blog-pagination { display:flex; align-items:center; justify-content:center; gap:28px; margin-top:44px; font-size:13px }
+.blog-pagination button { display:inline-flex; align-items:center; gap:8px; padding:12px }
+.blog-pagination button:disabled { opacity:.35; cursor:default }
+.blog-state { padding:50px 20px; text-align:center; border:1px dashed #27282140; border-radius:8px; margin-bottom:30px }
+.blog-state h2 { font-size:24px; letter-spacing:-.5px }
+.blog-state p { color:#626359; margin-block:12px }
+.blog-state button { margin-top:12px }
+.blog-loading { display:grid; grid-template-columns:repeat(3,1fr); gap:26px }
+.blog-loading div { height:360px; background:#eae9e1; border-radius:8px }
+@media(max-width:1100px) {
+  .blog-header { gap:24px }
+  .blog-header p { max-width:270px; font-size:13px }
+  .article-copy { padding:22px }
+  .article-featured .article-copy { padding:28px }
+  .article-card h2 { font-size:21px }
+  .article-featured h2 { font-size:30px }
+  .article-grid { gap:18px }
+}
+
+/* Blog metadata remains secondary, but it should still be effortless to read. */
+.article-topics>span { font-size:12px }
+.article-byline { font-size:13px; line-height:1.45 }
+.blog-search input { font-size:15px }
+.blog-filters button { font-size:14px }
+.blog-search:focus-within { border-color:#a1420f; box-shadow:0 0 0 3px #a1420f22 }
+.blog-page button:focus-visible,.blog-page a:focus-visible { outline:3px solid #e7b869; outline-offset:3px }
+@media(max-width:900px) {
+  .blog-header { align-items:flex-start; flex-direction:column; gap:22px; padding-top:48px }
+  .blog-header p { max-width:500px }
+  .blog-header .desktop-break { display:none }
+  .article-featured>a { grid-template-columns:1fr 1fr }
+  .article-featured .article-image { min-height:360px }
+  .article-grid { grid-template-columns:repeat(2,minmax(0,1fr)) }
+  .article-byline { font-size:11px }
+}
+@media(max-width:600px) {
+  .blog-page { padding-bottom:50px }
+  .blog-header { padding:38px 0 28px }
+  .blog-header h1 { font-size:46px; max-width:350px }
+  .blog-controls { align-items:stretch; flex-direction:column-reverse; gap:16px; padding:16px 0; margin-bottom:24px }
+  .blog-search { width:100% }
+  .blog-filters button { padding:8px 13px; font-size:12px }
+  .article-featured>a { grid-template-columns:1fr }
+  .article-featured .article-image { min-height:0; height:auto; aspect-ratio:16/10 }
+  .article-featured .article-copy { padding:24px }
+  .article-featured h2 { font-size:29px }
+  .article-featured { margin-bottom:24px }
+  .article-grid,.blog-loading { grid-template-columns:1fr; gap:24px }
+  .article-card h2 { min-height:0 }
+  .article-excerpt { min-height:0 }
+  .article-featured .article-byline { gap:8px 12px }
+}
+@media(prefers-reduced-motion:reduce) {
+  .article-card>a,.article-image img { transition:none }
+}
+
+/* Contrast pass: body copy and metadata share the same readable ink. */
+.blog-page p,.blog-page .article-byline,.blog-page .article-topics>span,
+.blog-page .blog-filters button { color:#4f5148 }
+.blog-page .article-labels,.blog-page .blog-header h1 em { color:#7b320f }
+.blog-page .article-card>a { background:#fffdf7; border-color:#27282145 }
+.blog-page .article-latest { color:#344025; border-color:#53613b; background:#eef2dd }
+@media(max-width:900px) { .article-byline { font-size:13px } }
+@media(max-width:600px) { .blog-filters button { font-size:13px } }

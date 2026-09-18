@@ -1,10 +1,12 @@
 import {
   FaGlobe,
+  FaCode,
+  FaBuilding,
+  FaRobot,
+  FaMicrophoneLines,
+  FaCloud,
   FaCartShopping,
-  FaWhatsapp,
-  FaMagnifyingGlassChart,
   FaMobileScreen,
-  FaBrain,
 } from 'react-icons/fa6'
 
 /**
@@ -38,61 +40,113 @@ export const OFFER = {
   // Shown as the urgency pill above the headline. Set `badge: null` to hide
   // the pill and the matching strip in the quote section when no offer is
   // actually running — we'd rather show nothing than fake a countdown.
-  badge: 'Limited-time launch pricing',
-  headline: 'Turn visitors into paying customers.',
-  headlineAccent: 'Websites that sell, not just sit there.',
+  badge: null,
+  headline: 'Digital products for operational businesses.',
+  headlineAccent: 'Websites, software and connected systems.',
   subline:
-    'Design, build and launch handled end to end. A fast, mobile-first site wired to WhatsApp and Google so enquiries actually reach your phone. No technical knowledge needed on your side.',
-  primaryCta: 'Get my quote',
-  secondaryCta: 'See our work',
-  reassurance: 'Free consultation · No obligation · We reply within one business day',
+    'BurntStack designs and develops websites, software, ERP applications, AI automations, voice agents, SaaS products, mobile applications and e-commerce systems.',
+  primaryCta: 'Discuss a project',
+  secondaryCta: 'View selected work',
+  reassurance: 'Initial consultation at no charge · Written scope before development',
 }
 
 // Promises, not statistics. Each one is something we decide and can keep.
 export const PROOF_POINTS = [
-  { value: '7 days', label: 'Typical launch time for a standard site' },
-  { value: '1 month', label: 'Free post-launch support on every package' },
-  { value: '100%', label: 'Custom built, never a recycled template' },
-  { value: 'Direct', label: 'A real team you can call, not a ticket queue' },
+  { value: 'Web', label: 'Marketing sites and e-commerce systems' },
+  { value: 'Apps', label: 'Customer, operations and mobile applications' },
+  { value: 'ERP', label: 'Business processes in one connected system' },
+  { value: 'AI', label: 'Automation and voice interfaces for routine work' },
 ]
 
+/**
+ * The eight things we sell, grouped by the kind of product being built.
+ *
+ * `job` is the outcome in the visitor's own terms. People arrive wanting
+ * customers to find them, not wanting "on-page SEO", so the outcome
+ * leads and the service name is the mechanism underneath it.
+ *
+ * `plan` must match either a PACKAGES name or stand alone as its own
+ * quote-form option. LeadForm builds its dropdown from both lists.
+ */
 export const OFFER_SERVICES = [
   {
     icon: FaGlobe,
-    title: 'Business websites',
-    description:
-      'A fast, mobile-first site that explains what you do and makes it obvious how to contact you. Built custom, not dropped onto a theme.',
+    title: 'Websites',
+    plan: 'Business Website',
+    group: 'build',
+    job: 'A clear, confident home for your business on the web.',
+    description: 'Marketing sites, landing pages, and content-led websites designed around the action you need.',
+    includes: ['mobile-first responsive build', 'Forms, booking, and integrations', 'Analytics and launch support'],
   },
   {
-    icon: FaCartShopping,
-    title: 'Online stores',
-    description:
-      'Product catalogue, secure payments, order tracking and a checkout that does not lose people halfway through.',
+    icon: FaCode,
+    title: 'Software applications',
+    plan: 'Software applications',
+    group: 'build',
+    job: 'Purpose-built software for the way your team actually works.',
+    description: 'Customer portals, internal tools, dashboards, and workflows shaped around your process.',
+    includes: ['Product thinking and UX', 'Secure accounts and permissions', 'Reliable backend connections'],
   },
   {
-    icon: FaWhatsapp,
-    title: 'WhatsApp lead pipeline',
-    description:
-      'Every enquiry lands directly in your WhatsApp with the customer’s details attached, so nothing sits unread in an inbox.',
+    icon: FaBuilding,
+    title: 'ERP applications',
+    plan: 'ERP applications',
+    group: 'build',
+    job: 'One connected system for your operations, people, and data.',
+    description: 'ERP applications that bring scattered work into one dependable place for your business.',
+    includes: ['Roles, approvals, and workflows', 'Reports and operational dashboards', 'Data migration and integrations'],
   },
   {
-    icon: FaMagnifyingGlassChart,
-    title: 'On-page SEO & Google setup',
-    description:
-      'Proper titles, schema, sitemaps, Google Business Profile and Analytics, so you show up when people search nearby.',
+    icon: FaRobot,
+    title: 'AI automations',
+    plan: 'AI automations',
+    group: 'automate',
+    job: 'Less repetitive work, with useful automation behind it.',
+    description: 'AI-assisted workflows that connect your tools and help your team move faster.',
+    includes: ['Document and data workflows', 'AI assistants for internal teams', 'Automated handoffs and reports'],
+  },
+  {
+    icon: FaMicrophoneLines,
+    title: 'Voice agents',
+    plan: 'Voice agents',
+    group: 'automate',
+    job: 'A helpful voice at the front of your business, day and night.',
+    description: 'Voice agents that answer common questions, qualify callers, and route the next step.',
+    includes: ['Natural call handling', 'Lead capture and qualification', 'Human handoff when needed'],
+  },
+  {
+    icon: FaCloud,
+    title: 'SaaS applications',
+    plan: 'SaaS applications',
+    group: 'automate',
+    job: 'A subscription product your customers can use anywhere.',
+    description: 'Scalable SaaS applications with the product experience, accounts, and billing to grow with you.',
+    includes: ['Multi-tenant architecture', 'Plans, billing, and account areas', 'Usage, support, and admin tools'],
   },
   {
     icon: FaMobileScreen,
-    title: 'Mobile apps',
-    description:
-      'iOS and Android apps for when a website is not enough, such as bookings, ordering, memberships or internal tools.',
+    title: 'Mobile applications',
+    plan: 'Mobile applications',
+    group: 'build',
+    job: 'A focused mobile experience in your customer’s pocket.',
+    description: 'Mobile apps for customers, field teams, memberships, bookings, and everyday operations.',
+    includes: ['iOS and Android experiences', 'Notifications and secure accounts', 'App-ready API connections'],
   },
   {
-    icon: FaBrain,
-    title: 'AI & automation',
-    description:
-      'Chat assistants, automatic follow-ups and the small repetitive jobs your team should not be doing by hand.',
+    icon: FaCartShopping,
+    title: 'E-commerce',
+    plan: 'E-Commerce Store',
+    group: 'build',
+    job: 'A store that makes browsing, buying, and fulfilment feel simple.',
+    description: 'End-to-end commerce experiences for products, payments, orders, and the people running them.',
+    includes: ['Catalogue and checkout', 'Payments, stock, and order flows', 'Shipping and fulfilment tools'],
   },
+]
+
+/** The two halves of OFFER_SERVICES, with the promise each half makes. */
+export const SERVICE_GROUPS = [
+  { id: 'build', label: 'Build', promise: 'Digital products people can use.' },
+  { id: 'automate', label: 'Automate', promise: 'Systems that keep the work moving.' },
 ]
 
 /**
@@ -107,16 +161,32 @@ export const OFFER_SERVICES = [
  */
 export const PACKAGES_CONFIRMED = false
 
+/**
+ * Packages.
+ *
+ * `fit` is the load-bearing field. While prices are unpublished every
+ * card showed the identical line "Price on request", which is the one
+ * row a reader scans a pricing table for. `fit` answers the question
+ * they are really asking, which is "which of these am I?", and `scope`
+ * puts a real, differentiating number where the price will eventually
+ * go. Both come from what is already in `features`, so neither invents
+ * anything.
+ *
+ * PLACEHOLDER: `price`, `priceNote` and `delivery` are still unconfirmed
+ * and PACKAGES_CONFIRMED gates them out of the UI entirely.
+ */
 export const PACKAGES = [
   {
     name: 'Landing Page', // TODO: confirm name
-    tagline: 'One page, one goal: get the enquiry.',
+    tagline: 'A focused page for a single business objective.',
+    fit: 'For one service, campaign, product or enquiry objective.',
+    scope: 'One page',
     price: 'TBC', // TODO: confirm price
     priceNote: 'one-time', // TODO: confirm
     delivery: 'TODO: delivery time',
     features: [
       'Single-page custom design',
-      'Enquiry form + WhatsApp button',
+      'Enquiry form and WhatsApp button',
       'Mobile and tablet optimised',
       'Free SSL and hosting setup',
       'Basic on-page SEO',
@@ -125,7 +195,9 @@ export const PACKAGES = [
   },
   {
     name: 'Business Website', // TODO: confirm name
-    tagline: 'The full picture of your business, done properly.',
+    tagline: 'A structured website for an established business.',
+    fit: 'For organisations that need clear service, company and contact information.',
+    scope: 'Up to 6 pages',
     price: 'TBC', // TODO: confirm price
     priceNote: 'one-time', // TODO: confirm
     delivery: 'TODO: delivery time',
@@ -140,13 +212,15 @@ export const PACKAGES = [
   },
   {
     name: 'Premium Website', // TODO: confirm name
-    tagline: 'Content you control, built to grow.',
+    tagline: 'A larger website with managed content.',
+    fit: 'For teams that need a CMS, publishing workflow or regular content updates.',
+    scope: 'Up to 12 pages, plus a CMS',
     price: 'TBC', // TODO: confirm price
     priceNote: 'one-time', // TODO: confirm
     delivery: 'TODO: delivery time',
     features: [
       'Up to 12 custom pages',
-      'Blog / CMS you can edit yourself',
+      'Blog and CMS you edit yourself',
       'Advanced SEO and speed tuning',
       'Booking or enquiry workflow',
       'Three months of free changes',
@@ -155,7 +229,9 @@ export const PACKAGES = [
   },
   {
     name: 'E-Commerce Store', // TODO: confirm name
-    tagline: 'Sell online, end to end.',
+    tagline: 'An online store with catalogue, checkout and fulfilment workflows.',
+    fit: 'For businesses that sell products online and need connected order operations.',
+    scope: 'Full catalogue and checkout',
     price: 'Custom',
     priceNote: 'quoted per store',
     delivery: 'TODO: delivery time',
@@ -164,9 +240,36 @@ export const PACKAGES = [
       'Secure payment gateway',
       'Inventory and order management',
       'Shipping and tax configuration',
-      'Staff training on handover',
+      'Staff training at handover',
     ],
     highlighted: false,
+  },
+]
+
+/**
+ * How a project runs.
+ *
+ * A process section exists to remove a specific fear: pay, lose control,
+ * receive something you dislike, get stuck with it. So each step names
+ * what the visitor walks away holding (`gives`), which is the part that
+ * actually reduces the risk. Three steps, because three is what people
+ * remember.
+ */
+export const PROCESS_STEPS = [
+  {
+    title: 'Define the requirement.',
+    body: 'We review the business context, users, current systems, constraints and the outcome the product must support.',
+    gives: 'A written understanding of the problem and a practical next step.',
+  },
+  {
+    title: 'Approve the scope.',
+    body: 'We document the features, integrations, responsibilities and delivery stages before development begins.',
+    gives: 'A defined scope, delivery plan and quotation for approval.',
+  },
+  {
+    title: 'Build and release.',
+    body: 'We design, develop, test and deploy the agreed product, then provide the handover information your team needs.',
+    gives: 'A working release with the agreed access, documentation and support plan.',
   },
 ]
 
@@ -178,37 +281,30 @@ export const PACKAGES = [
  */
 export const TESTIMONIALS = []
 
-export const OFFER_STEPS = [
-  { step: '01', title: 'Free call', description: 'Fifteen minutes on what your business does and what the site needs to achieve.' },
-  { step: '02', title: 'Fixed quote', description: 'A written scope and price. No hourly surprises, no scope creeping in later.' },
-  { step: '03', title: 'Design', description: 'You see the real design before a line of code is written, and you sign it off.' },
-  { step: '04', title: 'Build & launch', description: 'We build, test on real devices, connect your domain and put it live.' },
-  { step: '05', title: 'Support', description: 'Free changes for your support window, then an optional monthly plan if you want us on call.' },
-]
 
 export const OFFER_FAQS = [
   {
-    q: 'Do I need to provide the content and photos?',
-    a: 'Only if you want to. Send whatever you already have and we will write and arrange the rest, then check it with you before anything goes live.',
+    q: 'What information do you need to prepare a proposal?',
+    a: 'We need the business objective, intended users, required functions, existing systems, preferred timeline and a contact who can approve the scope.',
   },
   {
-    q: 'Will the site work properly on phones?',
-    a: 'Yes. We design for mobile first and test on real devices, because that is where most of your customers will see it.',
+    q: 'Can you connect to our existing systems?',
+    a: 'Yes. We can assess APIs, databases, payment services, communication tools and other systems during scope definition.',
   },
   {
-    q: 'Can I edit the site myself afterwards?',
-    a: 'On the packages that include a CMS, yes, and we walk you through it on handover. On the simpler packages we handle changes for you during your support window.',
+    q: 'Do you build products for internal teams?',
+    a: 'Yes. Software and ERP applications can support internal workflows, permissions, approvals, reporting and operational data.',
   },
   {
-    q: 'What happens after the free support period ends?',
-    a: 'Nothing breaks and the site stays yours. You can request changes as one-off jobs or move onto a monthly plan, whichever suits you.',
+    q: 'How do you handle changes during development?',
+    a: 'Changes are reviewed against the approved scope. We document their effect on delivery and quotation before work starts.',
   },
   {
-    q: 'Who owns the website and the domain?',
-    a: 'You do. The domain is registered in your name and the site is handed over to you in full. We are not holding anything hostage.',
+    q: 'What do we receive at handover?',
+    a: 'You receive the agreed release, relevant account access, operating instructions and the support details defined in the project scope.',
   },
   {
     q: 'How do payments work?',
-    a: 'A deposit to start and the balance on launch. Larger builds are split into milestones tied to what has actually been delivered.',
+    a: 'The quotation sets out the payment schedule. It is agreed before work begins and can be tied to defined delivery milestones.',
   },
 ]

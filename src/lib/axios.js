@@ -7,8 +7,7 @@ import axios from 'axios'
  * auth or write access.
  */
 const api = axios.create({
-  baseURL: import.meta.env.VITE_BLOG_API_URL || 'http://localhost:8000/api',
-  headers: { 'Content-Type': 'application/json' },
+  baseURL: import.meta.env.DEV ? '/portal-api' : (import.meta.env.VITE_BLOG_API_URL || 'https://backend-wine-one-95.vercel.app/api'),
   timeout: 15000,
 })
 

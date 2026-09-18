@@ -1,55 +1,71 @@
+import { useState } from 'react'
+import { Link } from 'react-router-dom'
+import { FiArrowUpRight, FiArrowDown, FiCode, FiCommand, FiLayers, FiRefreshCw, FiPlus } from 'react-icons/fi'
 import Seo from '@/components/seo/Seo.jsx'
-import { OFFER_FAQS } from '@/data/offer.js'
+import { useQuoteForm } from '@/components/lead/useQuoteForm.js'
+import { useSectionNav } from '@/lib/useSectionNav.js'
+import { OFFER_FAQS, OFFER_SERVICES } from '@/data/offer.js'
 import { buildFaqSchema, buildOrganizationSchema, buildWebsiteSchema } from '@/lib/schema.js'
-import OfferHero from '@/sections/offer/OfferHero.jsx'
 import BookingSection from '@/sections/offer/BookingSection.jsx'
 import FromThePortal from '@/sections/offer/FromThePortal.jsx'
+import StudioPackages from '@/sections/offer/StudioPackages.jsx'
+import StudioProcess from '@/sections/offer/StudioProcess.jsx'
+import ProjectShowcase from '@/components/cards/ProjectShowcase.jsx'
 import OfferServices from '@/sections/offer/OfferServices.jsx'
-import WorkProof from '@/sections/offer/WorkProof.jsx'
-import OfferProcess from '@/sections/offer/OfferProcess.jsx'
-import Packages from '@/sections/offer/Packages.jsx'
-import OfferFaq from '@/sections/offer/OfferFaq.jsx'
-import QuoteCta from '@/sections/offer/QuoteCta.jsx'
+import '@/studio.css'
 
-// One real Organization/LocalBusiness node the whole site's other schema
-// blocks reference by @id, plus the site-level search box and every FAQ
-// actually rendered on this page - so Google can offer an expandable Q&A
-// rich result for genuinely visible content.
-const homeSchema = [buildOrganizationSchema(), buildWebsiteSchema(), buildFaqSchema(OFFER_FAQS)]
+const layers = [
+  { name: 'Design', note: 'Interfaces designed around your customers.', icon: FiCommand, className: 'design' },
+  { name: 'Develop', note: 'Websites and apps built for your business.', icon: FiCode, className: 'develop' },
+  { name: 'Deploy', note: 'Testing, hosting and launch support.', icon: FiLayers, className: 'deploy' },
+]
 
-/**
- * Ordered by what the visitor is ready to do, not by what we want to say.
- *
- *   1. Hero, with the lead form in it. The cheapest possible action, and
- *      it needs no click to reach - it is simply there.
- *   2. Booking. A bigger commitment than a form, so it comes second.
- *   3. From the portal. Whatever the team has published most recently;
- *      hides itself entirely when there is nothing.
- *   4. Everything else: what we do, what we have shipped, how it runs,
- *      what it costs, and the usual objections.
- *
- * Nothing on this page links to a `#fragment`. Every "get a quote" button
- * opens the form over the page instead, so the reader never loses their
- * place and the address bar stays clean.
- */
 export default function Home() {
+  const { openQuoteForm } = useQuoteForm()
+  const go = useSectionNav()
+  const [active, setActive] = useState(0)
+  const [scattered, setScattered] = useState(false)
+  const [faq, setFaq] = useState(0)
   return (
-    <>
-      <Seo
-        path="/"
-        title="Websites that turn visitors into customers"
-        description="BurntStack builds fast, custom websites, online stores and apps for businesses across India, wired to WhatsApp and Google so enquiries reach your phone. Fixed-price packages, free consultation."
-        jsonLd={homeSchema}
-      />
-      <OfferHero />
+    <div className="studio-home">
+      <Seo path="/" title="Websites, software and business systems | BurntStack" description="BurntStack designs and develops websites, software applications, ERP systems, AI automations, voice agents, SaaS products, mobile applications and e-commerce systems." jsonLd={[buildOrganizationSchema(), buildWebsiteSchema(), buildFaqSchema(OFFER_FAQS)]} />
+      <section className="studio-hero studio-wrap">
+        <div className="hero-main">
+          <div className="hero-copy">
+            <h1>Digital products<br />for <span className="serif-word">business.</span><span className="heading-star" aria-hidden="true">✳</span></h1>
+            <p>Websites, software and connected systems designed around your customers, staff and operating requirements.</p>
+            <div className="hero-actions"><button className="studio-button" onClick={openQuoteForm}>Discuss a project <FiArrowUpRight /></button><button className="text-button" onClick={() => go('work')}>View selected work <FiArrowDown /></button></div><button className="text-button hero-booking" onClick={() => go('booking')}>Book an initial 30-minute call <FiArrowUpRight /></button>
+          </div>
+          <div className={`stack-playground ${scattered ? 'is-scattered' : ''}`}>
+            <div className="stack-orbit" aria-hidden="true" />
+            <div className="interactive-stack">
+              {layers.map(({ name, icon: Icon, className }, index) => <button key={name} className={`stack-tile tile-${className} ${active === index ? 'is-active' : ''}`} onClick={() => setActive(index)} aria-pressed={active === index} aria-label={`Explore ${name}`}><Icon className="tile-icon" /><span className="tile-name">{name}<FiArrowUpRight /></span></button>)}
+            </div>
+            <span className="stack-doodle" aria-hidden="true">↙</span><span className="play-note">Select a stage</span>
+            <div className="playground-bottom"><span aria-live="polite">{layers[active].note}</span><button onClick={() => setScattered(!scattered)} aria-label={scattered ? 'Restore the cards' : 'Rearrange the cards'}><FiRefreshCw /> {scattered ? 'Restore' : 'Rearrange'}</button></div>
+          </div>
+        </div>
+      </section>
+      <ul className="capability-ribbon" aria-label="What we do">
+        {OFFER_SERVICES.map(({ title }) => (
+          <li key={title}>
+            {title}
+            <b aria-hidden="true">✳</b>
+          </li>
+        ))}
+      </ul>
+      <section id="work" className="studio-section studio-wrap">
+
+        <div className="section-heading"><h2>Selected <em>work.</em></h2><Link className="text-button" to="/portfolio">View portfolio <FiArrowUpRight /></Link></div>
+        <ProjectShowcase />
+      </section>
+      <OfferServices />
+      <StudioProcess />
+      <StudioPackages />
+      <section id="faq" className="studio-section studio-wrap faq-section"><div><h2>Project<br /><em>questions.</em></h2><p>Review the common requirements before you contact us.</p><Link className="text-button" to="/contact">Contact BurntStack <FiArrowUpRight /></Link></div><div className="studio-faq-list">{OFFER_FAQS.map(({ q, a }, i) => <div className="studio-faq" key={q}><h3><button onClick={() => setFaq(faq === i ? -1 : i)} aria-expanded={faq === i} aria-controls={`answer-${i}`}>{q}<FiPlus className={faq === i ? 'rotated' : ''} /></button></h3><div id={`answer-${i}`} hidden={faq !== i}><p>{a}</p></div></div>)}</div></section>
       <BookingSection />
       <FromThePortal />
-      <OfferServices />
-      <WorkProof />
-      <OfferProcess />
-      <Packages />
-      <OfferFaq />
-      <QuoteCta />
-    </>
+      <section className="closing-section"><div id="quote" className="studio-wrap"><button onClick={openQuoteForm} className="closing-button"><span>Discuss your<br /><em>requirements.</em></span><FiArrowUpRight /></button><div className="closing-bottom"><span>Websites, software and connected business systems.</span></div></div></section>
+    </div>
   )
 }

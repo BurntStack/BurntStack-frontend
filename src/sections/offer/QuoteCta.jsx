@@ -16,8 +16,8 @@ export default function QuoteCta() {
   return (
     <Band tone="brand" spacing="tight">
       <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
-        <Display className="max-w-[13ch]" tone="onDark" accent="Let’s talk.">
-          Ready to get started?
+        <Display className="max-w-[13ch]" tone="onDark" accent="Discuss scope.">
+          Request a proposal.
         </Display>
         <div className="flex flex-wrap items-center gap-3">
           <Button
@@ -26,7 +26,7 @@ export default function QuoteCta() {
             variant="secondary"
             className="border-transparent bg-white text-ink hover:bg-white/90"
           >
-            Get my quote <FiArrowRight className="h-4 w-4" />
+            Request a proposal <FiArrowRight className="h-4 w-4" />
           </Button>
           <Button
             href={CONTACT_CHANNELS.whatsapp}

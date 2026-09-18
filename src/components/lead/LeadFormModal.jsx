@@ -18,14 +18,28 @@ import { LeadFormContext } from './useQuoteForm.js'
  */
 export function LeadFormProvider({ children }) {
   const [open, setOpen] = useState(false)
+  const [initialPlan, setInitialPlan] = useState('')
   const reduceMotion = useReducedMotion()
 
-  const openQuoteForm = useCallback(() => setOpen(true), [])
+  const openQuoteForm = useCallback((plan) => {
+    setInitialPlan(typeof plan === 'string' ? plan : '')
+    setOpen(true)
+  }, [])
   const close = useCallback(() => setOpen(false), [])
 
   useEffect(() => {
     if (!open) return undefined
-    const onKey = (e) => e.key === 'Escape' && close()
+    const previousFocus = document.activeElement
+    const onKey = (e) => {
+      if (e.key === 'Escape') close()
+      if (e.key !== 'Tab') return
+      const fields = [...document.querySelectorAll('[data-lead-modal] button:not(:disabled), [data-lead-modal] input:not([tabindex="-1"]), [data-lead-modal] select, [data-lead-modal] textarea, [data-lead-modal] a[href]')]
+        .filter((element) => element.getClientRects().length)
+      const first = fields[0]
+      const last = fields.at(-1)
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last?.focus() }
+      if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first?.focus() }
+    }
     window.addEventListener('keydown', onKey)
     // Stop the page scrolling behind the dialog.
     const previous = document.body.style.overflow
@@ -33,6 +47,7 @@ export function LeadFormProvider({ children }) {
     return () => {
       window.removeEventListener('keydown', onKey)
       document.body.style.overflow = previous
+      previousFocus?.focus()
     }
   }, [open, close])
 
@@ -91,7 +106,7 @@ export function LeadFormProvider({ children }) {
                   </p>
 
                   <div className="mt-6">
-                    <LeadForm compact />
+                    <LeadForm compact initialPlan={initialPlan} />
                   </div>
 
                   <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 border-t border-line pt-5">

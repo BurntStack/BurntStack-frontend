@@ -19,27 +19,29 @@ const STATIC_PAGES = [
 ]
 
 const SITE = 'https://www.burntstack.com'
-const BLOG_API = 'https://backend-wine-one-95.vercel.app/api/blog/'
 
-async function fetchAllPosts() {
+async function fetchAllPosts(configuredBase) {
   const posts = []
-  let url = BLOG_API
+  const base = configuredBase || process.env.VITE_BLOG_API_URL || 'https://backend-wine-one-95.vercel.app/api'
+  let url = `${base.replace(/\/$/, '')}/blog/`
+  const origin = new URL(url).origin
   // The public feed is paginated; a handful of pages is a non-issue for a
   // sitemap that regenerates on every request.
   for (let i = 0; i < 20 && url; i++) {
-    const res = await fetch(url)
+    const res = await fetch(url, { signal: AbortSignal.timeout(10000) })
     if (!res.ok) break
     const data = await res.json()
-    posts.push(...(data.results ?? []))
-    url = data.next
+    posts.push(...(Array.isArray(data) ? data : data.results ?? []))
+    const next = data.next ? new URL(data.next, url) : null
+    url = next?.origin === origin ? next.href : null
   }
   return posts
 }
 
-export default async function handler(req, res) {
+export default async function handler(req, res, blogApiUrl) {
   let posts = []
   try {
-    posts = await fetchAllPosts()
+    posts = await fetchAllPosts(blogApiUrl)
   } catch (err) {
     console.error('sitemap: could not fetch posts', err)
     // Still serve the static pages rather than a 500 - a sitemap missing

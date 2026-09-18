@@ -1,161 +1,21 @@
 import { useEffect, useState } from 'react'
-import { NavLink, useLocation } from 'react-router-dom'
-import { motion, AnimatePresence } from 'framer-motion'
-import { FiMenu, FiX, FiArrowUpRight } from 'react-icons/fi'
-import { FaWhatsapp } from 'react-icons/fa6'
-import { NAV_LINKS } from '@/data/site.js'
-import { CONTACT_CHANNELS } from '@/data/offer.js'
-import { cn } from '@/utils/cn.js'
-import Container from '@/components/ui/Container.jsx'
-import Button from '@/components/ui/Button.jsx'
+import { Link, useLocation } from 'react-router-dom'
+import { FiArrowUpRight, FiMenu, FiX } from 'react-icons/fi'
+import Logo from '@/components/ui/Logo.jsx'
 import { useQuoteForm } from '@/components/lead/useQuoteForm.js'
 import { useSectionNav } from '@/lib/useSectionNav.js'
-import Logo from '@/components/ui/Logo.jsx'
 
 export default function Navbar() {
-  const { openQuoteForm } = useQuoteForm()
-  const goToSection = useSectionNav()
-  const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
-  const location = useLocation()
-
+  const { pathname } = useLocation()
+  const { openQuoteForm } = useQuoteForm()
+  const go = useSectionNav()
+  useEffect(() => setOpen(false), [pathname])
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 16)
-    onScroll()
-    window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
+    const close = (event) => { if (event.key === 'Escape') setOpen(false) }
+    window.addEventListener('keydown', close)
+    return () => window.removeEventListener('keydown', close)
   }, [])
-
-  useEffect(() => setOpen(false), [location.pathname])
-
-  return (
-    <header className="fixed inset-x-0 top-0 z-50">
-      <div
-        className={cn(
-          'transition-all duration-300',
-          scrolled
-            ? 'border-b border-line bg-canvas/85 backdrop-blur-md'
-            : 'border-b border-transparent bg-transparent',
-        )}
-      >
-        <Container
-          className={cn(
-            'flex items-center justify-between gap-6 transition-all duration-300',
-            scrolled ? 'h-16' : 'h-20',
-          )}
-        >
-          <Logo />
-
-          <nav className="hidden items-center gap-8 lg:flex" aria-label="Primary">
-            {NAV_LINKS.map((link) =>
-              link.section ? (
-                <button
-                  key={link.label}
-                  type="button"
-                  onClick={() => goToSection(link.section)}
-                  className="tap-target group relative py-2 text-[0.9rem] font-medium text-slate transition-colors hover:text-ink"
-                >
-                  {link.label}
-                  <span className="absolute -bottom-1.5 left-0 h-0.5 w-0 rounded-full bg-orange-500 transition-all duration-300 group-hover:w-full" />
-                </button>
-              ) : (
-                <NavLink
-                  key={link.to}
-                  to={link.to}
-                  end={link.to === '/'}
-                  className={({ isActive }) =>
-                    cn(
-                      'tap-target group relative py-2 text-[0.9rem] font-medium transition-colors',
-                      isActive ? 'text-ink' : 'text-slate hover:text-ink',
-                    )
-                  }
-                >
-                  {({ isActive }) => (
-                    <>
-                      {link.label}
-                      <span
-                        className={cn(
-                          'absolute -bottom-1.5 left-0 h-0.5 rounded-full bg-orange-500 transition-all duration-300',
-                          isActive ? 'w-full' : 'w-0 group-hover:w-full',
-                        )}
-                      />
-                    </>
-                  )}
-                </NavLink>
-              ),
-            )}
-          </nav>
-
-          <div className="flex items-center gap-3">
-            <Button onClick={openQuoteForm} size="sm" variant="primary">
-              <span className="hidden xs:inline">Get a quote</span>
-              <span className="xs:hidden">Quote</span>
-              <FiArrowUpRight className="h-4 w-4" />
-            </Button>
-            <button
-              type="button"
-              onClick={() => setOpen((v) => !v)}
-              aria-label={open ? 'Close menu' : 'Open menu'}
-              aria-expanded={open}
-              className="inline-flex h-10 w-10 items-center justify-center rounded-md border border-line-strong text-ink transition-colors hover:bg-sand lg:hidden"
-            >
-              {open ? <FiX className="h-5 w-5" /> : <FiMenu className="h-5 w-5" />}
-            </button>
-          </div>
-        </Container>
-      </div>
-
-      <AnimatePresence>
-        {open && (
-          <motion.div
-            initial={{ opacity: 0, y: -8 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
-            transition={{ duration: 0.22 }}
-            className="border-b border-line bg-canvas lg:hidden"
-          >
-            <Container className="flex flex-col py-3">
-              {NAV_LINKS.map((link) =>
-                link.section ? (
-                  <button
-                    key={link.label}
-                    type="button"
-                    onClick={() => { setOpen(false); goToSection(link.section) }}
-                    className="border-b border-line/70 py-3.5 text-left text-[0.95rem] font-medium text-slate transition-colors last:border-0 hover:text-ink"
-                  >
-                    {link.label}
-                  </button>
-                ) : (
-                  <NavLink
-                    key={link.to}
-                    to={link.to}
-                    end={link.to === '/'}
-                    className={({ isActive }) =>
-                      cn(
-                        'border-b border-line/70 py-3.5 text-[0.95rem] font-medium transition-colors last:border-0',
-                        isActive ? 'text-orange-600' : 'text-slate hover:text-ink',
-                      )
-                    }
-                  >
-                    {link.label}
-                  </NavLink>
-                ),
-              )}
-              <Button onClick={openQuoteForm} className="mt-4 w-full">
-                Get a quote <FiArrowUpRight className="h-4 w-4" />
-              </Button>
-              <a
-                href={CONTACT_CHANNELS.whatsapp}
-                target="_blank"
-                rel="noreferrer"
-                className="mt-2 inline-flex h-11 w-full items-center justify-center gap-2 rounded-lg bg-[#25D366] text-[0.9rem] font-semibold text-white"
-              >
-                <FaWhatsapp className="h-4 w-4" /> WhatsApp us
-              </a>
-            </Container>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </header>
-  )
+  const section = (id) => { setOpen(false); go(id) }
+  return <header className="studio-header"><div className="studio-wrap studio-nav"><Logo /><nav className={open ? 'studio-navigation is-open' : 'studio-navigation'} aria-label="Primary" id="primary-menu"><button onClick={() => section('work')}>Selected work</button><button onClick={() => section('services')}>Services</button><button onClick={() => section('process')}>Process</button><button onClick={() => section('booking')}>Consultation</button><Link to="/blog">Technical notes <FiArrowUpRight /></Link></nav><div className="nav-actions"><button className="nav-project" onClick={() => { setOpen(false); openQuoteForm() }}>Discuss a project <FiArrowUpRight /></button><button className="nav-toggle" aria-label={open ? 'Close menu' : 'Open menu'} aria-expanded={open} aria-controls="primary-menu" onClick={() => setOpen(!open)}>{open ? <FiX /> : <FiMenu />}</button></div></div></header>
 }

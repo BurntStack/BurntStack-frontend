@@ -162,3 +162,11 @@ describe('conversation persistence', () => {
     expect(() => clearConversation()).not.toThrow()
   })
 })
+
+describe('chat deployment failures', () => {
+  afterEach(() => vi.unstubAllGlobals())
+  it('rejects a successful HTTP response that contains no assistant reply', async () => {
+    vi.stubGlobal('fetch', stubFetch({ status: 200, body: {} }))
+    await expect(sendChat([{ role: 'user', content: 'hi' }])).rejects.toThrow(/try again/i)
+  })
+})

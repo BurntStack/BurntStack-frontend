@@ -3,6 +3,8 @@ import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
 import { FiX, FiCheck, FiSend } from 'react-icons/fi'
 import { cn } from '@/utils/cn.js'
 import { CHAT_STATE_EVENT } from '@/components/chat/ChatWidget.jsx'
+import { submitLead } from '@/lib/lead.js'
+import { OFFER_SERVICES, PACKAGES } from '@/data/offer.js'
 
 const STORAGE_KEY = 'bs-lead-popup-dismissed'
 // Show only once the visitor is past the hero. The previous 5-second timer
@@ -29,7 +31,7 @@ const SHOW_AFTER_SCROLL_PX = 900
  */
 export default function LeadPopup() {
   const [visible, setVisible] = useState(false)
-  const [form, setForm] = useState({ name: '', email: '', phone: '', message: '', website: '' })
+  const [form, setForm] = useState({ name: '', email: '', phone: '', plan: '', message: '', website: '' })
   const [status, setStatus] = useState('idle')
   const [error, setError] = useState('')
   const reduceMotion = useReducedMotion()
@@ -96,13 +98,7 @@ export default function LeadPopup() {
     setError('')
     setStatus('sending')
     try {
-      const res = await fetch('/api/lead', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
-      })
-      const data = await res.json().catch(() => ({}))
-      if (!res.ok) throw new Error(data.error || 'Something went wrong.')
+      await submitLead(form)
       setStatus('done')
       remember()
       setTimeout(() => setVisible(false), 2200)
@@ -144,7 +140,7 @@ export default function LeadPopup() {
             <form onSubmit={onSubmit} className="flex flex-col gap-2.5">
               <div>
                 <h3 className="font-display text-base font-bold text-ink">Have a project in mind?</h3>
-                <p className="mt-0.5 text-xs text-slate">Leave your details and we’ll reach out within a day.</p>
+              <p className="mt-0.5 text-xs text-slate">Tell us what you need built. We will review the requirement and respond within one business day.</p>
               </div>
 
               {/* Honeypot - hidden from real visitors, bots tend to fill every field */}
@@ -167,6 +163,16 @@ export default function LeadPopup() {
                 required
                 className="rounded-lg border border-line-strong bg-canvas px-3 py-2 text-sm text-ink transition-colors focus:border-orange-400"
               />
+              <select
+                aria-label="What should BurntStack build?"
+                value={form.plan}
+                onChange={update('plan')}
+                className="rounded-lg border border-line-strong bg-canvas px-3 py-2 text-sm text-ink transition-colors focus:border-orange-400"
+              >
+                <option value="">Select a service</option>
+                {PACKAGES.map((plan) => <option key={plan.name} value={plan.name}>{plan.name}</option>)}
+                {OFFER_SERVICES.filter((service) => !PACKAGES.some((plan) => plan.name === service.plan)).map((service) => <option key={service.plan} value={service.plan}>{service.title}</option>)}
+              </select>
               <input
                 type="email"
                 placeholder="Your email"
@@ -183,7 +189,7 @@ export default function LeadPopup() {
                 className="rounded-lg border border-line-strong bg-canvas px-3 py-2 text-sm text-ink transition-colors focus:border-orange-400"
               />
               <textarea
-                placeholder="What are you looking to build? (optional)"
+                placeholder="Briefly describe the requirement (optional)"
                 value={form.message}
                 onChange={update('message')}
                 rows={1}
@@ -200,7 +206,7 @@ export default function LeadPopup() {
                   'hover:bg-orange-700 disabled:opacity-60',
                 )}
               >
-                {status === 'sending' ? 'Sending…' : (<>Send <FiSend className="h-3.5 w-3.5" /></>)}
+                {status === 'sending' ? 'Submitting…' : (<>Submit enquiry <FiSend className="h-3.5 w-3.5" /></>)}
               </button>
             </form>
           )}

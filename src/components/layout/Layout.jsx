@@ -2,8 +2,6 @@ import { motion, useScroll, useSpring } from 'framer-motion'
 import { useSmoothScroll } from '@/hooks/useSmoothScroll.js'
 import Navbar from './Navbar.jsx'
 import Footer from './Footer.jsx'
-import FloatingActions from './FloatingActions.jsx'
-import LeadPopup from './LeadPopup.jsx'
 import ChatWidget from '@/components/chat/ChatWidget.jsx'
 import { LeadFormProvider } from '@/components/lead/LeadFormModal.jsx'
 
@@ -34,9 +32,7 @@ export default function Layout({ children }) {
         {children}
       </main>
       <Footer />
-      <FloatingActions />
       <ChatWidget />
-      <LeadPopup />
     </div>
     </LeadFormProvider>
   )

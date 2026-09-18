@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import { FiCheck, FiSend, FiShield } from 'react-icons/fi'
-import { PACKAGES } from '@/data/offer.js'
+import { PACKAGES, OFFER_SERVICES } from '@/data/offer.js'
 import { cn } from '@/utils/cn.js'
+import { submitLead } from '@/lib/lead.js'
 
 const EMPTY = { name: '', phone: '', email: '', plan: '', message: '', website: '' }
 
@@ -13,8 +14,8 @@ const EMPTY = { name: '', phone: '', email: '', plan: '', message: '', website: 
  * implementations of the same four fields (this and the popup), which is
  * how the two drifted apart on validation and error handling.
  */
-export default function LeadForm({ tone = 'light', compact = false, onSuccess }) {
-  const [form, setForm] = useState(EMPTY)
+export default function LeadForm({ tone = 'light', compact = false, initialPlan = '', onSuccess }) {
+  const [form, setForm] = useState(() => ({ ...EMPTY, plan: initialPlan }))
   const [status, setStatus] = useState('idle')
   const [error, setError] = useState('')
 
@@ -31,16 +32,11 @@ export default function LeadForm({ tone = 'light', compact = false, onSuccess })
 
   const submit = async (e) => {
     e.preventDefault()
+    if (status === 'sending') return
     setError('')
     setStatus('sending')
     try {
-      const res = await fetch('/api/lead', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
-      })
-      const data = await res.json().catch(() => ({}))
-      if (!res.ok) throw new Error(data.error || 'Something went wrong.')
+      await submitLead(form)
       setStatus('done')
       setForm(EMPTY)
       onSuccess?.()
@@ -52,7 +48,7 @@ export default function LeadForm({ tone = 'light', compact = false, onSuccess })
 
   if (status === 'done') {
     return (
-      <div className={cn('flex flex-col items-start gap-3 py-8', onDark ? 'text-white' : 'text-ink')}>
+      <div role="status" className={cn('flex flex-col items-start gap-3 py-8', onDark ? 'text-white' : 'text-ink')}>
         <span className="flex h-12 w-12 items-center justify-center rounded-full bg-orange-500 text-xl text-white">
           <FiCheck />
         </span>
@@ -85,6 +81,8 @@ export default function LeadForm({ tone = 'light', compact = false, onSuccess })
           <input
             type="text"
             required
+            minLength={2}
+            maxLength={120}
             autoComplete="name"
             placeholder="Ravi Kumar"
             value={form.name}
@@ -99,6 +97,7 @@ export default function LeadForm({ tone = 'light', compact = false, onSuccess })
             type="tel"
             required
             autoComplete="tel"
+            maxLength={40}
             placeholder="+91 90000 00000"
             value={form.phone}
             onChange={update('phone')}
@@ -111,6 +110,7 @@ export default function LeadForm({ tone = 'light', compact = false, onSuccess })
             type="email"
             required
             autoComplete="email"
+            maxLength={254}
             placeholder="you@business.com"
             value={form.email}
             onChange={update('email')}
@@ -130,26 +130,26 @@ export default function LeadForm({ tone = 'light', compact = false, onSuccess })
                 {plan.name}
               </option>
             ))}
+            {OFFER_SERVICES.filter((service) => !PACKAGES.some((plan) => plan.name === service.plan)).map((service) => <option key={service.plan} value={service.plan}>{service.title}</option>)}
           </select>
         </label>
       </div>
 
-      {!compact && (
-        <label className="flex flex-col gap-1.5">
+      <label className="flex flex-col gap-1.5">
           <span className={labelCls}>
             Anything else <span className="normal-case tracking-normal">(optional)</span>
           </span>
           <textarea
             rows={2}
+            maxLength={5000}
             placeholder="What your business does, and anything the site needs to handle."
             value={form.message}
             onChange={update('message')}
             className={cn(field, 'resize-y')}
           />
-        </label>
-      )}
+      </label>
 
-      {error && <p className={cn('text-sm', onDark ? 'text-red-300' : 'text-red-600')}>{error}</p>}
+      {error && <p role="alert" className={cn('text-sm', onDark ? 'text-red-300' : 'text-red-600')}>{error}</p>}
 
       <button
         type="submit"

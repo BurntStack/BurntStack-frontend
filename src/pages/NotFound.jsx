@@ -21,17 +21,17 @@ export default function NotFound() {
             404
           </span>
           <h1 className="font-display text-2xl font-bold text-foreground sm:text-3xl">
-            This page went up in smoke
+            Page not found
           </h1>
           <p className="max-w-md text-muted">
-            The page you’re looking for doesn’t exist or has been moved. Let’s get you back on track.
+            The requested address is not available. Use the home page or contact the team.
           </p>
           <div className="flex flex-wrap justify-center gap-3">
             <Button to="/" size="lg">
-              <FiHome className="h-4 w-4" /> Back Home
+              <FiHome className="h-4 w-4" /> Home
             </Button>
             <Button to="/contact" variant="secondary" size="lg">
-              <FiArrowLeft className="h-4 w-4" /> Contact Us
+              <FiArrowLeft className="h-4 w-4" /> Contact
             </Button>
           </div>
         </motion.div>

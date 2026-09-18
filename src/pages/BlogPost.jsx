@@ -17,18 +17,21 @@ export default function BlogPost() {
   const { slug } = useParams()
   const [post, setPost] = useState(null)
   const [status, setStatus] = useState('loading')
+  const [attempt, setAttempt] = useState(0)
 
   useEffect(() => {
     setStatus('loading')
     setPost(null)
+    const controller = new AbortController()
     api
-      .get(`/blog/${slug}/`)
+      .get(`/blog/${encodeURIComponent(slug)}/`, { signal: controller.signal })
       .then(({ data }) => {
         setPost(data)
         setStatus('done')
       })
-      .catch(() => setStatus('error'))
-  }, [slug])
+      .catch((error) => { if (!controller.signal.aborted) setStatus(error.response?.status === 404 ? 'missing' : 'error') })
+    return () => controller.abort()
+  }, [slug, attempt])
 
   if (status === 'loading') {
     return (
@@ -45,7 +48,8 @@ export default function BlogPost() {
       <Section>
         <Container>
           <div className="rounded-bento border border-dashed border-line-strong bg-white p-10 text-center">
-            <p className="text-slate">We couldn’t find that post.</p>
+            <p role="status" className="text-slate">{status === 'missing' ? 'We couldn’t find that post.' : 'We couldn’t load this article right now.'}</p>
+            {status !== 'missing' && <button className="text-button mt-4" onClick={() => setAttempt((value) => value + 1)}>Try again</button>}
             <Link to="/blog" className="mt-4 inline-flex items-center gap-2 font-semibold text-orange-600 hover:text-orange-700">
               <FiArrowLeft className="h-4 w-4" /> Back to blog
             </Link>

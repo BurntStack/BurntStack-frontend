@@ -1,4 +1,5 @@
-import Cal from '@calcom/embed-react'
+import BookingCalendar from '@/components/BookingCalendar.jsx'
+import LeadForm from '@/components/lead/LeadForm.jsx'
 import { FiMail, FiPhone, FiMapPin } from 'react-icons/fi'
 import { FaWhatsapp } from 'react-icons/fa6'
 import Seo from '@/components/seo/Seo.jsx'
@@ -9,7 +10,6 @@ import Label from '@/components/editorial/Label.jsx'
 import Display from '@/components/editorial/Display.jsx'
 import { COMPANY, SOCIALS } from '@/data/site.js'
 import { CONTACT_CHANNELS } from '@/data/offer.js'
-import { CAL_LINK } from '@/lib/cal.js'
 
 const CHANNELS = [
   {
@@ -21,7 +21,7 @@ const CHANNELS = [
   },
   { icon: FiPhone, label: 'Phone', value: COMPANY.phone, href: `tel:${COMPANY.phone}` },
   { icon: FiMail, label: 'Email', value: COMPANY.email, href: `mailto:${COMPANY.email}` },
-  { icon: FiMapPin, label: 'Office', value: COMPANY.address },
+  { icon: FiMapPin, label: 'Office', value: COMPANY.address, href: `https://maps.google.com/?q=${encodeURIComponent(COMPANY.mapQuery)}`, external: true },
 ]
 
 export default function Contact() {
@@ -30,7 +30,7 @@ export default function Contact() {
       <Seo
         title="Contact"
         path="/contact"
-        description="Talk to BurntStack about your website or online store. Book a free 30-minute consultation, message us on WhatsApp, or call us directly."
+        description="Contact BurntStack about a website, software application, ERP system, AI automation, voice agent, SaaS product, mobile application or e-commerce system."
         jsonLd={buildBreadcrumbSchema([
           { name: 'Home', path: '/' },
           { name: 'Contact', path: '/contact' },
@@ -38,9 +38,9 @@ export default function Contact() {
       />
       <PageHero
         eyebrow="Contact"
-        title="Talk to us about"
-        accent="your project."
-        description="Book a free call, or skip straight to a written quote if you already know what you need."
+        title="Discuss your"
+        accent="requirements."
+        description="Share the business objective, users, functions and systems involved. We will identify the next step."
       />
 
       {/* Channels as a ruled row - the fastest routes first, in order of
@@ -92,21 +92,25 @@ export default function Contact() {
         </div>
       </Band>
 
-      <Band tone="ivory">
+      <Band id="quote" tone="canvas">
+        <div className="grid gap-12 lg:grid-cols-[minmax(0,20rem)_minmax(0,1fr)] lg:gap-16">
+          <div><Label>Project enquiry</Label><Display className="mt-6" accent="start here.">Describe the requirement.</Display><p className="mt-6 text-slate">Include the business objective, intended users, key functions and any existing systems.</p></div>
+          <LeadForm />
+        </div>
+      </Band>
+      <Band id="booking" tone="ivory">
         <div className="grid gap-12 lg:grid-cols-[minmax(0,20rem)_minmax(0,1fr)] lg:gap-16">
           <div>
             <Label>Book a call</Label>
-            <Display className="mt-6 max-w-[12ch]" accent="no back-and-forth.">
-              Free 30 minutes,
+            <Display className="mt-6 max-w-[12ch]" accent="with the right context.">
+              A focused 30-minute call,
             </Display>
             <p className="mt-6 text-slate">
-              Pick a time that suits you. We’ll come prepared with questions about the business, not
-              a sales script.
+              Choose a time and share the context before the call. We will use it to discuss the
+              product, integrations, responsibilities and next steps.
             </p>
           </div>
-          <div className="min-h-[560px] overflow-hidden rounded-sm border border-line bg-canvas">
-            <Cal calLink={CAL_LINK} style={{ width: '100%', height: '100%' }} config={{ layout: 'month_view' }} />
-          </div>
+          <BookingCalendar />
         </div>
       </Band>
 

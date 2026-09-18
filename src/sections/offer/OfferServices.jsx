@@ -1,47 +1,65 @@
-import Band from '@/components/editorial/Band.jsx'
-import Label from '@/components/editorial/Label.jsx'
-import Display from '@/components/editorial/Display.jsx'
-import RuleList, { RuleRow } from '@/components/editorial/RuleList.jsx'
-import { OFFER_SERVICES } from '@/data/offer.js'
+import { FiArrowUpRight } from 'react-icons/fi'
+import { OFFER_SERVICES, SERVICE_GROUPS } from '@/data/offer.js'
+import { useQuoteForm } from '@/components/lead/useQuoteForm.js'
 
 /**
- * Services as a ruled list rather than a grid of icon cards.
+ * Services, as two labelled groups rather than one flat grid of eight.
  *
- * Each row gets the full page width, so the title and its explanation sit
- * side by side and can be read as a single line - in the old tile grid the
- * same content stacked inside a narrow card and every service looked
- * identical to every other.
+ * Identical cards asked the reader to sort the list themselves and
+ * made every service look equally important. Build and Grow is the
+ * distinction they are actually weighing: can you make the thing, and
+ * can you make it work harder. The outcome leads each row because
+ * people arrive wanting customers to find them, not wanting SEO.
  */
 export default function OfferServices() {
-  return (
-    <Band id="services" tone="canvas" bordered>
-      <div className="grid gap-8 md:grid-cols-[minmax(0,1fr)_minmax(0,22rem)] md:items-end">
-        <div>
-          <Label index="03">What you get</Label>
-          <Display className="mt-6 max-w-[16ch]" accent="from first sketch to launch.">
-            Everything handled,
-          </Display>
-        </div>
-        <p className="text-slate md:pb-3">
-          You describe the business. We handle design, copy, build, hosting, the domain and
-          everything after.
-        </p>
-      </div>
+  const { openQuoteForm } = useQuoteForm()
 
-      <RuleList className="mt-14 sm:mt-20">
-        {OFFER_SERVICES.map((service, i) => (
-          <RuleRow
-            key={service.title}
-            index={String(i + 1).padStart(2, '0')}
-            title={service.title}
-            description={service.description}
-          >
-            {/* Icons move from a decorative chip to a quiet trailing mark -
-                present for scanning, not competing with the type. */}
-            <service.icon className="h-5 w-5 shrink-0 text-mute transition-colors duration-300 group-hover:text-orange-500" />
-          </RuleRow>
+  return (
+    <section id="services" className="services-section" aria-labelledby="services-heading">
+      <div className="studio-wrap studio-section">
+        <div className="section-heading services-heading">
+          <h2 id="services-heading">
+            What we <em>do.</em>
+          </h2>
+          <p>
+            Eight capabilities across product development and automation. Select a service to see
+            the type of work it covers.
+          </p>
+        </div>
+
+        {SERVICE_GROUPS.map(({ id, label, promise }) => (
+          <div className={`service-group service-group-${id}`} key={id}>
+            <div className="service-group-head">
+              <div><span className="service-group-label">{label}</span><h3>{promise}</h3></div>
+              <p>{id === 'build' ? 'The foundations people see and use.' : 'The systems that keep working after launch.'}</p>
+            </div>
+
+            <div className="service-cards">
+              {OFFER_SERVICES.map((service, i) => ({ ...service, index: i + 1 }))
+                .filter((service) => service.group === id)
+                .map(({ icon: Icon, title, job, description, includes, plan, index }) => (
+                  <article className="service-card-new" key={title}>
+                    <div className="service-card-new-top"><span className="service-index" aria-hidden="true">{String(index).padStart(2, '0')}</span><Icon aria-hidden="true" /></div>
+                    <h4>{title}</h4>
+                    <p className="service-job">{job}</p>
+                    <p className="service-detail">{description}</p>
+                    <ul className="service-includes">{includes.map((item) => <li key={item}>{item}</li>)}</ul>
+                    <button type="button" className="service-cta" onClick={() => openQuoteForm(plan)} aria-label={`Discuss ${title.toLowerCase()}`}>
+                      Discuss this <FiArrowUpRight aria-hidden="true" />
+                    </button>
+                  </article>
+                ))}
+            </div>
+          </div>
         ))}
-      </RuleList>
-    </Band>
+
+        <div className="service-help">
+          <p>Not sure which of these you need? Most people aren’t. Tell us the problem instead.</p>
+          <button type="button" className="text-button" onClick={() => openQuoteForm()}>
+            Talk it through <FiArrowUpRight aria-hidden="true" />
+          </button>
+        </div>
+      </div>
+    </section>
   )
 }
