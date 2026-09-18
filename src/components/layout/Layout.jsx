@@ -1,4 +1,5 @@
 import { motion, useScroll, useSpring } from 'framer-motion'
+import { useLocation } from 'react-router-dom'
 import { useSmoothScroll } from '@/hooks/useSmoothScroll.js'
 import Navbar from './Navbar.jsx'
 import Footer from './Footer.jsx'
@@ -8,6 +9,7 @@ import { LeadFormProvider } from '@/components/lead/LeadFormModal.jsx'
 /** App shell: smooth scroll, scroll-progress bar, navbar, page content, footer. */
 export default function Layout({ children }) {
   useSmoothScroll()
+  const { pathname } = useLocation()
   const { scrollYProgress } = useScroll()
   const progress = useSpring(scrollYProgress, { stiffness: 120, damping: 25, mass: 0.3 })
 
@@ -28,7 +30,7 @@ export default function Layout({ children }) {
       />
 
       <Navbar />
-      <main id="main" className="flex-1">
+      <main id="main" className={`flex-1${pathname.startsWith('/blog') ? ' blog-route-shell' : ''}`}>
         {children}
       </main>
       <Footer />

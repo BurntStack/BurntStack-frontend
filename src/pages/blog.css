@@ -1,4 +1,4 @@
-.blog-page { padding-bottom:90px; color:#22231f }
+.blog-page { min-height:1200px; padding-bottom:90px; color:#22231f }
 .blog-header { display:flex; align-items:flex-end; justify-content:space-between; gap:48px; padding:74px 0 44px }
 .blog-header h1 { max-width:800px; font-size:clamp(42px,5.3vw,78px); line-height:1.08; letter-spacing:-.065em; font-weight:500 }
 .blog-header h1 em { font-family:'Instrument Serif',Georgia,serif; font-weight:400; color:#a1420f }
@@ -84,7 +84,7 @@
   .article-byline { font-size:11px }
 }
 @media(max-width:600px) {
-  .blog-page { padding-bottom:50px }
+  .blog-page { min-height:1050px; padding-bottom:50px }
   .blog-header { padding:38px 0 28px }
   .blog-header h1 { font-size:46px; max-width:350px }
   .blog-controls { align-items:stretch; flex-direction:column-reverse; gap:16px; padding:16px 0; margin-bottom:24px }

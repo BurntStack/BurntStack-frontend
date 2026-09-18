@@ -439,6 +439,11 @@
   }
 }
 
+/* Reserve the blog route's first-screen content before its route chunk and
+   API response arrive, so the footer never jumps into the viewport. */
+.blog-route-shell { min-height: 1200px; }
+@media (max-width: 600px) { .blog-route-shell { min-height: 1050px; } }
+
 /* ------------------------------------------------------------------ */
 /*  Reduced motion                                                     */
 /*  Everything still renders in its final, readable state - reveals    */

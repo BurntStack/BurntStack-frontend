@@ -23,7 +23,7 @@ export default function Seo({
   noindex = false,
 }) {
   const fullTitle = title
-    ? `${title} | ${COMPANY.shortName}`
+    ? (title.includes(COMPANY.shortName) ? title : `${title} | ${COMPANY.shortName}`)
     : `${COMPANY.name} | ${COMPANY.tagline}`
   const url = `${SITE_URL}${path}`
   const desc =
