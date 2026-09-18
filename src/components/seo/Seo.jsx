@@ -18,6 +18,7 @@ export default function Seo({
   path = '',
   image = DEFAULT_IMAGE,
   type = 'website',
+  publishedAt,
   jsonLd,
   noindex = false,
 }) {
@@ -43,6 +44,8 @@ export default function Seo({
       <meta property="og:description" content={desc} />
       <meta property="og:url" content={url} />
       <meta property="og:image" content={image} />
+      <meta property="og:image:alt" content={fullTitle} />
+      {publishedAt && <meta property="article:published_time" content={publishedAt} />}
 
       {/* Twitter */}
       <meta name="twitter:card" content="summary_large_image" />

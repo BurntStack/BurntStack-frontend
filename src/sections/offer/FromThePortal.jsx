@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { FiArrowUpRight, FiClock } from 'react-icons/fi'
 import api from '@/lib/axios.js'
 import { readCache, writeCache } from '@/lib/sessionCache.js'
+import { blogImageUrl } from '@/lib/blogImage.js'
 
 const CACHE_KEY = 'home-latest-posts'
 
@@ -31,7 +32,7 @@ export default function FromThePortal() {
     {status === 'error' && <p className="journal-status" role="status">Articles are unavailable at the moment. <button className="text-button" onClick={() => setAttempt((value) => value + 1)}>Retry <FiArrowUpRight /></button></p>}
     {posts.length > 0 ? <div className="journal-grid">{posts.map((post, index) => <Link className="journal-card" to={`/blog/${post.slug}`} key={post.slug}>
       <div className={`journal-art journal-art-${index}`}>
-        {post.cover_image ? <img src={post.cover_image} alt="" loading="lazy" /> : <span aria-hidden="true">{['✳', '↗', '⌘'][index]}</span>}
+        {post.cover_image ? <img src={blogImageUrl(post.cover_image, { width: 800 })} alt="" width="800" height="500" loading="lazy" decoding="async" /> : <span aria-hidden="true">{['✳', '↗', '⌘'][index]}</span>}
         <FiArrowUpRight className="journal-arrow" />
       </div>
       <span className="journal-category">{typeof post.category === 'object' ? post.category?.name : post.category || 'Engineering'}</span>

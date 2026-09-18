@@ -8,6 +8,7 @@ import Container from '@/components/ui/Container.jsx'
 import { cn } from '@/utils/cn.js'
 import api from '@/lib/axios.js'
 import { buildBlogPostingSchema, buildBreadcrumbSchema } from '@/lib/schema.js'
+import { blogImageUrl } from '@/lib/blogImage.js'
 
 function formatDate(iso) {
   return new Date(iso).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
@@ -15,11 +16,16 @@ function formatDate(iso) {
 
 export default function BlogPost() {
   const { slug } = useParams()
-  const [post, setPost] = useState(null)
-  const [status, setStatus] = useState('loading')
+  const prerendered = typeof window !== 'undefined' && window.__BLOG_POST__?.slug === slug ? window.__BLOG_POST__ : null
+  const [post, setPost] = useState(prerendered)
+  const [status, setStatus] = useState(prerendered ? 'done' : 'loading')
   const [attempt, setAttempt] = useState(0)
 
   useEffect(() => {
+    if (prerendered) {
+      window.__BLOG_POST__ = null
+      return undefined
+    }
     setStatus('loading')
     setPost(null)
     const controller = new AbortController()
@@ -31,7 +37,7 @@ export default function BlogPost() {
       })
       .catch((error) => { if (!controller.signal.aborted) setStatus(error.response?.status === 404 ? 'missing' : 'error') })
     return () => controller.abort()
-  }, [slug, attempt])
+  }, [slug, attempt, prerendered])
 
   if (status === 'loading') {
     return (
@@ -77,6 +83,7 @@ export default function BlogPost() {
         path={`/blog/${post.slug}`}
         description={post.excerpt}
         type="article"
+        publishedAt={post.published_at}
         image={post.cover_image || undefined}
         jsonLd={[
           buildBlogPostingSchema(post),
@@ -106,7 +113,7 @@ export default function BlogPost() {
 
           {post.cover_image && (
             <div className="mt-8 overflow-hidden rounded-bento border border-line">
-              <img src={post.cover_image} alt={post.title} className="w-full object-cover" />
+              <img src={blogImageUrl(post.cover_image, { width: 1200 })} alt={post.title} width="1200" height="675" fetchPriority="high" decoding="async" className="aspect-video w-full object-cover" />
             </div>
           )}
 
@@ -127,6 +134,21 @@ export default function BlogPost() {
           <div className={cn('post-content')} dangerouslySetInnerHTML={{ __html: safeContent }} />
         </Container>
       </Section>
+      {post.related_posts?.length > 0 && (
+        <Section className="pt-0">
+          <Container className="max-w-3xl">
+            <h2 className="font-display text-2xl font-bold text-ink">Keep reading</h2>
+            <div className="mt-5 grid gap-4 sm:grid-cols-3">
+              {post.related_posts.map((related) => (
+                <Link key={related.slug} to={`/blog/${related.slug}`} className="rounded-lg border border-line bg-white p-4 transition-colors hover:border-orange-500">
+                  <span className="text-sm font-semibold text-ink">{related.title}</span>
+                  <span className="mt-2 block text-xs text-slate">Read article →</span>
+                </Link>
+              ))}
+            </div>
+          </Container>
+        </Section>
+      )}
     </>
   )
 }

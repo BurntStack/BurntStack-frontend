@@ -5,12 +5,13 @@ import Seo from '@/components/seo/Seo.jsx'
 import { buildBreadcrumbSchema } from '@/lib/schema.js'
 import api from '@/lib/axios.js'
 import { readCache, writeCache } from '@/lib/sessionCache.js'
+import { blogImageUrl } from '@/lib/blogImage.js'
 import './blog.css'
 
 function ArticleImage({ post, index = 0 }) {
   const [failed, setFailed] = useState(false)
   return <div className={`article-image article-image-${index % 3}`}>
-    {post.cover_image && !failed ? <img src={post.cover_image} alt="" loading="lazy" onError={() => setFailed(true)} /> : <div className="article-art" aria-hidden="true"><span>{['{ }', '↗', '✳'][index % 3]}</span><i /><b /></div>}
+    {post.cover_image && !failed ? <img src={blogImageUrl(post.cover_image, { width: 900 })} alt="" width="1200" height="675" loading={index === 0 ? 'eager' : 'lazy'} decoding="async" fetchPriority={index === 0 ? 'high' : 'auto'} onError={() => setFailed(true)} /> : <div className="article-art" aria-hidden="true"><span>{['{ }', '↗', '✳'][index % 3]}</span><i /><b /></div>}
   </div>
 }
 
