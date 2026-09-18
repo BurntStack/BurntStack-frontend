@@ -18,6 +18,27 @@ export function registerLenis(instance) {
   lenis = instance
 }
 
+/** Pause both native and smooth page scrolling while a dialog is open. */
+export function lockPageScroll() {
+  const engine = lenis
+  const wasStopped = engine?.isStopped
+  const root = document.documentElement
+  const body = document.body
+  const previous = { root: root.style.overflow, body: body.style.overflow, padding: body.style.paddingRight }
+  const scrollbar = window.innerWidth - root.clientWidth
+  engine?.stop()
+  if (scrollbar > 0) body.style.paddingRight = `${parseFloat(getComputedStyle(body).paddingRight) + scrollbar}px`
+  root.style.overflow = 'hidden'
+  body.style.overflow = 'hidden'
+
+  return () => {
+    root.style.overflow = previous.root
+    body.style.overflow = previous.body
+    body.style.paddingRight = previous.padding
+    if (engine === lenis && !wasStopped) engine?.start()
+  }
+}
+
 // Clears the fixed navbar, which would otherwise sit on top of the first
 // line of whatever section was targeted.
 export const SCROLL_OFFSET = -88

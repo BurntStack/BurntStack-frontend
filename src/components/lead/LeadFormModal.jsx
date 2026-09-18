@@ -1,11 +1,12 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
-import { FiX, FiPhone } from 'react-icons/fi'
+import { FiX, FiPhone, FiArrowUpRight, FiCheck } from 'react-icons/fi'
 import { FaWhatsapp } from 'react-icons/fa6'
 import LeadForm from './LeadForm.jsx'
 import { CONTACT_CHANNELS } from '@/data/offer.js'
 import { LeadFormContext } from './useQuoteForm.js'
+import { lockPageScroll } from '@/lib/scroll.js'
 
 /**
  * Opens the lead form over whatever the visitor is already looking at.
@@ -41,13 +42,15 @@ export function LeadFormProvider({ children }) {
       if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first?.focus() }
     }
     window.addEventListener('keydown', onKey)
-    // Stop the page scrolling behind the dialog.
-    const previous = document.body.style.overflow
-    document.body.style.overflow = 'hidden'
+    const unlock = lockPageScroll()
+    const app = document.getElementById('root')
+    const wasInert = app?.inert
+    if (app) app.inert = true
     return () => {
       window.removeEventListener('keydown', onKey)
-      document.body.style.overflow = previous
-      previousFocus?.focus()
+      unlock()
+      if (app) app.inert = wasInert
+      previousFocus?.focus({ preventScroll: true })
     }
   }, [open, close])
 
@@ -55,7 +58,7 @@ export function LeadFormProvider({ children }) {
   useEffect(() => {
     if (!open) return undefined
     const id = requestAnimationFrame(() => {
-      document.querySelector('[data-lead-modal] [data-lead-first-field]')?.focus()
+      document.querySelector('[data-lead-modal] [data-lead-first-field]')?.focus({ preventScroll: true })
     })
     return () => cancelAnimationFrame(id)
   }, [open])
@@ -74,7 +77,8 @@ export function LeadFormProvider({ children }) {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.2 }}
-                className="fixed inset-0 z-[70] flex items-end justify-center bg-ink/60 p-0 backdrop-blur-sm sm:items-center sm:p-6"
+                className="project-dialog-backdrop"
+                data-lenis-prevent
                 onClick={close}
               >
                 <motion.div
@@ -82,48 +86,41 @@ export function LeadFormProvider({ children }) {
                   role="dialog"
                   aria-modal="true"
                   aria-label="Get a quote"
+                  aria-describedby="project-dialog-description"
                   onClick={(e) => e.stopPropagation()}
                   initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 24 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 24 }}
                   transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-                  className="relative max-h-[92dvh] w-full overflow-y-auto rounded-t-bento bg-canvas p-6 shadow-[var(--shadow-lg)] sm:max-w-lg sm:rounded-bento sm:p-8"
+                  className="project-dialog"
                 >
+                  <div className="project-dialog-bar"><span><span aria-hidden="true">✳</span> A new beginning</span>
                   <button
                     type="button"
                     onClick={close}
                     aria-label="Close"
-                    className="absolute right-4 top-4 inline-flex h-9 w-9 items-center justify-center rounded-full text-mute transition-colors hover:bg-sand hover:text-ink"
+                    className="project-dialog-close"
                   >
                     <FiX className="h-4 w-4" />
                   </button>
-
-                  <p className="t-label text-orange-700">Free quote</p>
-                  <h2 className="t-editorial-sm mt-3 text-ink">Tell us what you need</h2>
-                  <p className="mt-3 text-sm text-slate">
-                    Leave your details and we will come back within one business day with a fixed
-                    price and a realistic timeline.
-                  </p>
-
-                  <div className="mt-6">
-                    <LeadForm compact initialPlan={initialPlan} />
                   </div>
+                  <div className="project-dialog-layout">
+                  <aside className="project-dialog-intro">
+                    <span className="detail-eyebrow">Your next chapter</span>
+                    <h2>Big ideas.<br /><em>Practical<br /> next steps.</em></h2>
+                    <p id="project-dialog-description">Tell us what you have in mind. We’ll review your requirements and reply within one business day.</p>
+                    <div className="project-dialog-art" aria-hidden="true"><span>Your idea <FiArrowUpRight /></span><span>Our expertise <FiArrowUpRight /></span><span>A working product <FiCheck /></span></div>
+                    <p className="project-dialog-note">A conversation first.<br />A clear scope before we build.</p>
+                  </aside>
+                  <div className="project-dialog-form">
+                  <div className="project-dialog-form-heading"><span className="detail-eyebrow">The project brief</span><h3>What can we build for you?</h3><p>A few details are all we need to get started.</p></div>
+                    <LeadForm initialPlan={initialPlan} />
 
-                  <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 border-t border-line pt-5">
-                    <a
-                      href={CONTACT_CHANNELS.whatsapp}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="tap-target inline-flex items-center gap-2 py-2 text-sm font-semibold text-ink transition-colors hover:text-orange-700"
-                    >
-                      <FaWhatsapp className="h-4 w-4 text-[#25D366]" /> WhatsApp instead
-                    </a>
-                    <a
-                      href={`tel:${CONTACT_CHANNELS.phone}`}
-                      className="tap-target inline-flex items-center gap-2 py-2 text-sm font-semibold text-ink transition-colors hover:text-orange-700"
-                    >
-                      <FiPhone className="h-4 w-4 text-orange-500" /> {CONTACT_CHANNELS.phoneLabel}
-                    </a>
+                  <div className="project-dialog-contact">
+                    <a href={CONTACT_CHANNELS.whatsapp} target="_blank" rel="noreferrer"><FaWhatsapp /> WhatsApp instead</a>
+                    <a href={`tel:${CONTACT_CHANNELS.phone}`}><FiPhone /> {CONTACT_CHANNELS.phoneLabel}</a>
+                  </div>
+                  </div>
                   </div>
                 </motion.div>
               </motion.div>

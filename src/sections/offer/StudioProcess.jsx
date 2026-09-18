@@ -1,6 +1,12 @@
-import { FiArrowUpRight, FiCalendar, FiClock } from 'react-icons/fi'
+import { FiArrowUpRight, FiCalendar, FiClock, FiCompass, FiLayers, FiBox, FiArrowRight } from 'react-icons/fi'
 import { PROCESS_STEPS } from '@/data/offer.js'
 import { useSectionNav } from '@/lib/useSectionNav.js'
+
+const stages = [
+  { label: 'Discover', icon: FiCompass },
+  { label: 'Align', icon: FiLayers },
+  { label: 'Deliver', icon: FiBox },
+]
 
 /**
  * How a project runs.
@@ -16,11 +22,12 @@ export default function StudioProcess() {
 
   return (
     <section id="process" className="studio-section studio-wrap process-section">
+      <div className="detail-section-label"><span>How we work</span><span>From first conversation to launch <FiArrowRight /></span></div>
       <div className="section-heading">
         <h2>
-          A defined process for
+          A clear path.
           <br />
-          <em>better delivery.</em>
+          <em>A better delivery.</em>
         </h2>
         <p>
           We move from requirements to an approved scope, then to a tested release. Decisions and
@@ -29,19 +36,22 @@ export default function StudioProcess() {
       </div>
 
       <ol className="process-grid">
-        {PROCESS_STEPS.map(({ title, body, gives }, i) => (
+        {PROCESS_STEPS.map(({ title, body, gives }, i) => {
+          const Icon = stages[i].icon
+          return (
           <li className="process-step" key={title}>
-            <span className="process-number" aria-hidden="true">
+            <div className="process-card-top"><span className="process-stage">{stages[i].label}</span><span className="process-number" aria-hidden="true">
               {String(i + 1).padStart(2, '0')}
-            </span>
+            </span></div>
+            <div className="process-illustration" aria-hidden="true"><Icon /><span className="process-path-dot" /><span className="process-path-line" /><FiArrowRight /></div>
             <h3>{title}</h3>
             <p className="process-body">{body}</p>
             <p className="process-gives">
-              <span>Deliverable</span>
+              <span>What you walk away with <FiArrowUpRight aria-hidden="true" /></span>
               {gives}
             </p>
           </li>
-        ))}
+        )})}
       </ol>
 
       <div className="process-consultation">
