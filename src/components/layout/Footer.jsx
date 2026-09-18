@@ -13,7 +13,7 @@ export default function Footer() {
   const { openQuoteForm } = useQuoteForm()
   const go = useSectionNav()
   return <footer className="studio-footer"><div className="studio-wrap">
-    <div className="footer-top"><div><Logo /><p>Websites, software and business systems.</p></div><a href={`mailto:${COMPANY.email}`}>{COMPANY.email}<FiArrowUpRight /></a></div>
+    <div className="footer-hero"><div><Logo /><p>Websites, software and business systems.</p></div><div className="footer-hero-copy"><span>BurntStack Technologies</span><h2>Build the system<br /><em>your business needs.</em></h2></div><a className="footer-hero-action" href={`mailto:${COMPANY.email}`}>Discuss a project <FiArrowUpRight /></a></div>
     <div className="footer-directory">{Object.entries(FOOTER_LINKS).filter(([heading]) => heading !== 'Legal').map(([heading, links]) => <nav key={heading} aria-label={heading}><h2>{heading}</h2>{links.map((link) => link.to ? <Link key={link.label} to={link.to}>{link.label}</Link> : <button key={link.label} onClick={() => link.quote ? openQuoteForm() : go(link.section)}>{link.label}</button>)}</nav>)}
       <div className="footer-channels"><h2>Contact details</h2><a href={CONTACT_CHANNELS.whatsapp} target="_blank" rel="noreferrer"><FaWhatsapp /> WhatsApp us</a><a href={`tel:${CONTACT_CHANNELS.phone}`}><FiPhone /> {COMPANY.phone}</a><a href={`https://maps.google.com/?q=${encodeURIComponent(COMPANY.mapQuery)}`} target="_blank" rel="noreferrer">{COMPANY.address} <FiArrowUpRight /></a><div className="footer-socials">{SOCIALS.map(({ label, href, icon: Icon }) => <a href={href} key={label} aria-label={label} target="_blank" rel="noreferrer"><Icon /></a>)}</div></div>
     </div>

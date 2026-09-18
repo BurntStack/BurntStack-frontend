@@ -46,14 +46,14 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <ul className="capability-ribbon" aria-label="What we do">
-        {OFFER_SERVICES.map(({ title }) => (
-          <li key={title}>
-            {title}
-            <b aria-hidden="true">✳</b>
-          </li>
-        ))}
-      </ul>
+      <section className="capability-ribbon" aria-label="Services">
+        <div className="capability-ribbon-viewport">
+          <div className="capability-ribbon-track">
+            <ul>{OFFER_SERVICES.map(({ title }) => <li key={title}>{title}<b aria-hidden="true">✳</b></li>)}</ul>
+            <ul aria-hidden="true">{OFFER_SERVICES.map(({ title }) => <li key={`repeat-${title}`}>{title}<b aria-hidden="true">✳</b></li>)}</ul>
+          </div>
+        </div>
+      </section>
       <section id="work" className="studio-section studio-wrap">
 
         <div className="section-heading"><h2>Selected <em>work.</em></h2><Link className="text-button" to="/portfolio">View portfolio <FiArrowUpRight /></Link></div>
