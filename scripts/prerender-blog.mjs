@@ -77,5 +77,10 @@ try {
   }))
   console.log(`Prerendered ${details.length} blog articles.`)
 } catch (error) {
-  console.warn(`Blog prerender skipped: ${error.message}`)
+  if (process.env.VERCEL === '1') {
+    console.error(`Blog prerender failed during production build: ${error.message}`)
+    process.exitCode = 1
+  } else {
+    console.warn(`Blog prerender skipped: ${error.message}`)
+  }
 }
