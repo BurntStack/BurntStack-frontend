@@ -1,10 +1,9 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
-import { FiX, FiSend, FiRefreshCcw, FiMessageSquare, FiCheck } from 'react-icons/fi'
-import { FaWhatsapp } from 'react-icons/fa6'
 import { CONTACT_CHANNELS } from '@/data/offer.js'
 import { sendChat, loadConversation, saveConversation, clearConversation } from '@/lib/chat.js'
 import { cn } from '@/utils/cn.js'
+import { ArrowRight, Check, Close, Message, Refresh, WhatsApp } from '@/components/icons/index.jsx'
 
 // Rendered locally rather than fetched: an empty panel that then has to
 // round-trip to Groq before saying anything reads as broken, and this
@@ -30,8 +29,8 @@ function Bubble({ role, content }) {
     <div className={cn('flex', isUser ? 'justify-end' : 'justify-start')}>
       <div
         className={cn(
-          'max-w-[85%] whitespace-pre-wrap rounded-bento-sm px-3.5 py-2.5 text-sm leading-relaxed',
-          isUser ? 'bg-orange-500 text-white' : 'border border-line bg-white text-slate',
+          'max-w-[85%] whitespace-pre-wrap rounded-panel-sm px-3.5 py-2.5 text-sm leading-relaxed',
+          isUser ? 'bg-orange-500 text-white' : 'border border-line bg-surface text-slate',
         )}
       >
         {content}
@@ -43,7 +42,7 @@ function Bubble({ role, content }) {
 function TypingDots() {
   return (
     <div className="flex justify-start" aria-label="Burnty is typing">
-      <div className="flex gap-1 rounded-bento-sm border border-line bg-white px-4 py-3.5">
+      <div className="flex gap-1 rounded-panel-sm border border-line bg-surface px-4 py-3.5">
         {[0, 1, 2].map((i) => (
           <span
             key={i}
@@ -169,7 +168,7 @@ export default function ChatWidget() {
         aria-expanded={open}
         className="fixed bottom-5 right-5 z-40 inline-flex h-14 w-14 items-center justify-center rounded-full bg-ink text-white shadow-lg transition-transform duration-200 hover:-translate-y-0.5 hover:shadow-xl focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-500 sm:bottom-7 sm:right-7"
       >
-        {open ? <FiX className="h-6 w-6" /> : <FiMessageSquare className="h-6 w-6" />}
+        {open ? <Close className="h-6 w-6" /> : <Message className="h-6 w-6" />}
       </button>
 
       <AnimatePresence>
@@ -181,7 +180,7 @@ export default function ChatWidget() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 16, scale: 0.97 }}
             transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
-            className="fixed bottom-24 left-4 right-4 z-40 flex max-h-[min(34rem,calc(100dvh-8rem))] flex-col overflow-hidden rounded-bento border border-line bg-ivory shadow-[var(--shadow-lg)] sm:bottom-28 sm:left-auto sm:right-7 sm:w-[23rem]"
+            className="fixed bottom-24 left-4 right-4 z-40 flex max-h-[min(34rem,calc(100dvh-8rem))] flex-col overflow-hidden rounded-panel border border-line bg-ivory shadow-[var(--shadow-lg)] sm:bottom-28 sm:left-auto sm:right-7 sm:w-[23rem]"
           >
             {/* Header */}
             <div className="flex shrink-0 items-start justify-between gap-3 border-b border-line bg-ink px-4 py-3.5">
@@ -201,7 +200,7 @@ export default function ChatWidget() {
                     aria-label="Start a new conversation"
                     className="inline-flex h-8 w-8 items-center justify-center rounded-full text-white/60 transition-colors hover:bg-white/10 hover:text-white"
                   >
-                    <FiRefreshCcw className="h-4 w-4" />
+                    <Refresh className="h-4 w-4" />
                   </button>
                 )}
                 <button
@@ -210,7 +209,7 @@ export default function ChatWidget() {
                   aria-label="Close chat"
                   className="inline-flex h-8 w-8 items-center justify-center rounded-full text-white/60 transition-colors hover:bg-white/10 hover:text-white"
                 >
-                  <FiX className="h-4 w-4" />
+                  <Close className="h-4 w-4" />
                 </button>
               </div>
             </div>
@@ -229,14 +228,14 @@ export default function ChatWidget() {
               {sending && <TypingDots />}
 
               {leadCaptured && (
-                <div className="flex items-start gap-2 rounded-bento-sm border border-orange-200 bg-orange-50 px-3.5 py-2.5 text-sm text-orange-900">
-                  <FiCheck className="mt-0.5 h-4 w-4 shrink-0 text-orange-600" />
+                <div className="flex items-start gap-2 rounded-panel-sm border border-orange-200 bg-orange-50 px-3.5 py-2.5 text-sm text-orange-900">
+                  <Check className="mt-0.5 h-4 w-4 shrink-0 text-orange-600" />
                   Your details are with the team. Someone will be in touch within one business day.
                 </div>
               )}
 
               {error && (
-                <div className="rounded-bento-sm border border-red-200 bg-red-50 px-3.5 py-2.5 text-sm text-red-800">
+                <div className="rounded-panel-sm border border-red-200 bg-red-50 px-3.5 py-2.5 text-sm text-red-800">
                   <p>{error}</p>
                   <a
                     href={CONTACT_CHANNELS.whatsapp}
@@ -244,7 +243,7 @@ export default function ChatWidget() {
                     rel="noreferrer"
                     className="mt-2 inline-flex items-center gap-1.5 font-semibold text-red-900 underline underline-offset-2"
                   >
-                    <FaWhatsapp className="h-4 w-4" /> Message us on WhatsApp instead
+                    <WhatsApp className="h-4 w-4" /> Message us on WhatsApp instead
                   </a>
                 </div>
               )}
@@ -256,7 +255,7 @@ export default function ChatWidget() {
                       key={s}
                       type="button"
                       onClick={() => send(s)}
-                      className="rounded-full border border-line-strong bg-white px-3 py-1.5 text-xs font-medium text-slate transition-colors hover:border-orange-400/60 hover:text-ink"
+                      className="rounded-full border border-line-strong bg-surface px-3 py-1.5 text-xs font-medium text-slate transition-colors hover:border-orange-400/60 hover:text-ink"
                     >
                       {s}
                     </button>
@@ -271,7 +270,7 @@ export default function ChatWidget() {
                 e.preventDefault()
                 send(input)
               }}
-              className="flex shrink-0 items-end gap-2 border-t border-line bg-white px-3 py-3"
+              className="flex shrink-0 items-end gap-2 border-t border-line bg-surface px-3 py-3"
             >
               <label htmlFor="chat-input" className="sr-only">
                 Your message
@@ -292,7 +291,7 @@ export default function ChatWidget() {
                 aria-label="Send message"
                 className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-orange-600 text-white transition-colors hover:bg-orange-700 disabled:opacity-50"
               >
-                <FiSend className="h-4 w-4" />
+                <ArrowRight className="h-4 w-4" />
               </button>
             </form>
           </motion.div>

@@ -8,7 +8,7 @@ const VARIANTS = {
   primary:
     'bg-orange-600 text-white shadow-xs hover:bg-orange-700 active:translate-y-px',
   secondary:
-    'bg-white text-ink border border-line-strong hover:border-ink/25 hover:bg-ivory active:translate-y-px',
+    'bg-surface text-ink border border-line-strong hover:border-ink/25 hover:bg-sand active:translate-y-px',
   ghost: 'text-slate hover:text-ink hover:bg-sand',
   outline: 'text-orange-700 border border-orange-600/40 hover:bg-orange-50 active:translate-y-px',
   link: 'text-orange-700 hover:text-orange-800 underline-offset-4 hover:underline px-0',

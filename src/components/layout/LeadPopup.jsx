@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react'
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
-import { FiX, FiCheck, FiSend } from 'react-icons/fi'
 import { cn } from '@/utils/cn.js'
 import { CHAT_STATE_EVENT } from '@/components/chat/ChatWidget.jsx'
 import { submitLead } from '@/lib/lead.js'
 import { OFFER_SERVICES, PACKAGES } from '@/data/offer.js'
+import { ArrowRight, Check, Close } from '@/components/icons/index.jsx'
 
 const STORAGE_KEY = 'bs-lead-popup-dismissed'
 // Show only once the visitor is past the hero. The previous 5-second timer
@@ -118,7 +118,7 @@ export default function LeadPopup() {
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 24, scale: 0.96 }}
           transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-          className="fixed bottom-4 left-4 right-24 z-30 max-h-[min(23rem,calc(100dvh-2rem))] w-auto overflow-y-auto rounded-bento border border-line bg-white p-4 shadow-[var(--shadow-lg)] sm:bottom-7 sm:left-7 sm:right-auto sm:w-[20rem] sm:p-4"
+          className="fixed bottom-4 left-4 right-24 z-30 max-h-[min(23rem,calc(100dvh-2rem))] w-auto overflow-y-auto rounded-panel border border-line bg-surface p-4 shadow-[var(--shadow-lg)] sm:bottom-7 sm:left-7 sm:right-auto sm:w-[20rem] sm:p-4"
         >
           <button
             type="button"
@@ -126,13 +126,13 @@ export default function LeadPopup() {
             aria-label="Close"
             className="absolute right-3 top-3 inline-flex h-7 w-7 items-center justify-center rounded-full text-mute transition-colors hover:bg-sand hover:text-ink"
           >
-            <FiX className="h-4 w-4" />
+            <Close className="h-4 w-4" />
           </button>
 
           {status === 'done' ? (
             <div className="flex flex-col items-center gap-2 py-4 text-center">
               <span className="flex h-11 w-11 items-center justify-center rounded-full bg-orange-500/10 text-xl text-orange-600">
-                <FiCheck />
+                <Check />
               </span>
               <p className="font-semibold text-ink">Thanks! We’ll be in touch soon.</p>
             </div>
@@ -206,7 +206,7 @@ export default function LeadPopup() {
                   'hover:bg-orange-700 disabled:opacity-60',
                 )}
               >
-                {status === 'sending' ? 'Submitting…' : (<>Submit enquiry <FiSend className="h-3.5 w-3.5" /></>)}
+                {status === 'sending' ? 'Submitting…' : (<>Submit enquiry <ArrowRight className="h-3.5 w-3.5" /></>)}
               </button>
             </form>
           )}

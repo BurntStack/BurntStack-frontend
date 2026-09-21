@@ -22,7 +22,11 @@ const TONES = {
   // orange-500 -> white measures 3.45:1, which no normal-size label on
   // this band could pass. orange-600 -> orange-700 gives 4.55:1 at the
   // lightest end and 6.36:1 at the darkest.
-  brand: 'bg-gradient-to-br from-orange-600 to-orange-700 text-white',
+  // Flat orange-600 rather than a 600->700 gradient. The two stops are a
+  // half-step apart, so the gradient was invisible at any real size while
+  // still making white's contrast depend on where on the band it landed.
+  // Solid keeps the documented 4.54:1 across the whole surface.
+  brand: 'bg-orange-600 text-white',
 }
 
 const SPACING = {

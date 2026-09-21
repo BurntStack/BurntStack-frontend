@@ -1,4 +1,6 @@
 > September 2026: the studio homepage and shared navigation/footer now use the direction documented in [REDESIGN.md](./REDESIGN.md). The measurements below describe the previous design and are retained as historical evidence; they are not a fresh audit of the redesign.
+>
+> 21 September 2026: the palette was collapsed to warm paper plus the orange brand, the Feather icon set was replaced with an in-house one, and the radius cap below is now enforced by `src/design.test.js` rather than only documented. The colour table below still holds for the orange ramp; the lime, pink and sage that sat beside it are gone.
 
 # BurntStack — Design System (Master)
 

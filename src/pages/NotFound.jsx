@@ -1,9 +1,9 @@
 import { motion } from 'framer-motion'
-import { FiArrowLeft, FiHome } from 'react-icons/fi'
 import Seo from '@/components/seo/Seo.jsx'
 import Container from '@/components/ui/Container.jsx'
 import Button from '@/components/ui/Button.jsx'
 import BackgroundFX from '@/components/ui/BackgroundFX.jsx'
+import { ArrowLeft } from '@/components/icons/index.jsx'
 
 export default function NotFound() {
   return (
@@ -28,10 +28,10 @@ export default function NotFound() {
           </p>
           <div className="flex flex-wrap justify-center gap-3">
             <Button to="/" size="lg">
-              <FiHome className="h-4 w-4" /> Home
+              Home
             </Button>
             <Button to="/contact" variant="secondary" size="lg">
-              <FiArrowLeft className="h-4 w-4" /> Contact
+              <ArrowLeft className="h-4 w-4" /> Contact
             </Button>
           </div>
         </motion.div>

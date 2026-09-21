@@ -6,7 +6,7 @@ Reviewed the existing master design system, project records, offer data, page sh
 
 The existing orange brand, Satoshi / General Sans typography, Instrument Serif accent, and confirmed BookMyVenues project informed the redesign. Pricing is still quoted individually. No client counts, testimonials, awards, or performance claims were invented.
 
-The visual direction pairs a warm paper background with oversized type, orange, lime, and a pink project canvas. The interactive stack makes the brand name tangible: visitors can select Design, Develop, or Deploy, shuffle the cards, and restore them. All controls are buttons with keyboard access; selection is announced through an aria-live description. Reduced motion disables transitions.
+The visual direction pairs a warm paper background with oversized type, orange, lime, and a pink project canvas. *(Superseded on 21 September 2026: the lime and pink were retired when the palette was collapsed to two hues. See "Removing the generative tells" at the end of this file.)* The interactive stack makes the brand name tangible: visitors can select Design, Develop, or Deploy, shuffle the cards, and restore them. All controls are buttons with keyboard access; selection is announced through an aria-live description. Reduced motion disables transitions.
 
 ## Content and interaction decisions
 
@@ -158,3 +158,98 @@ CTA band reported 1.08:1, and it checked focus rings on the element only,
 so a wrapper using `:focus-within` looked unstyled. Both are corrected.
 
 Pricing figures and delivery times remain unconfirmed.
+
+## Removing the generative tells — September 21, 2026
+
+The owner supplied a list of 30 patterns that make a site read as machine-
+generated and asked for all of them to be closed. Audited against the
+codebase first, because twelve were already absent and acting on them blind
+would have damaged working parts of the site.
+
+**Already absent, not changed:** em dashes in prose (`offer.test.js` has
+enforced this since the services rebuild), Inter/Geist/Space Grotesk (the
+faces are Satoshi, General Sans and Instrument Serif), fabricated
+testimonials (`TESTIMONIALS` is empty and the block does not render), a
+terminal window, "it's not X, it's Y" copy, three pricing tiers (there are
+four, and `PACKAGES_CONFIRMED` gates them out entirely), missing product
+demos (four clients ship real desktop/mobile captures and live iframes),
+purple and black, the terms route and the privacy route.
+
+**Closed in this pass:**
+
+*Colour.* The build ran orange next to lime, pink and sage — four hue
+families, which is why it read as coloured per-section rather than
+systematically. Collapsed to warm paper plus the orange brand, with the
+accent surfaces expressed as three tonal steps of one hue
+(`--shell`/`--kraft`/`--kraft-deep`). The three neon oranges
+(`#ff6b35`/`#ff763e`/`#ff783f`) resolve to `--ember` and `--ember-bright`.
+Thirteen greenish greys were rotated into the warm band with lightness and
+saturation held constant, so no measured contrast ratio moved. The palette
+tokens now live in `index.css`, the only stylesheet `main.jsx` always
+loads; they were in `studio.css`, which reaches lazy routes only because
+Home happens to be imported eagerly.
+
+*Icons.* `react-icons` (Feather — and Lucide is a fork of it) is gone,
+along with the dependency. `src/components/icons/` is an in-house set drawn
+square-capped and miter-joined rather than round-on-round, which is the
+single clearest giveaway of the stock set. Eight usages were dropped rather
+than redrawn, where the icon repeated its own label: a paper plane beside
+"Send", a shield beside a privacy line, a house beside "Home", a clock face
+beside a read time.
+
+*Decoration.* Removed the blurred orange orb behind every supporting
+route's hero, three dot-grid textures, the masked hairline grid, and the
+`✳` asterisk that appeared on the `h1`, the footer, the pricing header, the
+service ribbon, the quote dialog and two image fallbacks. Cover-image
+fallbacks now use the article's own index as a numeral.
+
+*Structure.* The canvas was `#ffffff` while the homepage sat on warm paper,
+so the supporting routes read as a colder, different site; both are now
+`--paper`. Checkmark bullets on the pricing inclusions became the ruled
+`+` spec rows the services section already used. Capsule pills at 20–30px
+came back inside the 12px cap the scale claims. The `--radius-bento` tokens
+were renamed `--radius-panel`: the bento grid was replaced long ago and only
+the names survived. Uniform three-card rows in the services and process
+bands now step down across the row. Five soft blurred shadows were mixed in
+with the sheet's hard-offset language and are now offsets.
+
+*Motion.* The same 3px diagonal arrow nudge was on the text buttons, the
+service links and the project card. Replaced with the existing
+half-strength rule drawing to full on hover and focus, which is a
+compositor-only `scaleX` and reads as a decision rather than a default. The
+large closing-CTA gesture is kept.
+
+*Loading.* There were no skeletons. The route fallback was a spinner, which
+caused a smaller version of the CLS problem documented in `App.jsx`, and the
+blog listing showed three flat grey boxes. `components/ui/Skeleton.jsx`
+blocks out the real card shape; the sweep is a background-position animation
+and `prefers-reduced-motion` drops it to a flat tint rather than removing
+the placeholder.
+
+*Dead code.* 107 dead rules in `studio.css` (479 lines), including the whole
+illustrated BookMyVenues interface study that the browser-frame previews
+replaced, and the superseded `.service-grid`/`.service-card` system. Four
+unreferenced components removed.
+
+### Verification
+
+Lint, production build and 106 unit tests pass, 15 of them new. The new
+`src/design.test.js` fails the build if any tell returns: it checks every
+chromatic value in every stylesheet against the warm hue band, bans the
+retired hexes by value, rejects third-party icon imports and the dependency,
+catches decorative glyphs and emoji, catches radial-gradient backdrops and
+blurred orbs, holds backdrop blur to modal scrims, enforces the radius cap
+and the hard-shadow language, and requires a skeleton rather than a spinner.
+
+Browser checks at 1440 and 390 across `/`, `/portfolio`, `/blog`,
+`/contact` and `/terms`: no horizontal overflow, no console or page errors
+beyond the expected CORS refusals when the production blog API is called
+from localhost. The blog skeleton was verified against a stalled API rather
+than inferred. Pricing figures and delivery times remain unconfirmed.
+
+Two findings worth recording. The first skeleton used `--color-sand`, which
+sits close enough to the paper ground that the placeholder was effectively
+invisible; it is `--color-line-strong` now. And a full-page screenshot
+reported the closing CTA heading stuck at `opacity: 0` — that was the
+harness stepping `window.scrollTo` against Lenis's smooth scroll, not a
+defect; `scrollIntoViewIfNeeded` reveals it correctly.

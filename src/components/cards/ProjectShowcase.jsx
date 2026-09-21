@@ -1,7 +1,7 @@
 import { useState } from 'react'
-import { FiArrowUpRight } from 'react-icons/fi'
 import { PROJECTS } from '@/data/projects.js'
 import ProjectBrowser from './ProjectBrowser.jsx'
+import { ArrowUpRight } from '@/components/icons/index.jsx'
 
 export default function ProjectShowcase() {
   const [selected, setSelected] = useState(0)
@@ -14,7 +14,7 @@ export default function ProjectShowcase() {
           onClick={() => setSelected(index)}
           aria-pressed={selected === index}
           aria-controls="selected-project"
-        ><span>{item.name}</span><FiArrowUpRight aria-hidden="true" /></button>)}
+        ><span>{item.name}</span><ArrowUpRight aria-hidden="true" /></button>)}
       </div>
       <article className="featured-project" id="selected-project" aria-label={project.name}>
         <ProjectBrowser key={project.slug} project={project} />
@@ -23,7 +23,7 @@ export default function ProjectShowcase() {
           <div className="project-tags">
             <span>{project.category}</span>
             {project.status && <span>{project.status}</span>}
-            <a href={project.liveUrl} target="_blank" rel="noreferrer" aria-label={`Visit ${project.name}`}><FiArrowUpRight /></a>
+            <a href={project.liveUrl} target="_blank" rel="noreferrer" aria-label={`Visit ${project.name}`}><ArrowUpRight /></a>
           </div>
         </div>
       </article>

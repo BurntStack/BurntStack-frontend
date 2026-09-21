@@ -1,8 +1,8 @@
 import { motion } from 'framer-motion'
-import { FiExternalLink, FiGithub, FiArrowUpRight } from 'react-icons/fi'
 import { cn } from '@/utils/cn.js'
 import { fadeInUp } from '@/lib/motion.js'
 import ProjectBrowser from './ProjectBrowser.jsx'
+import { ArrowUpRight, GitHub } from '@/components/icons/index.jsx'
 
 /**
  * A project as a full-width editorial entry: oversized name, details in a
@@ -72,7 +72,7 @@ export default function ProjectCard({ project, coverHeight = 'h-56' }) {
               rel="noreferrer"
               className="inline-flex items-center gap-2 py-1 text-sm font-semibold text-orange-600 transition-colors hover:text-orange-700"
             >
-              Visit the live site <FiExternalLink className="h-4 w-4" />
+              Visit the live site <ArrowUpRight className="h-4 w-4" />
             </a>
           )}
           {githubUrl && (
@@ -82,10 +82,10 @@ export default function ProjectCard({ project, coverHeight = 'h-56' }) {
               rel="noreferrer"
               className="inline-flex items-center gap-2 text-sm font-medium text-slate transition-colors hover:text-ink"
             >
-              <FiGithub className="h-4 w-4" /> Code
+              <GitHub className="h-4 w-4" /> Code
             </a>
           )}
-          <FiArrowUpRight className="ml-auto h-5 w-5 text-mute transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-orange-600" />
+          <ArrowUpRight className="ml-auto h-5 w-5 text-mute transition-colors duration-300 group-hover:text-orange-600" />
         </div>
       </div>
 
@@ -96,7 +96,7 @@ export default function ProjectCard({ project, coverHeight = 'h-56' }) {
           gradient,
         )}
       >
-        <div className="absolute inset-0 bg-dot-grid opacity-40" />
+        
       </div>}
     </motion.article>
   )

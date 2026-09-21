@@ -1,11 +1,11 @@
-import { FiArrowUpRight, FiCalendar, FiClock, FiCompass, FiLayers, FiBox, FiArrowRight } from 'react-icons/fi'
 import { PROCESS_STEPS } from '@/data/offer.js'
 import { useSectionNav } from '@/lib/useSectionNav.js'
+import { ArrowRight, ArrowUpRight, Bearing, Calendar, Crate, Stack } from '@/components/icons/index.jsx'
 
 const stages = [
-  { label: 'Discover', icon: FiCompass },
-  { label: 'Align', icon: FiLayers },
-  { label: 'Deliver', icon: FiBox },
+  { label: 'Discover', icon: Bearing },
+  { label: 'Align', icon: Stack },
+  { label: 'Deliver', icon: Crate },
 ]
 
 /**
@@ -22,7 +22,7 @@ export default function StudioProcess() {
 
   return (
     <section id="process" className="studio-section studio-wrap process-section">
-      <div className="detail-section-label"><span>How we work</span><span>From first conversation to launch <FiArrowRight /></span></div>
+      <div className="detail-section-label"><span>How we work</span><span>From first conversation to launch <ArrowRight /></span></div>
       <div className="section-heading">
         <h2>
           A clear path.
@@ -43,11 +43,11 @@ export default function StudioProcess() {
             <div className="process-card-top"><span className="process-stage">{stages[i].label}</span><span className="process-number" aria-hidden="true">
               {String(i + 1).padStart(2, '0')}
             </span></div>
-            <div className="process-illustration" aria-hidden="true"><Icon /><span className="process-path-dot" /><span className="process-path-line" /><FiArrowRight /></div>
+            <div className="process-illustration" aria-hidden="true"><Icon /><span className="process-path-dot" /><span className="process-path-line" /><ArrowRight /></div>
             <h3>{title}</h3>
             <p className="process-body">{body}</p>
             <p className="process-gives">
-              <span>What you walk away with <FiArrowUpRight aria-hidden="true" /></span>
+              <span>What you walk away with <ArrowUpRight aria-hidden="true" /></span>
               {gives}
             </p>
           </li>
@@ -55,14 +55,14 @@ export default function StudioProcess() {
       </ol>
 
       <div className="process-consultation">
-        <div className="process-consultation-icon" aria-hidden="true"><FiCalendar /></div>
+        <div className="process-consultation-icon" aria-hidden="true"><Calendar /></div>
         <div className="process-consultation-copy">
           <span className="process-consultation-label">Next step</span>
           <h3>Schedule a requirements call.</h3>
           <p>Bring the business objective and any existing system details. We will identify the information needed for a proposal.</p>
         </div>
-        <div className="process-consultation-meta"><span><FiClock /> 30 minutes</span><span>No charge</span></div>
-        <button type="button" className="process-consultation-button" onClick={() => go('booking')}>Choose a time <FiArrowUpRight aria-hidden="true" /></button>
+        <div className="process-consultation-meta"><span>30 minutes</span><span>No charge</span></div>
+        <button type="button" className="process-consultation-button" onClick={() => go('booking')}>Choose a time <ArrowUpRight aria-hidden="true" /></button>
       </div>
     </section>
   )

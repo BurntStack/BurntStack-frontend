@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import Cal from '@calcom/embed-react'
-import { FiArrowUpRight, FiCalendar } from 'react-icons/fi'
 import { CAL_LINK, CAL_URL, initCal } from '@/lib/cal.js'
+import { ArrowUpRight, Calendar } from '@/components/icons/index.jsx'
 
 export default function BookingCalendar() {
   const [show, setShow] = useState(false)
@@ -16,13 +16,13 @@ export default function BookingCalendar() {
       </div>
     ) : (
       <div className="booking-invite">
-        <span className="calendar-sticker" aria-hidden="true"><FiCalendar /></span>
+        <span className="calendar-sticker" aria-hidden="true"><Calendar /></span>
         <h3>Schedule a consultation</h3>
         <p>Review your requirements, existing systems and the next stage of the project.</p>
-        <button className="studio-button" onClick={() => setShow(true)}>View available times <FiArrowUpRight /></button>
+        <button className="studio-button" onClick={() => setShow(true)}>View available times <ArrowUpRight /></button>
         <span className="booking-note">30 minutes · Your local time zone</span>
       </div>
     )}
-    <a className="booking-direct text-button" href={CAL_URL} target="_blank" rel="noreferrer">Open booking in a new tab <FiArrowUpRight /></a>
+    <a className="booking-direct text-button" href={CAL_URL} target="_blank" rel="noreferrer">Open booking in a new tab <ArrowUpRight /></a>
   </div>
 }
