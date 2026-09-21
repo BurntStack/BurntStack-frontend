@@ -1,17 +1,18 @@
 import { useEffect, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
-import { FiSearch, FiClock, FiArrowUpRight, FiX, FiArrowLeft, FiArrowRight } from 'react-icons/fi'
 import Seo from '@/components/seo/Seo.jsx'
 import { buildBreadcrumbSchema } from '@/lib/schema.js'
 import api from '@/lib/axios.js'
 import { readCache, writeCache } from '@/lib/sessionCache.js'
 import { blogImageUrl } from '@/lib/blogImage.js'
+import { SkeletonCard } from '@/components/ui/Skeleton.jsx'
 import './blog.css'
+import { ArrowLeft, ArrowRight, ArrowUpRight, Close, Search } from '@/components/icons/index.jsx'
 
 function ArticleImage({ post, index = 0 }) {
   const [failed, setFailed] = useState(false)
   return <div className={`article-image article-image-${index % 3}`}>
-    {post.cover_image && !failed ? <img src={blogImageUrl(post.cover_image, { width: 900 })} alt="" width="1200" height="675" loading={index === 0 ? 'eager' : 'lazy'} decoding="async" fetchPriority={index === 0 ? 'high' : 'auto'} onError={() => setFailed(true)} /> : <div className="article-art" aria-hidden="true"><span>{['{ }', '↗', '✳'][index % 3]}</span><i /><b /></div>}
+    {post.cover_image && !failed ? <img src={blogImageUrl(post.cover_image, { width: 900 })} alt="" width="1200" height="675" loading={index === 0 ? 'eager' : 'lazy'} decoding="async" fetchPriority={index === 0 ? 'high' : 'auto'} onError={() => setFailed(true)} /> : <div className="article-art" aria-hidden="true"><span>{String(index + 1).padStart(2, "0")}</span></div>}
   </div>
 }
 
@@ -29,10 +30,10 @@ function ArticleCard({ post, featured = false, index = 0 }) {
         <h2>{post.title}</h2>
         <p className="article-excerpt">{post.excerpt}</p>
         {!featured && tags.length > 0 && <div className="article-topics">{tags.map((tag) => <span key={tag} title={tag}>{tag}</span>)}</div>}
-        <div className="article-byline"><span>{post.author}</span>{post.reading_time > 0 && <span><FiClock aria-hidden="true" /> {post.reading_time} min read</span>}</div>
-        {featured && <span className="article-read">Read article <FiArrowUpRight aria-hidden="true" /></span>}
+        <div className="article-byline"><span>{post.author}</span>{post.reading_time > 0 && <span>{post.reading_time} min read</span>}</div>
+        {featured && <span className="article-read">Read article <ArrowUpRight aria-hidden="true" /></span>}
       </div>
-      {!featured && <span className="article-corner" aria-hidden="true"><FiArrowUpRight /></span>}
+      {!featured && <span className="article-corner" aria-hidden="true"><ArrowUpRight /></span>}
     </Link>
   </article>
 }
@@ -95,13 +96,13 @@ export default function Blog() {
       <div className="blog-filters" role="group" aria-label="Filter articles by category">
         {[{ name: 'All articles', slug: '' }, ...categories].map((item) => <button key={item.slug} aria-pressed={category === item.slug} onClick={() => { setCategory(item.slug); setPage(1) }}>{item.name}</button>)}
       </div>
-      <div className="blog-search" role="search"><FiSearch aria-hidden="true" /><input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search technical notes" aria-label="Search technical notes" />{query && <button aria-label="Clear search" onClick={() => setQuery('')}><FiX /></button>}</div>
+      <div className="blog-search" role="search"><Search aria-hidden="true" /><input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search technical notes" aria-label="Search technical notes" />{query && <button aria-label="Clear search" onClick={() => setQuery('')}><Close /></button>}</div>
     </div>
-    {error && <div className="blog-state" role="alert"><p>{error}</p><button className="text-button" onClick={() => setAttempt((value) => value + 1)}>Try again <FiArrowRight /></button></div>}
-    {loading && !posts && !error && <div className="blog-loading" role="status" aria-label="Loading articles"><div /><div /><div /></div>}
-    {posts?.length === 0 && !loading && <div className="blog-state" role="status"><h2>{query || category ? 'No matching articles.' : 'No articles are available.'}</h2><p>{query || category ? 'Change the search term or select all articles.' : 'Please return later for new technical notes.'}</p>{(query || category) && <button className="text-button" onClick={() => { setCategory(''); setQuery('') }}>Show all articles <FiArrowRight /></button>}</div>}
+    {error && <div className="blog-state" role="alert"><p>{error}</p><button className="text-button" onClick={() => setAttempt((value) => value + 1)}>Try again <ArrowRight /></button></div>}
+    {loading && !posts && !error && <div className="article-grid" role="status" aria-label="Loading articles">{[0, 1, 2].map((i) => <SkeletonCard key={i} art="h-[200px]" />)}</div>}
+    {posts?.length === 0 && !loading && <div className="blog-state" role="status"><h2>{query || category ? 'No matching articles.' : 'No articles are available.'}</h2><p>{query || category ? 'Change the search term or select all articles.' : 'Please return later for new technical notes.'}</p>{(query || category) && <button className="text-button" onClick={() => { setCategory(''); setQuery('') }}>Show all articles <ArrowRight /></button>}</div>}
     {hasFeature && <ArticleCard post={posts[0]} featured />}
     {remaining?.length > 0 && <div className="article-grid">{remaining.map((post, index) => <ArticleCard key={post.slug} post={post} index={index + 1} />)}</div>}
-    {(page > 1 || hasNext) && <nav aria-label="Article pages" className="blog-pagination"><button disabled={loading || page === 1} onClick={() => setPage((value) => value - 1)}><FiArrowLeft /> Previous</button><span>Page {page}</span><button disabled={loading || !hasNext} onClick={() => setPage((value) => value + 1)}>Next <FiArrowRight /></button></nav>}
+    {(page > 1 || hasNext) && <nav aria-label="Article pages" className="blog-pagination"><button disabled={loading || page === 1} onClick={() => setPage((value) => value - 1)}><ArrowLeft /> Previous</button><span>Page {page}</span><button disabled={loading || !hasNext} onClick={() => setPage((value) => value + 1)}>Next <ArrowRight /></button></nav>}
   </div>
 }

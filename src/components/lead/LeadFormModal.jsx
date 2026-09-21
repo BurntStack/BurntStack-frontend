@@ -1,12 +1,11 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
-import { FiX, FiPhone, FiArrowUpRight, FiCheck } from 'react-icons/fi'
-import { FaWhatsapp } from 'react-icons/fa6'
 import LeadForm from './LeadForm.jsx'
 import { CONTACT_CHANNELS } from '@/data/offer.js'
 import { LeadFormContext } from './useQuoteForm.js'
 import { lockPageScroll } from '@/lib/scroll.js'
+import { ArrowUpRight, Check, Close, Phone, WhatsApp } from '@/components/icons/index.jsx'
 
 /**
  * Opens the lead form over whatever the visitor is already looking at.
@@ -94,14 +93,14 @@ export function LeadFormProvider({ children }) {
                   transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
                   className="project-dialog"
                 >
-                  <div className="project-dialog-bar"><span><span aria-hidden="true">✳</span> A new beginning</span>
+                  <div className="project-dialog-bar"><span>A new beginning</span>
                   <button
                     type="button"
                     onClick={close}
                     aria-label="Close"
                     className="project-dialog-close"
                   >
-                    <FiX className="h-4 w-4" />
+                    <Close className="h-4 w-4" />
                   </button>
                   </div>
                   <div className="project-dialog-layout">
@@ -109,7 +108,7 @@ export function LeadFormProvider({ children }) {
                     <span className="detail-eyebrow">Your next chapter</span>
                     <h2>Big ideas.<br /><em>Practical<br /> next steps.</em></h2>
                     <p id="project-dialog-description">Tell us what you have in mind. We’ll review your requirements and reply within one business day.</p>
-                    <div className="project-dialog-art" aria-hidden="true"><span>Your idea <FiArrowUpRight /></span><span>Our expertise <FiArrowUpRight /></span><span>A working product <FiCheck /></span></div>
+                    <div className="project-dialog-art" aria-hidden="true"><span>Your idea <ArrowUpRight /></span><span>Our expertise <ArrowUpRight /></span><span>A working product <Check /></span></div>
                     <p className="project-dialog-note">A conversation first.<br />A clear scope before we build.</p>
                   </aside>
                   <div className="project-dialog-form">
@@ -117,8 +116,8 @@ export function LeadFormProvider({ children }) {
                     <LeadForm initialPlan={initialPlan} />
 
                   <div className="project-dialog-contact">
-                    <a href={CONTACT_CHANNELS.whatsapp} target="_blank" rel="noreferrer"><FaWhatsapp /> WhatsApp instead</a>
-                    <a href={`tel:${CONTACT_CHANNELS.phone}`}><FiPhone /> {CONTACT_CHANNELS.phoneLabel}</a>
+                    <a href={CONTACT_CHANNELS.whatsapp} target="_blank" rel="noreferrer"><WhatsApp /> WhatsApp instead</a>
+                    <a href={`tel:${CONTACT_CHANNELS.phone}`}><Phone /> {CONTACT_CHANNELS.phoneLabel}</a>
                   </div>
                   </div>
                   </div>

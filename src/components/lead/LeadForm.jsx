@@ -1,8 +1,8 @@
 import { useState } from 'react'
-import { FiCheck, FiSend, FiShield } from 'react-icons/fi'
 import { PACKAGES, OFFER_SERVICES } from '@/data/offer.js'
 import { cn } from '@/utils/cn.js'
 import { submitLead } from '@/lib/lead.js'
+import { ArrowRight, Check } from '@/components/icons/index.jsx'
 
 const EMPTY = { name: '', phone: '', email: '', plan: '', message: '', website: '' }
 
@@ -50,7 +50,7 @@ export default function LeadForm({ tone = 'light', compact = false, initialPlan 
     return (
       <div role="status" className={cn('flex flex-col items-start gap-3 py-8', onDark ? 'text-white' : 'text-ink')}>
         <span className="flex h-12 w-12 items-center justify-center rounded-full bg-orange-500 text-xl text-white">
-          <FiCheck />
+          <Check />
         </span>
         <h3 className="font-display text-xl font-bold">Got it, thank you</h3>
         <p className={cn('max-w-sm', onDark ? 'text-white/60' : 'text-slate')}>
@@ -156,11 +156,10 @@ export default function LeadForm({ tone = 'light', compact = false, initialPlan 
         disabled={status === 'sending'}
         className="inline-flex h-12 items-center justify-center gap-2 rounded-lg bg-orange-600 px-6 text-[0.95rem] font-semibold text-white transition-colors hover:bg-orange-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-500 disabled:opacity-60"
       >
-        {status === 'sending' ? 'Sending…' : (<>Get my quote <FiSend className="h-4 w-4" /></>)}
+        {status === 'sending' ? 'Sending…' : (<>Get my quote <ArrowRight className="h-4 w-4" /></>)}
       </button>
 
       <p className={cn('inline-flex items-center gap-2 text-xs', onDark ? 'text-white/40' : 'text-mute')}>
-        <FiShield className="h-3.5 w-3.5 text-orange-500" />
         Your details stay with us. We never sell or share them.
       </p>
     </form>

@@ -1,7 +1,5 @@
 import BookingCalendar from '@/components/BookingCalendar.jsx'
 import LeadForm from '@/components/lead/LeadForm.jsx'
-import { FiMail, FiPhone, FiMapPin } from 'react-icons/fi'
-import { FaWhatsapp } from 'react-icons/fa6'
 import Seo from '@/components/seo/Seo.jsx'
 import { buildBreadcrumbSchema } from '@/lib/schema.js'
 import PageHero from '@/components/ui/PageHero.jsx'
@@ -10,18 +8,19 @@ import Label from '@/components/editorial/Label.jsx'
 import Display from '@/components/editorial/Display.jsx'
 import { COMPANY, SOCIALS } from '@/data/site.js'
 import { CONTACT_CHANNELS } from '@/data/offer.js'
+import { Mail, MapPin, Phone, WhatsApp } from '@/components/icons/index.jsx'
 
 const CHANNELS = [
   {
-    icon: FaWhatsapp,
+    icon: WhatsApp,
     label: 'WhatsApp',
     value: 'Fastest way to reach us',
     href: CONTACT_CHANNELS.whatsapp,
     external: true,
   },
-  { icon: FiPhone, label: 'Phone', value: COMPANY.phone, href: `tel:${COMPANY.phone}` },
-  { icon: FiMail, label: 'Email', value: COMPANY.email, href: `mailto:${COMPANY.email}` },
-  { icon: FiMapPin, label: 'Office', value: COMPANY.address, href: `https://maps.google.com/?q=${encodeURIComponent(COMPANY.mapQuery)}`, external: true },
+  { icon: Phone, label: 'Phone', value: COMPANY.phone, href: `tel:${COMPANY.phone}` },
+  { icon: Mail, label: 'Email', value: COMPANY.email, href: `mailto:${COMPANY.email}` },
+  { icon: MapPin, label: 'Office', value: COMPANY.address, href: `https://maps.google.com/?q=${encodeURIComponent(COMPANY.mapQuery)}`, external: true },
 ]
 
 export default function Contact() {

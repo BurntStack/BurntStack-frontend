@@ -1,10 +1,10 @@
 import { motion } from 'framer-motion'
-import { FiArrowRight } from 'react-icons/fi'
 import Container from './Container.jsx'
 import Button from './Button.jsx'
 import { useQuoteForm } from '@/components/lead/useQuoteForm.js'
 import { fadeInUp, staggerContainer } from '@/lib/motion.js'
 import { cn } from '@/utils/cn.js'
+import { ArrowRight } from '@/components/icons/index.jsx'
 
 /**
  * Header for the supporting routes (work, blog, contact, legal).
@@ -18,15 +18,7 @@ export default function PageHero({ eyebrow, title, accent, description, aside = 
   const { openQuoteForm } = useQuoteForm()
 
   return (
-    <section className="relative w-full overflow-hidden border-b border-line bg-canvas pt-32 pb-14 sm:pt-40 sm:pb-20">
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -right-1/4 -top-1/2 h-[30rem] w-[30rem] rounded-full opacity-40 blur-3xl"
-        style={{
-          background:
-            'radial-gradient(circle, color-mix(in oklab, var(--color-orange-300) 50%, transparent) 0%, transparent 70%)',
-        }}
-      />
+    <section className="relative w-full overflow-hidden border-b border-line bg-paper pt-32 pb-14 sm:pt-40 sm:pb-20">
       <Container className="relative">
         <motion.div variants={staggerContainer(0.08)} initial="show" animate="show">
           {eyebrow && (
@@ -57,7 +49,7 @@ export default function PageHero({ eyebrow, title, accent, description, aside = 
               </div>
               {aside && (
                 <Button onClick={openQuoteForm} size="lg" className="w-fit shrink-0">
-                  Get my quote <FiArrowRight className="h-4 w-4" />
+                  Get my quote <ArrowRight className="h-4 w-4" />
                 </Button>
               )}
             </motion.div>

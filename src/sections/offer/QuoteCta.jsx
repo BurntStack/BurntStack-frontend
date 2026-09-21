@@ -1,10 +1,9 @@
-import { FiArrowRight, FiPhone } from 'react-icons/fi'
-import { FaWhatsapp } from 'react-icons/fa6'
 import Band from '@/components/editorial/Band.jsx'
 import Display from '@/components/editorial/Display.jsx'
 import Button from '@/components/ui/Button.jsx'
 import { useQuoteForm } from '@/components/lead/useQuoteForm.js'
 import { CONTACT_CHANNELS } from '@/data/offer.js'
+import { ArrowRight, Phone, WhatsApp } from '@/components/icons/index.jsx'
 
 /**
  * Closing CTA band for the supporting routes (work, blog), which have no
@@ -26,7 +25,7 @@ export default function QuoteCta() {
             variant="secondary"
             className="border-transparent bg-white text-ink hover:bg-white/90"
           >
-            Request a proposal <FiArrowRight className="h-4 w-4" />
+            Request a proposal <ArrowRight className="h-4 w-4" />
           </Button>
           <Button
             href={CONTACT_CHANNELS.whatsapp}
@@ -36,7 +35,7 @@ export default function QuoteCta() {
             variant="ghost"
             className="text-white hover:bg-white/10 hover:text-white"
           >
-            <FaWhatsapp className="h-4 w-4" /> WhatsApp
+            <WhatsApp className="h-4 w-4" /> WhatsApp
           </Button>
           <Button
             href={`tel:${CONTACT_CHANNELS.phone}`}
@@ -44,7 +43,7 @@ export default function QuoteCta() {
             variant="ghost"
             className="text-white hover:bg-white/10 hover:text-white"
           >
-            <FiPhone className="h-4 w-4" /> Call
+            <Phone className="h-4 w-4" /> Call
           </Button>
         </div>
       </div>

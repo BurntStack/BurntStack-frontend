@@ -1,10 +1,4 @@
-import {
-  FaLinkedinIn,
-  FaInstagram,
-  FaFacebookF,
-  FaXTwitter,
-  FaGithub,
-} from 'react-icons/fa6'
+import { Facebook, GitHub, Instagram, LinkedIn, XTwitter } from '@/components/icons/index.jsx'
 
 // Re-exported so every existing `import { COMPANY } from '@/data/site.js'`
 // keeps working unchanged - see data/company.js for why the data itself
@@ -31,11 +25,11 @@ export const NAV_LINKS = [
 ]
 
 export const SOCIALS = [
-  { label: 'LinkedIn', href: import.meta.env.VITE_SOCIAL_LINKEDIN, icon: FaLinkedinIn },
-  { label: 'X (Twitter)', href: import.meta.env.VITE_SOCIAL_X, icon: FaXTwitter },
-  { label: 'Instagram', href: import.meta.env.VITE_SOCIAL_INSTAGRAM, icon: FaInstagram },
-  { label: 'Facebook', href: import.meta.env.VITE_SOCIAL_FACEBOOK, icon: FaFacebookF },
-  { label: 'GitHub', href: import.meta.env.VITE_SOCIAL_GITHUB, icon: FaGithub },
+  { label: 'LinkedIn', href: import.meta.env.VITE_SOCIAL_LINKEDIN, icon: LinkedIn },
+  { label: 'X (Twitter)', href: import.meta.env.VITE_SOCIAL_X, icon: XTwitter },
+  { label: 'Instagram', href: import.meta.env.VITE_SOCIAL_INSTAGRAM, icon: Instagram },
+  { label: 'Facebook', href: import.meta.env.VITE_SOCIAL_FACEBOOK, icon: Facebook },
+  { label: 'GitHub', href: import.meta.env.VITE_SOCIAL_GITHUB, icon: GitHub },
 ].filter(({ href }) => {
   try { return new URL(href).protocol === 'https:' } catch { return false }
 })

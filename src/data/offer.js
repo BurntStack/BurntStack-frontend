@@ -1,13 +1,13 @@
 import {
-  FaGlobe,
-  FaCode,
-  FaBuilding,
-  FaRobot,
-  FaMicrophoneLines,
-  FaCloud,
-  FaCartShopping,
-  FaMobileScreen,
-} from 'react-icons/fa6'
+  Automation,
+  Brackets,
+  Building,
+  Cart,
+  Cloud,
+  Globe,
+  Microphone,
+  Mobile,
+} from '@/components/icons/index.jsx'
 
 /**
  * Everything the offer landing page ("/") says, in one file.
@@ -70,7 +70,7 @@ export const PROOF_POINTS = [
  */
 export const OFFER_SERVICES = [
   {
-    icon: FaGlobe,
+    icon: Globe,
     title: 'Websites',
     plan: 'Business Website',
     group: 'build',
@@ -79,7 +79,7 @@ export const OFFER_SERVICES = [
     includes: ['mobile-first responsive build', 'Forms, booking, and integrations', 'Analytics and launch support'],
   },
   {
-    icon: FaCode,
+    icon: Brackets,
     title: 'Software applications',
     plan: 'Software applications',
     group: 'build',
@@ -88,7 +88,7 @@ export const OFFER_SERVICES = [
     includes: ['Product thinking and UX', 'Secure accounts and permissions', 'Reliable backend connections'],
   },
   {
-    icon: FaBuilding,
+    icon: Building,
     title: 'ERP applications',
     plan: 'ERP applications',
     group: 'build',
@@ -97,7 +97,7 @@ export const OFFER_SERVICES = [
     includes: ['Roles, approvals, and workflows', 'Reports and operational dashboards', 'Data migration and integrations'],
   },
   {
-    icon: FaRobot,
+    icon: Automation,
     title: 'AI automations',
     plan: 'AI automations',
     group: 'automate',
@@ -106,7 +106,7 @@ export const OFFER_SERVICES = [
     includes: ['Document and data workflows', 'AI assistants for internal teams', 'Automated handoffs and reports'],
   },
   {
-    icon: FaMicrophoneLines,
+    icon: Microphone,
     title: 'Voice agents',
     plan: 'Voice agents',
     group: 'automate',
@@ -115,7 +115,7 @@ export const OFFER_SERVICES = [
     includes: ['Natural call handling', 'Lead capture and qualification', 'Human handoff when needed'],
   },
   {
-    icon: FaCloud,
+    icon: Cloud,
     title: 'SaaS applications',
     plan: 'SaaS applications',
     group: 'automate',
@@ -124,7 +124,7 @@ export const OFFER_SERVICES = [
     includes: ['Multi-tenant architecture', 'Plans, billing, and account areas', 'Usage, support, and admin tools'],
   },
   {
-    icon: FaMobileScreen,
+    icon: Mobile,
     title: 'Mobile applications',
     plan: 'Mobile applications',
     group: 'build',
@@ -133,7 +133,7 @@ export const OFFER_SERVICES = [
     includes: ['iOS and Android experiences', 'Notifications and secure accounts', 'App-ready API connections'],
   },
   {
-    icon: FaCartShopping,
+    icon: Cart,
     title: 'E-commerce',
     plan: 'E-Commerce Store',
     group: 'build',

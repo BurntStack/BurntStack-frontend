@@ -6,7 +6,8 @@
 /* ------------------------------------------------------------------ */
 @theme {
   /* Neutrals — warm, so the yellow/orange brand feels native */
-  --color-canvas: #ffffff;         /* page base */
+  --color-canvas: #f7f6f0;         /* page base - warm paper, matches --paper in studio.css */
+  --color-paper: #f7f6f0;          /* explicit alias so utilities can name it */
   --color-ivory: #faf8f4;          /* alternating section wash */
   --color-sand: #f4f1ea;           /* subtle fills, chips */
   --color-line: #ebe6dd;           /* hairline borders */
@@ -48,7 +49,7 @@
 
   /* Semantic aliases used across components */
   --color-background: var(--color-canvas);
-  --color-surface: #ffffff;
+  --color-surface: #fffdf7;        /* warm off-white: lifts off paper without going pure white */
   --color-foreground: var(--color-ink);
   --color-muted: var(--color-slate);
 
@@ -84,9 +85,11 @@
   --radius-2xl: 0.75rem;  /* 12px */
   --radius-3xl: 0.75rem;  /* 12px — capped */
 
-  /* Kept: the chat widget and lead popup still use these softer radii. */
-  --radius-bento: 1.25rem;    /* 20px */
-  --radius-bento-sm: 1rem;    /* 16px — small/nested bento tiles */
+  /* Panels: the chat widget, lead popup and blog figures. Named for what
+     they are rather than for a layout this site no longer uses, and pulled
+     back inside the 12px cap the scale above claims. */
+  --radius-panel: 0.75rem;    /* 12px */
+  --radius-panel-sm: 0.5rem;  /* 8px - nested surfaces, chat bubbles */
 
   /* Subtle, layered shadows — never heavy */
   --shadow-xs: 0 1px 2px rgba(27, 23, 18, 0.04);
@@ -298,6 +301,29 @@
   }
 }
 
+:root {
+  /* Two hues only: warm paper neutrals and the orange brand. The previous
+     build ran orange alongside lime, pink and sage, which read as a palette
+     chosen per-section rather than one system. Lime/pink/sage are gone; the
+     accent surfaces below are tonal steps of the same warm hue so a section
+     can be distinguished without introducing a colour. */
+  --paper:#f7f6f0;        /* page base */
+  --dark:#22231f;         /* ink */
+
+  /* Accent surfaces - warm kraft, three tonal steps. These replace the
+     pale lime that used to carry every accent surface on the site. */
+  --shell:#f1e9dc;        /* lightest wash */
+  --kraft:#efd8b8;        /* standard accent surface */
+  --kraft-deep:#e4c79f;   /* pressed / hover */
+  --linen:#e9e7dc;        /* neutral tile */
+
+  /* Brand orange. -solid carries white at 4.54:1, so it is the only value
+     allowed behind normal-size white text. -bright is a large-text fill. */
+  --ember:#c6520f;
+  --ember-bright:#e0661a;
+  --amber:#e7b869;        /* highlight, and accents on dark grounds */
+}
+
 /* ------------------------------------------------------------------ */
 /*  Utilities                                                          */
 /* ------------------------------------------------------------------ */
@@ -307,12 +333,6 @@
     background-image: linear-gradient(transparent 62%, var(--color-amber-300) 62%);
     background-repeat: no-repeat;
     padding: 0 0.05em;
-  }
-
-  /* Fine dotted / grid textures for backgrounds */
-  .bg-dot-grid {
-    background-image: radial-gradient(var(--color-line-strong) 1px, transparent 1px);
-    background-size: 22px 22px;
   }
 
   .eyebrow {
@@ -325,29 +345,45 @@
   }
 
   /* --- Back-compat utilities, redefined restrained --- */
-  /* Gradient text is an AI cliché — resolve to a solid, high-contrast accent. */
-  .text-gradient,
-  .text-brand-gradient {
+  /* Gradient text is an AI cliché - resolve to a solid, high-contrast accent. */
+  .text-gradient {
     color: var(--color-orange-600);
     -webkit-text-fill-color: currentColor;
   }
-  .glass {
-    background: rgba(255, 255, 255, 0.9);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-  }
-  .bg-grid {
-    background-image: linear-gradient(var(--color-line) 1px, transparent 1px),
-      linear-gradient(90deg, var(--color-line) 1px, transparent 1px);
-    background-size: 64px 64px;
-  }
-  .bg-dots {
-    background-image: radial-gradient(var(--color-line-strong) 1px, transparent 1px);
-    background-size: 22px 22px;
-  }
-  .ring-glow {
-    box-shadow: var(--shadow-lg);
-  }
+}
+
+/* ------------------------------------------------------------------ */
+/*  Loading placeholders                                               */
+/* ------------------------------------------------------------------ */
+.skeleton-bar {
+  position: relative;
+  overflow: hidden;
+  /* --color-sand sits ~3 levels off the paper ground and the placeholder
+     was effectively invisible against it. line-strong is the lightest
+     token that still reads as a blocked-out shape at a glance. */
+  background: var(--color-line-strong);
+  border-radius: var(--radius-sm);
+}
+.skeleton-bar::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 253, 247, 0.55) 50%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-sweep 1.4s ease-in-out infinite;
+}
+@keyframes skeleton-sweep {
+  from { background-position: 150% 0; }
+  to   { background-position: -50% 0; }
+}
+/* Reduced motion keeps the placeholder, drops the sweep. */
+@media (prefers-reduced-motion: reduce) {
+  .skeleton-bar::after { animation: none; background: none; }
 }
 
 /* ------------------------------------------------------------------ */
@@ -379,9 +415,13 @@
 .post-content ul { list-style: disc; }
 .post-content ol { list-style: decimal; }
 .post-content blockquote {
-  border-left: 3px solid var(--color-orange-400);
-  padding-left: 1em;
+  margin-block: 1.6em;
+  padding: 0;
+  font-family: var(--font-serif);
+  font-size: 1.5em;
   font-style: italic;
+  line-height: 1.4;
+  color: var(--color-ink);
 }
 .post-content code {
   background: var(--color-sand);

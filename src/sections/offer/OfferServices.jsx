@@ -1,6 +1,6 @@
-import { FiArrowUpRight } from 'react-icons/fi'
 import { OFFER_SERVICES, SERVICE_GROUPS } from '@/data/offer.js'
 import { useQuoteForm } from '@/components/lead/useQuoteForm.js'
+import { ArrowUpRight } from '@/components/icons/index.jsx'
 
 /**
  * Services, as two labelled groups rather than one flat grid of eight.
@@ -45,7 +45,7 @@ export default function OfferServices() {
                     <p className="service-detail">{description}</p>
                     <ul className="service-includes">{includes.map((item) => <li key={item}>{item}</li>)}</ul>
                     <button type="button" className="service-cta" onClick={() => openQuoteForm(plan)} aria-label={`Discuss ${title.toLowerCase()}`}>
-                      Discuss this <FiArrowUpRight aria-hidden="true" />
+                      Discuss this <ArrowUpRight aria-hidden="true" />
                     </button>
                   </article>
                 ))}
@@ -56,7 +56,7 @@ export default function OfferServices() {
         <div className="service-help">
           <p>Not sure which of these you need? Most people aren’t. Tell us the problem instead.</p>
           <button type="button" className="text-button" onClick={() => openQuoteForm()}>
-            Talk it through <FiArrowUpRight aria-hidden="true" />
+            Talk it through <ArrowUpRight aria-hidden="true" />
           </button>
         </div>
       </div>

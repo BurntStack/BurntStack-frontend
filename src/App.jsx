@@ -23,6 +23,7 @@ import PageTransition from '@/components/layout/PageTransition.jsx'
 // those benefit from it, and a user landing there already has the app
 // shell loaded, so any fallback gap is comparatively small.
 import Home from '@/pages/Home.jsx'
+import PageSkeleton from '@/components/ui/Skeleton.jsx'
 
 const Portfolio = lazy(() => import('@/pages/Portfolio.jsx'))
 const Blog = lazy(() => import('@/pages/Blog.jsx'))
@@ -53,21 +54,13 @@ const REDIRECTS = [
   ['/careers', '/contact'],
 ]
 
-function PageLoader() {
-  return (
-    <div className="flex min-h-[60vh] items-center justify-center">
-      <div className="h-10 w-10 animate-spin rounded-full border-2 border-ember-500/30 border-t-ember-500" />
-    </div>
-  )
-}
-
 export default function App() {
   const location = useLocation()
 
   return (
     <Layout>
       <ScrollToTop />
-      <Suspense fallback={<PageLoader />}>
+      <Suspense fallback={<PageSkeleton />}>
         <AnimatePresence mode="wait">
           <Routes location={location} key={location.pathname}>
             <Route path="/" element={<PageTransition><Home /></PageTransition>} />

@@ -1,7 +1,7 @@
 import { useState } from 'react'
-import { FiArrowUpRight, FiCheck, FiChevronRight } from 'react-icons/fi'
 import { PACKAGES, PACKAGES_CONFIRMED } from '@/data/offer.js'
 import { useQuoteForm } from '@/components/lead/useQuoteForm.js'
+import { ArrowUpRight, ChevronRight } from '@/components/icons/index.jsx'
 
 /**
  * Packages.
@@ -27,14 +27,14 @@ export default function StudioPackages() {
   return (
     <section id="pricing" className="studio-wrap studio-packages">
       <div className="pricing-intro">
-        <div className="pricing-intro-mark" aria-hidden="true">✳</div>
+        <div className="pricing-intro-mark" aria-hidden="true">04</div>
         <div>
           <p className="pricing-eyebrow">Website packages</p>
           <h2>Select the website scope.</h2>
           <p className="pricing-intro-copy">Choose the closest website scope. We will confirm the final requirements and quotation during the consultation.</p>
         </div>
         <button type="button" className="text-button pricing-help" onClick={() => openQuoteForm()}>
-          Request guidance <FiArrowUpRight aria-hidden="true" />
+          Request guidance <ArrowUpRight aria-hidden="true" />
         </button>
       </div>
 
@@ -44,7 +44,7 @@ export default function StudioPackages() {
             <button type="button" role="tab" key={plan.name} className={`pricing-option${index === activeIndex ? ' is-active' : ''}`} aria-selected={index === activeIndex} aria-controls="selected-package" onClick={() => setActiveIndex(index)}>
               <span className="pricing-option-number">0{index + 1}</span>
               <span className="pricing-option-copy"><strong>{plan.name}</strong><small>{plan.scope}</small></span>
-              <FiChevronRight aria-hidden="true" />
+              <ChevronRight aria-hidden="true" />
             </button>
           ))}
         </div>
@@ -54,7 +54,7 @@ export default function StudioPackages() {
           <div className="pricing-stage-heading"><div><p className="pricing-stage-kicker">{activePlan.scope}</p><h3>{activePlan.name}</h3></div><span className="pricing-stage-price">{PACKAGES_CONFIRMED ? activePlan.price : 'Quote after we talk'}</span></div>
           <p className="pricing-stage-fit">{activePlan.fit}</p>
           <p className="pricing-stage-tagline">{activePlan.tagline}</p>
-          <div className="pricing-stage-bottom"><div><p className="pricing-includes-label">Included in this scope</p><ul className="pricing-features">{activePlan.features.map((feature) => <li key={feature}><FiCheck aria-hidden="true" />{feature}</li>)}</ul></div><button type="button" className="pricing-quote-button" onClick={() => openQuoteForm(activePlan.name)}>Request this scope <FiArrowUpRight aria-hidden="true" /></button></div>
+          <div className="pricing-stage-bottom"><div><p className="pricing-includes-label">Included in this scope</p><ul className="pricing-features">{activePlan.features.map((feature) => <li key={feature}>{feature}</li>)}</ul></div><button type="button" className="pricing-quote-button" onClick={() => openQuoteForm(activePlan.name)}>Request this scope <ArrowUpRight aria-hidden="true" /></button></div>
         </article>
       </div>
     </section>
