@@ -8,6 +8,7 @@ import Container from '@/components/ui/Container.jsx'
 import { cn } from '@/utils/cn.js'
 import api from '@/lib/axios.js'
 import { buildBlogPostingSchema, buildBreadcrumbSchema } from '@/lib/schema.js'
+import { trackArticle } from '@/lib/blogReadership.js'
 import { blogImageUrl } from '@/lib/blogImage.js'
 
 function formatDate(iso) {
@@ -38,6 +39,10 @@ export default function BlogPost() {
       .catch((error) => { if (!controller.signal.aborted) setStatus(error.response?.status === 404 ? 'missing' : 'error') })
     return () => controller.abort()
   }, [slug, attempt, prerendered])
+
+  useEffect(() => {
+    if (status === 'done' && post?.slug === slug) return trackArticle(slug)
+  }, [status, post?.slug, slug])
 
   if (status === 'loading') {
     return (
