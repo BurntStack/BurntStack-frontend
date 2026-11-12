@@ -8,13 +8,13 @@ export const PROJECTS = [
     gradient: 'from-orange-100 via-amber-300/40 to-sand',
     tech: [],
     blurb: 'A venue booking and events platform.',
-    liveUrl: 'https://www.thebookmyvenues.in/',
+    liveUrl: 'https://hapvoo.com/',
     previewImage: '/projects/bookmyvenues.png',
     previewImageMobile: '/projects/bookmyvenues-mobile.png',
     // The host currently sends frame-ancestors 'none' and X-Frame-Options: DENY.
     // Enable only after its hosting configuration allows BurntStack to embed it.
     embedUrl: import.meta.env.VITE_BOOKMYVENUES_EMBED_ENABLED === 'true'
-      ? 'https://www.thebookmyvenues.in/' : null,
+      ? 'https://hapvoo.com/' : null,
     githubUrl: null,
   },
   {
